@@ -13,7 +13,7 @@ public class App
     {
         System.out.println( "Hello World!" );
 
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/connect4_development", "franco", "franco");
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/connect4_development", "root", "root");
 
         User u = new User();
         u.set("first_name", "Ariel");
