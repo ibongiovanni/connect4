@@ -27,7 +27,7 @@ public class Grid {
 	 * @return true if colum is full, otherwise return false.
 	 */
 	public boolean fullColum (int colum) {
-		return board [0] [colum] != 0;
+		return board[0][colum].getCell() != 0;
 	}
 	/**
 	 * Allows one player to drop one disc on a column.
@@ -46,13 +46,23 @@ public class Grid {
 		board[i][colum].setCell(player);
 		return true;
 	}
+	/**
+	 * @return a String object representing a grid of connect4.
+	 */
 	public String toString () {
+		String separator = "|";
+		StringBuffer result = new StringBuffer();
+		// iterate over the first dimension.
 		for (int i = 0; i < height; i++) {
+			result.append(separator);
+			// iterate over the second dimension.
 			for (int j = 0; j < width; j++) {
-				System.out.print(board[i][j] + " ");
+				result.append(board[i][j].getCell());
+				result.append(separator);
 			}
-			System.out.println();			
+			// add a line break.
+			result.append("\n");			
 		}
-	}
-
+		return result.toString();
+	}	
 }
