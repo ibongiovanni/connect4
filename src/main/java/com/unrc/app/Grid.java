@@ -65,4 +65,51 @@ public class Grid {
 		}
 		return result.toString();
 	}	
+
+	public boolean check(int i, int j){
+		int sum=0;
+		//k controla desde la posicion siguiente tres lugares mas- y si (j=width-3) ya no controla
+		//controla columna
+		for (int k= j; k<j+4  && j<width-3 ; k++) {
+			 sum+= board[i][k].getCell();
+	
+		}
+		if(Math.abs(sum)==4) return true;
+
+		//controla fila
+		sum=0;
+		for (int k= i; k<i+4  && i<height-3 ; k++) {
+			 sum+= board[k][j].getCell();
+			
+		}
+		if(Math.abs(sum)==4) return true;
+
+		//controla diagonal derecha
+		sum=0;
+		for (int k= 0; k<4  && i<height-3  && j<width-3 ; k++) {
+			 sum+= board[i+k][j+k].getCell();
+		}
+		if(Math.abs(sum)==4) return true; 
+
+		//controla diagonal Izquierda
+		sum=0;
+		for (int k= 0; k<4  && i>2  && j>2; k++) {
+			 sum+= board[i+k][j-k].getCell();
+		}
+		if(Math.abs(sum)==4) return true; 
+
+	return false;	
+
+	}
+
+
+	
+	public boolean checkWin(){
+		for(int i=height-1; i>=0; i--)
+			for (int j=0; j<width; j++ ) {
+				if(chek(i,j)) return true;
+				
+			}
+
+	}
 }
