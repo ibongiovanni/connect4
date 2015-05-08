@@ -3,7 +3,6 @@ package com.unrc.app;
  *
  */
 public class Grid {
-  
 	Cell [] [] board;	//represents a game board.
 	int height;			//height of the game board. 
 	int width;			//width of the game board.
@@ -17,7 +16,7 @@ public class Grid {
 		board = new Cell [height] [width];
 		for (int i = 0; i < height ; i++) {
 			for (int j = 0; j < width; j++) {
-				board [i] [j] = new Cell();
+				board [i] [j] = new Cell(id);
 			}			
 		}
 	}
@@ -27,7 +26,7 @@ public class Grid {
 	 * @return true if colum is full, otherwise return false.
 	 */
 	public boolean fullColum (int colum) {
-		return board[0][colum].getCell() != 0;
+		return board[0][colum].get("state") != 0;
 	}
 	/**
 	 * Allows one player to drop one disc on a column.
@@ -43,7 +42,7 @@ public class Grid {
 		while (!board[i][colum].isEmpty()) {
 			i--;
 		}
-		board[i][colum].setCell(player);
+		board[i][colum].set("state",player);
 		return true;
 	}
 	/**
@@ -57,7 +56,7 @@ public class Grid {
 			result.append(separator);
 			// iterate over the second dimension.
 			for (int j = 0; j < width; j++) {
-				result.append(board[i][j].getCell());
+				result.append(board[i][j].get("state"));
 				result.append(separator);
 			}
 			// add a line break.
@@ -66,50 +65,56 @@ public class Grid {
 		return result.toString();
 	}	
 
-	public boolean check(int i, int j){
+	public boolean check(int i, int j, int player){
 		int sum=0;
-		//k controla desde la posicion siguiente tres lugares mas- y si (j=width-3) ya no controla
-		//controla columna
+		/*k controla desde la posicion siguiente tres lugares mas- y si (j=width-3) ya no controla
+		//control row
 		for (int k= j; k<j+4  && j<width-3 ; k++) {
-			 sum+= board[i][k].getCell();
+			 sum+= board[i][k].get("state");
 	
 		}
-		if(Math.abs(sum)==4) return true;
+		if(Math.abs(sum)==4) return true;*/
 
-		//controla fila
+		//Control columnDown
 		sum=0;
 		for (int k= i; k<i+4  && i<height-3 ; k++) {
-			 sum+= board[k][j].getCell();
-			
+			 sum+= board[k][j].get("state");
 		}
 		if(Math.abs(sum)==4) return true;
 
-		//controla diagonal derecha
-		sum=0;
-		for (int k= 0; k<4  && i<height-3  && j<width-3 ; k++) {
-			 sum+= board[i+k][j+k].getCell();
+
+
+		//control diagonal rightUP
+		sum=player;
+		for (int k= 1; k<3  && (i<height-3)  && (j<width-3) && (board[i+k][j+k].get("state")==player); k++) {
+			 sum+= board[i+k][j+k].get("state");
 		}
 		if(Math.abs(sum)==4) return true; 
 
-		//controla diagonal Izquierda
+		//control diagonal leftUp
 		sum=0;
 		for (int k= 0; k<4  && i>2  && j>2; k++) {
-			 sum+= board[i+k][j-k].getCell();
+			 sum+= board[i+k][j-k].get("state");
 		}
 		if(Math.abs(sum)==4) return true; 
 
-	return false;	
+	  return false;	
+
+
+		}
+
+
 
 	}
 
 
-	
+	/*/Return True if there are four discs of the same type inline
 	public boolean checkWin(){
 		for(int i=height-1; i>=0; i--)
 			for (int j=0; j<width; j++ ) {
-				if(chek(i,j)) return true;
+				if(check(i,j)) return true;
 				
 			}
 
-	}
+	}*/
 }

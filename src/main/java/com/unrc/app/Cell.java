@@ -3,24 +3,20 @@ package com.unrc.app;
  *
  */
 public class Cell {
-
 	private int state; // 1 for player1, 2 for player2 and 0 is empty.
+	private int x;
+	private int y;
 
 	/** 
 	 * Constructor.
 	 */
-	public Cell () {
+	public Cell (int grid_id, int x, int y) {
+	   = grid_id;
 		state = 0;
+		this.x = x;
+		this.y = y;
 	}	
-	/**
-	 * Get and set.
-	 */
- 	public void setCell (int s) {
- 		state = s;
- 	}
- 	public int getCell () {
- 		return state;
- 	}
+
  	/**
 	 * @return true if space is empty, otherwise return false.
  	 */ 
