@@ -107,7 +107,7 @@ public class Grid {
 	public boolean checkWin(){
 		for(int i=height-1; i>=0; i--)
 			for (int j=0; j<width; j++ ) {
-				if(chek(i,j)) return true;
+				if(check(i,j)) return true;
 				
 			}
 
