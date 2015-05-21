@@ -15,11 +15,24 @@ public class App
 
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/connect4_development", "root", "root");
 
-        User u = new User();
-        u.set("first_name", "Ariel");
-        u.save();
+        // User u = new User();
+        // u.set("first_name", "Ariel");
+        // u.save();
+
+        // User w = new User();
+        // w.set("first_name", "Pedro");
+        // w.save();
+
+        Game g = new Game(1, 2, 6, 7);
+
+        g.save();
+
+        g.playOffLine(1,-1);
+        
 
 
         Base.close();
+
+
     }
 }

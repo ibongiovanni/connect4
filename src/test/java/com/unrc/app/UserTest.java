@@ -26,12 +26,13 @@ public class UserTest {
         Base.close();
     }
 
-
     @Test
     public void shouldValidateMandatoryFields(){
       User user = new User();
 
       user.set("first_name", "Juan");
+
+      user.save();
 
       the(user).shouldBe("valid");
     }
