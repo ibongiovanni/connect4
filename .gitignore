@@ -6,5 +6,5 @@
 # And any grandchildren ...
 /*/*/target/
 # Or you can do:
-target/
+target/*
 # which matches 'target' in any sub folder
