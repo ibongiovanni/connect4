@@ -57,6 +57,7 @@ public class App
             User u = new User();
             u.set("first_name",user_data[0],"last_name",user_data[1],"email",user_data[2]);
             u.saveIt();
+            u.newRank();
             
             Base.close();
 
@@ -151,11 +152,13 @@ public class App
                             message = name_player1 + " won the game!";
                             g.set("winner", id_player_1);
                             g.saveIt();
+                            u.updateRank(3);
                         }
                         else {
                             message = name_player2 + " won the game!";
                             g.set("winner", id_player_2);
                             g.saveIt();
+                            v.updateRank(3);
                         }
                     }                    
                 }
@@ -164,7 +167,11 @@ public class App
                 }
             }
             else {
-                if (ord == maxPlays) { message = "The game was a tie !!!"; }
+                if (ord == maxPlays) { 
+                message = "The game was a tie !!!";
+                u.updateRank(1);
+                v.updateRank(1); 
+            }
                 else { message = "The game is over"; }
             }
 

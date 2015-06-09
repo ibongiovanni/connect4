@@ -65,6 +65,5 @@ public class Game extends Model {
 		}
 		System.out.println(board.toString());
 	} 
-
 	
 }
