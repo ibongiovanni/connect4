@@ -33,6 +33,19 @@
       <artifactId>activejdbc</artifactId>
       <version>1.4.9</version>
     </dependency>
+
+    <dependency>
+    <groupId>com.sparkjava</groupId>
+    <artifactId>spark-core</artifactId>
+    <version>2.2</version>
+    </dependency>
+
+    <dependency>
+    <groupId>com.sparkjava</groupId>
+    <artifactId>spark-template-mustache</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
   </dependencies>
 
   <build>

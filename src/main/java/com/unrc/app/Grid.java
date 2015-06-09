@@ -1,4 +1,6 @@
 package com.unrc.app;
+
+import java.util.*;
 /* This class represents a game board.
  *
  */
@@ -21,6 +23,14 @@ public class Grid {
 			}			
 		}
 	}
+
+	/** 
+	 *
+	 */
+	public int getValue(int i, int j) {
+		return board[i][j];
+	}
+
 	/**
 	 * This method indicates whether the column is full.
 	 * @param colum to verify. 
@@ -29,6 +39,7 @@ public class Grid {
 	public boolean fullColumn (int column) {
 		return board[0][column] != 0;
 	}
+
 	/**
 	 * Allows one player to drop one disc on a column.
 	 * @param column where I want to drop the disc.
@@ -53,6 +64,7 @@ public class Grid {
 		result.setSecond(row);
 		return result;
 	}
+
 	/**
 	 * @return a String object representing a grid of connect4.
 	 */
@@ -79,7 +91,8 @@ public class Grid {
 			result.append("\n");			
 		}
 		return result.toString();
-	}	
+	}
+
 	/**
 	 * Checks whether a position is part of a line of four equal disks.
 	 * @param row.
@@ -116,6 +129,7 @@ public class Grid {
 
 	 	return false;
 	}
+
 	/**
 	 * 
 	 */
@@ -126,5 +140,19 @@ public class Grid {
 			}		
 		}
 		return false;	 	
+	}
+
+	/**
+	 *	
+	 */
+	public int actualDisc() {
+		int aux = 0;
+		for (int i = 0; i < height ; i++) {
+			for (int j = 0; j < width; j++) {
+				aux += board [i][j];
+			}			
+		}
+		if (aux == 0) { return 1; }
+		else { return -1; }
 	}
 }

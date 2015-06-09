@@ -60,5 +60,7 @@ public class Game extends Model {
 			System.out.println("The game was a tie !!");
 		}
 		System.out.println(board.toString());
-	}  
+	} 
+
+	
 }

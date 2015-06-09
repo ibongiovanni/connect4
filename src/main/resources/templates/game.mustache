@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CONNECT 4 GAME</title>
+		<style>
+		td#X {
+			color: blue;
+			background-color:blue;
+		}
+		td#O {
+			color: red;
+			background-color:red;
+		}
+		table, th, td {
+			border: 5px solid black;
+			padding: 5px;
+		}
+		table {
+			border-spacing: 2px;
+		}
+		td {
+			width: 40px;
+			height: 40px;
+			text-align: center;
+			font-size: 100%;
+		}
+		</style>	
+	</head>
+        <body style='background-color:lightgrey'>
+        <h1 style='color:red'>GAME</h1>
+        <table>
+  		<th>
+         <form method="post" action="/drop">
+         <input type="hidden" name="game_id" value={{game_id}}>
+         <input type="hidden" name="column" value="0">
+         <input type="submit" value="1">
+         </form>   
+        </th>
+    	<th>
+         <form method="post" action="/drop">
+         <input type="hidden" name="game_id" value={{game_id}}>
+         <input type="hidden" name="column" value="1">
+         <input type="submit" value="2">
+         </form>    
+        </th> 
+    	<th>
+         <form method="post" action="/drop">
+         <input type="hidden" name="game_id" value={{game_id}}>
+         <input type="hidden" name="column" value="2">
+         <input type="submit" value="3">
+         </form>    
+        </th>
+    	<th>
+         <form method="post" action="/drop">
+         <input type="hidden" name="game_id" value={{game_id}}>
+         <input type="hidden" name="column" value="3">
+         <input type="submit" value="4">
+         </form>    
+        </th>
+    	<th>
+         <form method="post" action="/drop">
+         <input type="hidden" name="game_id" value={{game_id}}>
+         <input type="hidden" name="column" value="4">
+         <input type="submit" value="5">
+         </form>    
+        </th>
+    	<th>
+         <form method="post" action="/drop">
+         <input type="hidden" name="game_id" value={{game_id}}>
+         <input type="hidden" name="column" value="5">
+         <input type="submit" value="6">
+         </form>    
+        </th>
+    	<th>
+         <form method="post" action="/drop">
+         <input type="hidden" name="game_id" value={{game_id}}>
+         <input type="hidden" name="column" value="6">
+         <input type="submit" value="7">
+         </form>    
+        </th>
+  		</tr>
+  		<tr>
+    	<td id="{{celda1}}">{{celda1}}</td>
+    	<td id="{{celda2}}">{{celda2}}</td>
+    	<td id="{{celda3}}">{{celda3}}</td>
+    	<td id="{{celda4}}">{{celda4}}</td>
+    	<td id="{{celda5}}">{{celda5}}</td>
+    	<td id="{{celda6}}">{{celda6}}</td>
+    	<td id="{{celda7}}">{{celda7}}</td>
+    	</tr>
+    	<tr>
+    	<td id="{{celda8}}">{{celda8}}</td>
+    	<td id="{{celda9}}">{{celda9}}</td>
+    	<td id="{{celda10}}">{{celda10}}</td>
+    	<td id="{{celda11}}">{{celda11}}</td>
+    	<td id="{{celda12}}">{{celda12}}</td>
+    	<td id="{{celda13}}">{{celda13}}</td>
+    	<td id="{{celda14}}">{{celda14}}</td>
+    	</tr>
+    	<tr>
+    	<td id="{{celda15}}">{{celda15}}</td>
+    	<td id="{{celda16}}">{{celda16}}</td>
+    	<td id="{{celda17}}">{{celda17}}</td>
+    	<td id="{{celda18}}">{{celda18}}</td>
+    	<td id="{{celda19}}">{{celda19}}</td>
+    	<td id="{{celda20}}">{{celda20}}</td>
+    	<td id="{{celda21}}">{{celda21}}</td>
+    	</tr>
+    	<tr>
+    	<td id="{{celda22}}">{{celda22}}</td>
+    	<td id="{{celda23}}">{{celda23}}</td>
+    	<td id="{{celda24}}">{{celda24}}</td>
+    	<td id="{{celda25}}">{{celda25}}</td>
+    	<td id="{{celda26}}">{{celda26}}</td>
+    	<td id="{{celda27}}">{{celda27}}</td>
+    	<td id="{{celda28}}">{{celda28}}</td>
+    	</tr>
+    	<tr>
+    	<td id="{{celda29}}">{{celda29}}</td>
+    	<td id="{{celda30}}">{{celda30}}</td>
+    	<td id="{{celda31}}">{{celda31}}</td>
+    	<td id="{{celda32}}">{{celda32}}</td>
+    	<td id="{{celda33}}">{{celda33}}</td>
+    	<td id="{{celda34}}">{{celda34}}</td>
+    	<td id="{{celda35}}">{{celda35}}</td>
+    	</tr>
+    	<tr>
+    	<td id="{{celda36}}">{{celda36}}</td>
+    	<td id="{{celda37}}">{{celda37}}</td>
+    	<td id="{{celda38}}">{{celda38}}</td>
+    	<td id="{{celda39}}">{{celda39}}</td>
+    	<td id="{{celda40}}">{{celda40}}</td>
+    	<td id="{{celda41}}">{{celda41}}</td>
+    	<td id="{{celda42}}">{{celda42}}</td>
+    	</tr>
+    	</table>
+    	<p style='color:blue'>{{message}}</p>
+		</body>
+</html>
