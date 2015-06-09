@@ -78,13 +78,19 @@ public class Grid {
 			result.append(separator);
 			// iterate over the second dimension.
 			for (int j = 0; j < width; j++) {
-				if (board[i][j] >= 0 ) {
-					result.append(board[i][j]);
-					result.append(separator1);
+				if (board[i][j] == 0 ){
+					result.append(" ");
+					result.append(separator);
+				};
+				if (board[i][j] > 0 ) {
+					result.append("X");
+					result.append(separator);
 				}
 				else {
-					result.append(board[i][j]);
-					result.append(separator2);
+						if (board[i][j] < 0 ) {
+						result.append("0");
+						result.append(separator);
+					}
 				}
 			}
 			// add a line break.

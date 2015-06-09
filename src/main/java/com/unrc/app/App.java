@@ -134,9 +134,7 @@ public class App
                 grid.dropAt(col, grid.actualDisc()).getFirst();
                 ord++;
             }
-
             if (!grid.checkWin() && ord <= maxPlays) {
-
                 Pair drop = grid.dropAt(column, grid.actualDisc());
 
                 if (drop.getFirst()) {

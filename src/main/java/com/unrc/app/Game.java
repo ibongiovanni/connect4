@@ -28,25 +28,28 @@ public class Game extends Model {
 	/**
 	 * 
 	 */
-	public void playOffLine(int player1, int player2) {
-		int id = getInteger("id");// game id.
+	public void playOffLine(int id_user1, int id_user2) {
+		int id = getInteger("id");// current game id.
 		Scanner in = new Scanner(System.in);
 		int maxPlays = getInteger("height") * getInteger("width");// maximum number of plays.
 		Grid board = new Grid();
 		int ord = 0;// order of play.
 		int column;
-		int disc = 1;// game piece. 
+		int disc = 1;// game piece.
+		int currentPlayer = id_user1; 
 		while (!board.checkWin() && (ord <= maxPlays)) {
 			ord++;
-			System.out.println("Turn Player " + ord % 2);
+			currentPlayer = id_user1;// odd order of play.
+			if (ord % 2 == 0) { currentPlayer = id_user2; }// even order of play.
+			System.out.println("Turn Player " + currentPlayer);
 			System.out.println(board.toString());
 			System.out.println("Enter the column where you want to play: ");
 			column = in.nextInt();
-			Pair drop = board.dropAt(column, disc);
-			while(!drop.getFirst()){
+			Pair drop = board.dropAt(column, disc);// try to drop disc.
+			while(!drop.getFirst()){// full column
 				System.out.println("ERROR: The column is full choose another:");
 				column = in.nextInt();
-				drop = board.dropAt(column, disc);
+				drop = board.dropAt(column, disc);// try to drop disc again. 
 			}
 			disc *= -1;// piece exchange.
 			Play p = new Play();// save play in DB.
@@ -54,7 +57,8 @@ public class Game extends Model {
 			p.saveIt();			
 		}
 		if (board.checkWin()) {
-			System.out.println("Won player: " + ord % 2);
+			System.out.println("Won player: " + currentPlayer);
+			set("winner", currentPlayer).saveIt();// save the winner in DB.
 		}
 		else {
 			System.out.println("The game was a tie !!");
