@@ -1,6 +1,15 @@
 <!DOCTYPE html>
+<script>
+	function check(){
+		if(create_game.player_1.value == create_game.player_2.value){
+			alert('Users can not be the same!');
+			return false;
+		}
+		return true;		
+	}
+</script>
 <html>
-	<form method="post" action="/create_game">
+	<form name="create_game" method="post" action="/create_game" onsubmit="return check(this)">
 	User 1:<br>
 	<input type="text" name="player_1">
 	<br>

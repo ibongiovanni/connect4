@@ -29,4 +29,21 @@ public class User extends Model {
     r.set("number", (score + points));
     r.saveIt();
   }
+  
+  @Override
+  public String toString() {
+    String name = this.getString("first_name"); 
+    return name;
+  }
+
+  public String lastName() {
+    String result = this.getString("last_name"); 
+    return result;
+  }
+
+  public String idUser() {
+    String result = this.getString("id"); 
+    return result;
+  }
+
 }

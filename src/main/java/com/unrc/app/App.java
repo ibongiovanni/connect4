@@ -167,13 +167,13 @@ public class App
                 }
             }
             else {
-                if (ord == maxPlays) { 
+                if (ord > maxPlays) { 
                 message = "The game was a tie !!!";
                 u.updateRank(1);
                 v.updateRank(1); 
-            }
+                }
                 else { message = "The game is over"; }
-            }
+                }
 
             Base.close();
 
