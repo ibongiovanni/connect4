@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <script>
 	function check(){
 		if(create_game.player_1.value == create_game.player_2.value){
@@ -8,14 +7,32 @@
 		return true;		
 	}
 </script>
+
+<!DOCTYPE html>
 <html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="siteStyle">
+		<title>CONNECT4</title>
+		<h1>Connect4</h1>
+	</head>
+	</head>
+	<body>
+	<div id="navcontainer">
+      	<ul>
+      	<li><a href="/">Home</a></li>
+      	<li><a href="/user_registration">Register</a></li>
+      	<li><a href="/play">Play</a></li>
+        <li><a href="/users">Ranking</a></li>      
+        </ul>
+        </div>
 	<form name="create_game" method="post" action="/create_game" onsubmit="return check(this)">
-	User 1:<br>
+	<p>Player 1:</p>
 	<input type="text" name="player_1">
 	<br>
-	User 2:<br>
+	<p>Player 2:</p>
 	<input type="text" name="player_2">
 	<br>
 	<input type="submit" value="Play">
 	</form>
+	</body>
 </html>

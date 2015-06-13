@@ -1,15 +1,44 @@
+<SCRIPT LANGUAGE="JavaScript1.2">
+   <!--
+      NS4 = document.layers;
+      if (NS4) {
+         origWidth = innerWidth;
+         origHeight = innerHeight;
+      }   
+   function reDo() {
+      if (innerWidth != origWidth || innerHeight != origHeight) 
+         location.reload();
+   }   
+   if (NS4) onresize = reDo;
+   //-->
+</SCRIPT>
 <!DOCTYPE html>
 <html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="siteStyle">
+		<title>CONNECT4</title>
+		<h1>Connect4</h1>
+	</head>
+	<body>
+	<div id="navcontainer">
+      	<ul>
+      	<li><a href="/">Home</a></li>
+      	<li><a href="/user_registration">Register</a></li>
+      	<li><a href="/play">Play</a></li>
+        <li><a href="/users">Ranking</a></li>      
+        </ul>
+    </div>
 	<form method="post" action="/create_user">
-	First name:<br>
+	<p>First name:</p>
 	<input type="text" name="first_name">
 	<br>
-	Last name:<br>
+	<p>Last name:</p>
 	<input type="text" name="last_name">
 	<br>
-	e-mail:<br>
+	<p>e-mail:</p>
 	<input type="text" name="email">
 	<br>
 	<input type="submit" value="Submit">
 	</form>
+	</body>
 </html>

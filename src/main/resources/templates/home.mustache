@@ -1,12 +1,32 @@
+<SCRIPT LANGUAGE="JavaScript1.2">
+   <!--
+      NS4 = document.layers;
+      if (NS4) {
+         origWidth = innerWidth;
+         origHeight = innerHeight;
+      }   
+   function reDo() {
+      if (innerWidth != origWidth || innerHeight != origHeight) 
+         location.reload();
+   }   
+   if (NS4) onresize = reDo;
+   //-->
+</SCRIPT>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>CONNECT 4 GAME</title>
-	</head>
-        <body style='background-color:lightgrey'>
-        	<h1 style='color:blue'>Connect4</h1>
-            <a href="/users">User List</a><br>
-            <a href="/user_registration">Register</a><br>
-            <a href="/play">Play</a><br>
-		</body>
+		<link rel="stylesheet" type="text/css" href="siteStyle">
+		<title>CONNECT4</title>
+    <h1>Connect4</h1>
+  </head>
+    <body>
+    	<div id="navcontainer">
+      	<ul>
+      	<li><a href="/">Home</a></li>
+      	<li><a href="/user_registration">Register</a></li>
+      	<li><a href="/play">Play</a></li>
+        <li><a href="/users">Ranking</a></li>      
+        </ul>
+        </div>
+	</body>
 </html>

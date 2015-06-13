@@ -28,16 +28,28 @@
         <li><a href="/users">Ranking</a></li>      
         </ul>
         </div>
-<h4>Users list</h1>
-<table>
+<h2>Ranking</h2>
+<table style="float:left">
+  <tr>
+    <th><p>First name</p></th>
+    <th><p>Last name</p></th>    
+  </tr>
   {{#users}}
   <tr>
-    <td>{{idUser}}</td>
-    <td>{{toString}}</td>
-    <td>{{lastName}}</td>
+    <td><p>{{firstName}}</p></td>
+    <td><p>{{lastName}}</p></td>    
   </tr>
   {{/users}}
 </table>
+<table style="float:left">
+  <tr>
+    <th><p>Points</p></th>
+  </tr>
+  {{#ranks}}
+  <tr>
+    <td><p>{{points}}</p></td>
+  </tr>
+  {{/ranks}}
+</table>
 </body>
 </html>
-

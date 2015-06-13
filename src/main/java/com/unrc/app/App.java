@@ -20,25 +20,32 @@ public class App
 
     public static void main( String[] args )
     {
+        // Site style.
+        get("/siteStyle", (req, res) -> {
+            return new ModelAndView(null, "siteStyle.css");
+        }, new MustacheTemplateEngine());  
+
         get("/", (req,res) -> {
             return new ModelAndView(null, "home.mustache");
         }, new MustacheTemplateEngine()); 
        
-        get("/users", (req, res) -> {  // NO FUNCIONA BIEN !!         
+        get("/users", (req, res) -> {       
 
             baseOpen();           
 
             Map<String, Object> attributes = new HashMap();
 
-            List<User> users = User.findAll();
-
-            int size = users.size();// This way, you will pre-populate your list.
+            List<Rank> ranks = Rank.findBySQL("SELECT ranks.* FROM ranks JOIN users ON ranks.user_id = users.id ORDER BY number DESC");
+            List<User> users = User.findBySQL("SELECT users.* FROM ranks JOIN users ON ranks.user_id = users.id ORDER BY number DESC");
+            int size = ranks.size();// This way, you will pre-populate your list.
+            int size2= users.size();
 
             Base.close();
 
+            attributes.put("ranks", ranks);
             attributes.put("users", users);
 
-            return new ModelAndView(attributes, "users.mustache");          
+            return new ModelAndView(attributes, "ranking.mustache");          
          
         }, new MustacheTemplateEngine());        
 
@@ -61,8 +68,8 @@ public class App
             
             Base.close();
 
-            return "Usuario creado !";
-        });
+            return new ModelAndView(null, "home.mustache");
+        }, new MustacheTemplateEngine());
 
         get("/play", (req,res) -> {
             return new ModelAndView(null, "play.mustache");

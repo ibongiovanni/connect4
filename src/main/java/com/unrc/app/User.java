@@ -30,20 +30,17 @@ public class User extends Model {
     r.saveIt();
   }
   
-  @Override
-  public String toString() {
-    String name = this.getString("first_name"); 
-    return name;
+  public String firstName() {
+    return this.getString("first_name"); 
   }
 
   public String lastName() {
-    String result = this.getString("last_name"); 
-    return result;
+    return this.getString("last_name"); 
   }
 
   public String idUser() {
-    String result = this.getString("id"); 
-    return result;
+    return this.getString("id"); 
+  
   }
 
 }
