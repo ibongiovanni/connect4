@@ -13,7 +13,8 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="siteStyle">
 		<title>CONNECT4</title>
-		<h1>Connect4</h1>
+		<div align="center"><img src="connect-4-logo.png"></div>
+    	<p></p>
 	</head>
 	</head>
 	<body>
@@ -25,14 +26,22 @@
         <li><a href="/users">Ranking</a></li>      
         </ul>
         </div>
-	<form name="create_game" method="post" action="/create_game" onsubmit="return check(this)">
-	<p>Player 1:</p>
-	<input type="text" name="player_1">
-	<br>
-	<p>Player 2:</p>
-	<input type="text" name="player_2">
-	<br>
-	<input type="submit" value="Play">
-	</form>
+        <p>Player 1:
+		<select name="player_1" form="carform">
+			{{#order}}
+		 		<option value="{{id}}">{{itemName}}</option> 
+			{{/order}}
+		</select>
+		</p><br>
+		<p>Player 2:
+		<select name="player_2" form="carform">
+			{{#order}}
+		 		<option value="{{id}}">{{itemName}}</option> 
+			{{/order}}
+		</select>
+		</p><br>
+		<form method="post" action="/create_game" id="carform" name="create_game" onsubmit="return check(this)">
+		<input type="submit" value="Play">
+		</form>
 	</body>
 </html>

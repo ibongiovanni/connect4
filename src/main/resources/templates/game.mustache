@@ -17,81 +17,60 @@
 	<head>
         <link rel="stylesheet" type="text/css" href="siteStyle">
         <title>CONNECT4</title>
-        <h1>Connect4</h1>
-        <style>
-		td#X {
-			color: blue;
-			background-color:blue;
-		}
-		td#O {
-			color: red;
-			background-color:red;
-		}
-		table, th, td {
-			border: 5px solid black;
-			padding: 5px;
-		}
-		table {
-			border-spacing: 2px;
-		}
-		td {
-			width: 40px;
-			height: 40px;
-			text-align: center;
-			font-size: 100%;
-		}
-		</style>	
+        <div align="center"><img src="connect-4-logo.png"></div>
+        <p></p>        
 	</head>
         <body>
-        <h1>GAME</h1>
-        <table>
+        <div id="gameboard">
+        <table align="center">
+        <caption style="color:{{colored}}">{{message}}</caption>
   		<th>
          <form method="post" action="/drop">
          <input type="hidden" name="game_id" value={{game_id}}>
          <input type="hidden" name="column" value="0">
-         <input type="submit" value="1">
+         <button class="boton" type="submit" value="1">1</button>
          </form>   
         </th>
     	<th>
          <form method="post" action="/drop">
          <input type="hidden" name="game_id" value={{game_id}}>
          <input type="hidden" name="column" value="1">
-         <input type="submit" value="2">
+         <button class="boton" type="submit" value="2">2</button>
          </form>    
         </th> 
     	<th>
          <form method="post" action="/drop">
          <input type="hidden" name="game_id" value={{game_id}}>
          <input type="hidden" name="column" value="2">
-         <input type="submit" value="3">
+         <button class="boton" type="submit" value="3">3</button>
          </form>    
         </th>
     	<th>
          <form method="post" action="/drop">
          <input type="hidden" name="game_id" value={{game_id}}>
          <input type="hidden" name="column" value="3">
-         <input type="submit" value="4">
+         <button class="boton" type="submit" value="4">4</button>
          </form>    
         </th>
     	<th>
          <form method="post" action="/drop">
          <input type="hidden" name="game_id" value={{game_id}}>
          <input type="hidden" name="column" value="4">
-         <input type="submit" value="5">
+         <button class="boton" type="submit" value="5">5</button>
          </form>    
         </th>
     	<th>
          <form method="post" action="/drop">
          <input type="hidden" name="game_id" value={{game_id}}>
          <input type="hidden" name="column" value="5">
-         <input type="submit" value="6">
+         <button class="boton" type="submit" value="6">6</button>
          </form>    
         </th>
     	<th>
          <form method="post" action="/drop">
          <input type="hidden" name="game_id" value={{game_id}}>
          <input type="hidden" name="column" value="6">
-         <input type="submit" value="7">
+         <button class="boton" type="submit" value="7">7</button>
          </form>    
         </th>
   		</tr>
@@ -150,6 +129,13 @@
     	<td id="{{celda42}}">{{celda42}}</td>
     	</tr>
     	</table>
-    	<p style='color:blue'>{{message}}</p>
-		</body>
+        </div>
+        {{#finished}}
+            <form method="post" action="/create_game" style="padding-left:160px">
+                <input type="hidden" name="p1" value="{{p1id}}">
+                <input type="hidden" name="p2" value="{{p2id}}">
+                <button class="boton" style="width:125px; box-shadow: -5px 5px 3px #525252;" type="submit" value="1">Play Again?</button>
+            </form>
+        {{/finished}}
+    	</body>
 </html>
