@@ -74,7 +74,7 @@ p {
 			border-spacing: 2px;
       border-radius: 15px;
       background-color: rgb(119, 67, 245);
-      box-shadow: -8px 8px 1px rgba(0, 0, 0, 0.5);
+      box-shadow: -8px 8px 1px #000026;
 }
 #gameboard td {
 			width: 50px;

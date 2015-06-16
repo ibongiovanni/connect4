@@ -66,13 +66,21 @@ public class App
             user_data[0] = req.queryParams("first_name");
             user_data[1] = req.queryParams("last_name");
             user_data[2] = req.queryParams("email");
-            
-            User u = new User();
-            u.set("first_name",user_data[0],"last_name",user_data[1],"email",user_data[2]);
-            u.saveIt();
-            u.newRank();
+            String message="That email is already used :(";
+
+            User u = User.findFirst("email=?",user_data[2]);
+
+            if(u==null){
+                u = new User();
+                u.set("first_name",user_data[0],"last_name",user_data[1],"email",user_data[2]);
+                u.saveIt();
+                u.newRank();
+                message="User Created! :)";
+            }
            
-            return new ModelAndView(null, "home.mustache");
+            Map map = new HashMap();
+            map.put("message",message);
+            return new ModelAndView(map, "home.mustache");
         }, new MustacheTemplateEngine());
 
         get("/play", (req,res) -> {
@@ -224,14 +232,14 @@ public class App
             else {
                 if (ord > maxPlays) { 
                 message = "The game was a tie !!!";
-                color = "yellow";
+                color = "#36FF36";
                 finished = true;
                 g.set("winner", 0);
                 g.saveIt();
                 u.updateRank(1);
                 v.updateRank(1); 
                 }
-                else { message = "The game is over"; color = "green"; finished=true; }
+                else { message = "The game is over"; color = "#36FF36"; finished=true; }
                 }
 
             Map map = new HashMap();

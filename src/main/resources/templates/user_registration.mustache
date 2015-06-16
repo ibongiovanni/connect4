@@ -1,17 +1,48 @@
 <SCRIPT LANGUAGE="JavaScript1.2">
-   <!--
-      NS4 = document.layers;
-      if (NS4) {
-         origWidth = innerWidth;
-         origHeight = innerHeight;
-      }   
-   function reDo() {
-      if (innerWidth != origWidth || innerHeight != origHeight) 
-         location.reload();
-   }   
-   if (NS4) onresize = reDo;
-   //-->
+   function required()  
+	{  
+		//var email = document.forms["form1"]["email"].value;
+		var fname = document.forms["form1"]["first_name"].value;  
+		var lname = document.forms["form1"]["last_name"].value;  
+		if ( fname == "" || lname == "" )  
+		{  
+			alert("All Fields Are Required\nPlease Input A Value");  
+			return false;  
+		}  
+		return true;  
+	}  
 </SCRIPT>
+
+<script language="JavaScript1.2">
+
+	//Advanced Email Check credit-
+	//By JavaScript Kit (http://www.javascriptkit.com)
+	//Over 200+ free scripts here!
+
+	var testresults
+	function checkemail(){
+		var str=document.form1.email.value
+		var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+		if (filter.test(str))
+			testresults=true
+		else{
+			alert("Please input a valid email address!")
+			testresults=false
+		}
+		return (testresults)
+		}
+		</script>
+
+<script>
+	function checkbae(){
+		if (document.layers||document.getElementById||document.all)
+			return checkemail()
+		else
+			return true
+	}
+</script>
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -29,17 +60,21 @@
         <li><a href="/users">Ranking</a></li>      
         </ul>
     </div>
-	<form method="post" action="/create_user">
-	<p>First name:</p>
-	<input type="text" name="first_name">
-	<br>
-	<p>Last name:</p>
-	<input type="text" name="last_name">
-	<br>
-	<p>e-mail:</p>
-	<input type="text" name="email">
-	<br>
-	<input type="submit" value="Submit">
+    
+	<form method="post" action="/create_user" onsubmit="return !!(required(this) & checkbae(this))" name="form1">
+		<p>First name:
+		<input type="text" name="first_name">
+		</p>
+		<br>
+		<p>Last name:
+		<input type="text" name="last_name">
+		</p>
+		<br>
+		<p>e-mail:
+		<input type="text" name="email">
+		<br>
+		<input type="submit" value="Submit">
+		</p>
 	</form>
 	</body>
 </html>
