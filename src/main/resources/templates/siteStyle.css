@@ -1,5 +1,9 @@
+html{
+  height: 100%;
+}
+
 body {
-	background-color: #2A4F6E;
+  background: linear-gradient(#9779FB, #000057) repeat scroll 0% 0% transparent;
 }
 
 h1 {
@@ -51,56 +55,64 @@ p {
 
 
 #gameboard td#X {
-			color: blue;
+			color: yellow;
 			background-image: url("yellowcoin.png");
-            background-size: 50px;
-            font-size: 1px;
+      background-size: 50px;
+      font-size: 1px;
 }
 #gameboard td#O {
 			color: red;
 			background-image: url("redcoin.png");
-            background-size: 50px;
-            font-size: 1px;
+      background-size: 50px;
+      font-size: 1px;
 }
 #gameboard table, th, td {
 			border: 1px solid rgba(71, 24, 24, 0);
 			padding: 0px;
 }
 #gameboard table {
-			border-spacing: 1px;
-            background-color: rgb(0, 0, 153);
+			border-spacing: 2px;
+      border-radius: 15px;
+      background-color: rgb(119, 67, 245);
+      box-shadow: -8px 8px 1px rgba(0, 0, 0, 0.5);
 }
 #gameboard td {
 			width: 50px;
 			height: 50px;
 			text-align: center;
 			font-size: 100%;
-            background-image: url("nocoin.png");
-            background-repeat: no-repeat;
-            background-size: 50px;
+      background-image: url("nocoin.png");
+      background-repeat: no-repeat;
+      background-size: 50px;
 }
-#gameboard .cuerpo {
-            margin-left: 450px;
+.cuerpo {
+      margin-left: auto;
+      margin-right: auto;
+      width: 28%;
 }
-#gameboard html body h1 {
-            font-family: monospace;
-            font-size: 48px;
-            margin-left: 175px;
+ html body h1 {
+    font-family: monospace;
+    font-size: 48px;
+    margin-left: 175px;
 }
-#gameboard html body p {
-            font-family: Helvetica;
-            padding-left: 200px;
-            text-transform: uppercase;
+ html body p,caption {
+    font-family: Helvetica;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: -1px 2px 1px rgba(0, 0, 0, 0.5);
 }
-#gameboard .boton {
-          color: #900;
-          width: 50px;
-          background: #FF0;
-          font-weight: bold;
-          border: 1px solid #900;
+.boton {
+    color: #900;
+    width: 50px;
+    background: #FF0;
+    font-weight: bold;
+    border: 1px solid #900;
+    border-radius: 49px;
 }
-#gameboard .boton:hover {
-          color: #FFF;
-          background: #900;
-          cursor: pointer;
+.boton:hover {
+    color: #FFF;
+    background: #900;
+    cursor: pointer;
 }
+

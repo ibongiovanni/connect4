@@ -101,8 +101,12 @@ public class App
             int id_player_1 = Integer.parseInt(req.queryParams("player_1"));
             int id_player_2 = Integer.parseInt(req.queryParams("player_2"));
 
-            Game g = new Game(id_player_1,id_player_2,6,7);
-            g.saveIt();
+            Game g = Game.findFirst("(player_1=? and player_2=? and winner is null)or(winner is null and player_1=? and player_2=?)",id_player_1,id_player_2,id_player_2,id_player_1);
+
+            if(g==null){
+                g = new Game(id_player_1,id_player_2,6,7);
+                g.saveIt();
+            }
 
             int game_id = g.getInteger("id");
             int height = g.getInteger("height");
@@ -112,19 +116,38 @@ public class App
             String name_player1 = u.getString("first_name");
             
             String message = name_player1 + " plays";
-            String color = "blue";
+            String color = "yellow";
 
             Map map = new HashMap();
             map.put("game_id", game_id);
             map.put("message", message);
             map.put("colored",color);
 
-            int k = 0;
-            for (int i = 0; i < height ; i++) {
-                for (int j = 0; j < width; j++) {
+            Grid grid = new Grid();
+
+            List<Play> list = Play.where("game_id = ?", game_id);
+            int ord = 1;
+            for (Play p : list) {
+                int col = p.getInteger("col");
+                grid.dropAt(col, grid.actualDisc()).getFirst();
+                ord++;
+            }
+            int k = 1;
+            for (int i = 0; i < 6 ; i++) {
+                for (int j = 0; j < 7; j++) {
+                    if (grid.getValue(i,j) == 1) {
+                        map.put("celda"+k, "X");
+                    }
+                    else {
+                        if (grid.getValue(i,j) == -1) {
+                            map.put("celda"+k, "O");    
+                        }
+                        else {
+                            map.put("celda"+k, " ");
+                        }
+                    } 
                     k++;
-                    map.put("celda"+k, " ");        
-                }
+                }           
             }
 
             return new ModelAndView(map, "game.mustache");
@@ -172,12 +195,12 @@ public class App
 
                     if (!grid.checkWin()) {
                         if (ord % 2 != 0) { message = name_player2 + " plays"; color = "red"; }
-                        else { message = name_player1 + " plays"; color = "blue"; }
+                        else { message = name_player1 + " plays"; color = "yellow"; }
                     }
                     else {
                         if (ord % 2 != 0) { 
                             message = name_player1 + " won the game!";
-                            color = "blue";
+                            color = "yellow";
                             finished = true;
                             g.set("winner", id_player_1);
                             g.saveIt();
@@ -194,8 +217,8 @@ public class App
                     }                    
                 }
                 else {
-                    message = "ERROR: The column is full choose another!";
-                    color = "green";
+                    message = "The column is full, choose another!";
+                    color = "maroon";
                 }
             }
             else {
@@ -208,7 +231,7 @@ public class App
                 u.updateRank(1);
                 v.updateRank(1); 
                 }
-                else { message = "The game is over"; color = "green"; }
+                else { message = "The game is over"; color = "green"; finished=true; }
                 }
 
             Map map = new HashMap();
