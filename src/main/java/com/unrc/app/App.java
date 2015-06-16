@@ -125,11 +125,13 @@ public class App
             
             String message = name_player1 + " plays";
             String color = "yellow";
+            String sound = "music/ready.wav";
 
             Map map = new HashMap();
             map.put("game_id", game_id);
             map.put("message", message);
             map.put("colored",color);
+            map.put("sound", sound);
 
             Grid grid = new Grid();
 
@@ -169,6 +171,7 @@ public class App
             String message = "";
             String color = "";
             boolean finished = false;
+            String sound = "";
 
             Game g = Game.findById(game_id);
             int height = g.getInteger("height");
@@ -202,14 +205,15 @@ public class App
                     p.saveIt();
 
                     if (!grid.checkWin()) {
-                        if (ord % 2 != 0) { message = name_player2 + " plays"; color = "red"; }
-                        else { message = name_player1 + " plays"; color = "yellow"; }
+                        if (ord % 2 != 0) { message = name_player2 + " plays"; color = "red"; sound= "music/point.wav"; }
+                        else { message = name_player1 + " plays"; color = "yellow"; sound= "music/point.wav"; }
                     }
                     else {
                         if (ord % 2 != 0) { 
                             message = name_player1 + " won the game!";
                             color = "yellow";
                             finished = true;
+                            sound = "music/winmario.wav";
                             g.set("winner", id_player_1);
                             g.saveIt();
                             u.updateRank(3);
@@ -218,6 +222,7 @@ public class App
                             message = name_player2 + " won the game!";
                             color = "red";
                             finished = true;
+                            sound = "music/winmario.wav";
                             g.set("winner", id_player_2);
                             g.saveIt();
                             v.updateRank(3);
@@ -227,6 +232,7 @@ public class App
                 else {
                     message = "The column is full, choose another!";
                     color = "maroon";
+                    sound = "music/error.wav";
                 }
             }
             else {
@@ -234,6 +240,7 @@ public class App
                 message = "The game was a tie !!!";
                 color = "#36FF36";
                 finished = true;
+                sound = "music/error.wav";
                 g.set("winner", 0);
                 g.saveIt();
                 u.updateRank(1);
@@ -247,6 +254,7 @@ public class App
             map.put("message", message);
             map.put("colored", color);
             map.put("finished", finished);
+            map.put("sound", sound);
             map.put("p1id", id_player_1);
             map.put("p2id", id_player_2);
 

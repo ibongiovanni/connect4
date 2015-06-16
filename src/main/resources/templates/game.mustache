@@ -25,6 +25,9 @@
         <div id="gameboard" class="cuerpo">
         <table align="center">
         <caption style="color:{{colored}};margin-bottom: 7px;">{{message}}</caption>
+        <audio controls autoplay="true" hidden="true" >
+          <source src={{sound}} type="audio/wav">
+        </audio> 
   		<th>
          <form method="post" action="/drop">
          <input type="hidden" name="game_id" value={{game_id}}>
