@@ -4,6 +4,11 @@ html{
 
 body {
   background: linear-gradient(#9779FB, #000057) repeat scroll 0% 0% transparent;
+  margin: 0px;
+  height: 100%;
+  background-image: url("fondo.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
 }
 
 h1 {
@@ -32,6 +37,7 @@ p {
     text-align: center;
     margin: 0;
     padding: 0;
+    padding-top: 15px;
 }
 
 #navcontainer ul li { display: inline; }
@@ -109,6 +115,7 @@ p {
     font-weight: bold;
     border: 1px solid #900;
     border-radius: 49px;
+    box-shadow: 1px 1px 0px #000;
 }
 .boton:hover {
     color: #FFF;
@@ -116,3 +123,68 @@ p {
     cursor: pointer;
 }
 
+.marco {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: ridge;
+    height: auto;
+    background: linear-gradient(to right, #1F35D8 0%, #8ECDE1 50%, #1F35D8 100%) repeat scroll 0% 0% transparent;
+    border-color: #817F00;
+    box-shadow: -6px 2px 3px #000026;
+    margin-top: 9px;
+    border-radius: 10px;
+    padding-bottom: 75px;
+}
+
+.header {
+  height: 15%;
+  background: linear-gradient(#9779FB, #20206C) repeat scroll 0% 0% transparent;
+  box-shadow: 0px 0px 4px 6px #000;
+}
+
+.logo{
+  margin-top: 4px; 
+  width: 400px;
+}
+
+.homeboton{
+  font-weight: bold;
+  width: 100%;
+  margin-top: 28px;
+  height: 55px;
+  border-radius: 11px;
+  font-size: 22px;
+  box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.84);
+  border: 1px solid #FF0;
+  background: none repeat scroll 0% 0% #DF0008;
+  color: #FFE600;
+  text-shadow: -1px 2px 1px rgba(0, 0, 0, 0.84);
+}
+
+.homeboton:hover {
+    color: #FFF;
+    background: #900;
+    cursor: pointer;
+}
+
+.tg{
+  width: 100%;
+  table-layout: fixed;
+  text-align: center;
+  font-family: Arial;
+  text-transform: capitalize;
+  text-shadow: 1px 1px 1px black;
+}
+
+.name1,.nums1{
+  color: yellow;
+}
+
+.name2,.nums2{
+  color: red;
+}
+
+.deuces,.numsd{
+  color: blue;
+}

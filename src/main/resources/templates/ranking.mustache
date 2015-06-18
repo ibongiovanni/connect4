@@ -17,43 +17,49 @@
   <head>
     <link rel="stylesheet" type="text/css" href="siteStyle">
     <title>CONNECT4</title>
-    <div align="center"><img src="connect-4-logo.png"></div>
-    <p></p>
   </head>
 <body>
-  <audio controls autoplay="true" hidden="true" loop="true">
-    <source src="music/ranking.wav" type="audio/wav">
-  </audio>  
-  <div id="navcontainer">
-        <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/user_registration">Register</a></li>
-        <li><a href="/play">Play</a></li>
-        <li><a href="/users">Ranking</a></li>      
-        </ul>
-        </div>
-<h2>Ranking</h2>
-<table style="float:left">
-  <tr>
-    <th><p>First name</p></th>
-    <th><p>Last name</p></th>    
-  </tr>
-  {{#users}}
-  <tr>
-    <td><p>{{firstName}}</p></td>
-    <td><p>{{lastName}}</p></td>    
-  </tr>
-  {{/users}}
-</table>
-<table style="float:left">
-  <tr>
-    <th><p>Points</p></th>
-  </tr>
-  {{#ranks}}
-  <tr>
-    <td><p>{{points}}</p></td>
-  </tr>
-  {{/ranks}}
-</table>
+  <div align="center" class="header">
+      <img src="connect-4-logo.png" class="logo">
+  </div>
+  <div class="marco">
+    <audio controls autoplay="true" hidden="true" loop="true">
+      <source src="music/ranking.mp3" type="audio/mpeg">
+    </audio>  
+    <div id="navcontainer">
+          <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/user_registration">Register</a></li>
+          <li><a href="/play">Play</a></li>
+          <li><a href="/users">Ranking</a></li>
+          <li><a href="/head2head">H2H</a></li>      
+          </ul>
+    </div>
+    <div style="width: 66%;" class="cuerpo">
+      <h2>Ranking</h2>
+      <table style="float:left; padding-left: 61px;">
+        <tr>
+          <th><p>First name</p></th>
+          <th><p>Last name</p></th>    
+        </tr>
+        {{#users}}
+        <tr>
+          <td><p>{{firstName}}</p></td>
+          <td><p>{{lastName}}</p></td>    
+        </tr>
+        {{/users}}
+      </table>
+      <table>
+        <tr>
+          <th><p>Points</p></th>
+        </tr>
+        {{#ranks}}
+        <tr>
+          <td><p>{{points}}</p></td>
+        </tr>
+        {{/ranks}}
+      </table>
+    </div>
+  </div>
 </body>
 </html>

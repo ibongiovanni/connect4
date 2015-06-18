@@ -17,23 +17,33 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="siteStyle">
 		<title>CONNECT4</title>
-    <div align="center"><img src="connect-4-logo.png"></div>
-    <p></p>
+    
   </head>
-    <body>
+  <body>
+    <div align="center" class="header">
+       <img src="connect-4-logo.png" class="logo">
+    </div>
+    <div class="marco">
       <div id="navcontainer">
-      	<ul>
-      	<li><a href="/">Home</a></li>
-      	<li><a href="/user_registration">Register</a></li>
-      	<li><a href="/play">Play</a></li>
-        <li><a href="/users">Ranking</a></li>      
-        </ul>
-        <p style="color: #FFF">
+      	
+        <p style="color: {{color}}">
           {{message}}
         </p>
         </div>
-        <audio controls autoplay="true" hidden="true" loop="true">
-          <source src="music/hexagon.wav" type="audio/wav">
-        </audio>   
-	</body>
+        <div class="cuerpo">
+          <button class="homeboton" onclick="location.href='/user_registration'">REGISTER
+          </button>
+          <button class="homeboton" onclick="location.href='/play'">PLAY
+          </button>
+          <button class="homeboton" onclick="location.href='/users'">RANKING
+          </button>
+          <button class="homeboton" onclick="location.href='/head2head'">HEAD 2 HEAD
+          </button>
+        </div>
+        <audio id="player" controls autoplay="true" hidden="true" loop="true">
+          <source src="music/hexagon.mp3" type="audio/mpeg">
+        </audio>
+        <button class="boton" style="float:right;" onclick="document.getElementById('player').muted=!document.getElementById('player').muted">Mute</button>   
+    </div>
+  </body>
 </html>

@@ -1,0 +1,57 @@
+<SCRIPT LANGUAGE="JavaScript1.2">
+   <!--
+      NS4 = document.layers;
+      if (NS4) {
+         origWidth = innerWidth;
+         origHeight = innerHeight;
+      }   
+   function reDo() {
+      if (innerWidth != origWidth || innerHeight != origHeight) 
+         location.reload();
+   }   
+   if (NS4) onresize = reDo;
+   //-->
+</SCRIPT>
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="siteStyle">
+    <title>CONNECT4</title>
+  </head>
+<body>
+  <div align="center" class="header">
+      <img src="connect-4-logo.png" class="logo">
+  </div>
+  <div class="marco">
+    <audio controls autoplay="true" hidden="true" loop="true">
+      <source src="music/ranking.mp3" type="audio/mpeg">
+    </audio>  
+    <div id="navcontainer">
+          <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/user_registration">Register</a></li>
+          <li><a href="/play">Play</a></li>
+          <li><a href="/users">Ranking</a></li>
+          <li><a href="/head2head">H2H</a></li>      
+          </ul>
+    </div>
+    <div style="width: 100%;" class="cuerpo">
+      <h2 style="text-align:center;color: #FFF;" class="tg">
+        {{name_player1}} Vs {{name_player2}}
+      </h2>
+      <table class="tg">
+        <tr style="font-size: 18px; font-weight: bold; text-transform: uppercase;">
+          <th class="name1">{{name_player1}} wins</th>
+          <th class="deuces" style="font-size: 15px;">Deuces</th>
+          <th class="name2">{{name_player2}} wins</th>
+        </tr>
+        <tr style="font-size: 56px; font-family: Impact,Charcoal,sans-serif;">
+          <td class="nums1">{{win1}}</td>
+          <td class="numsd" style="font-size: 36px;">{{deu}}</td>
+          <td class="nums2">{{win2}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

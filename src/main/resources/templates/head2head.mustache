@@ -1,0 +1,61 @@
+<script>
+	function check(){
+		if(create_game.player_1.value == create_game.player_2.value){
+			alert('Users cannot be the same!');
+			return false;
+		}
+		return true;		
+	}
+</script>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="siteStyle">
+		<title>CONNECT4</title>
+		
+	</head>
+	<body>
+		<div align="center" class="header">
+			<img src="connect-4-logo.png" class="logo">
+		</div>
+		<div class="marco">
+			<div id="navcontainer">
+		      	<ul>
+		      	<li><a href="/">Home</a></li>
+		      	<li><a href="/user_registration">Register</a></li>
+		      	<li><a href="/play">Play</a></li>
+		        <li><a href="/users">Ranking</a></li>
+         		<li><a href="/head2head">H2H</a></li>      
+		        </ul>
+	        </div>
+
+	        <p>
+	        	View Head To Head Records Between Two Players
+	        </p>
+	        <p style="color:yellow">
+			<select name="player_1" form="carform">
+				{{#order}}
+			 		<option value="{{id}}">{{itemName}}</option> 
+				{{/order}}
+			</select>
+			</p>
+			<p>
+				VS
+			</p>
+			<p style="color:red">
+			<select name="player_2" form="carform">
+				{{#order}}
+			 		<option value="{{id}}">{{itemName}}</option> 
+				{{/order}}
+			</select>
+			</p><br>
+			<form method="post" action="/showrecords" id="carform" name="create_game" onsubmit="return check(this)" class="cuerpo" style="width: 17%;">
+			<button class="boton" style="width:125px; box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5);" type="submit" value="1">CHECK!</button>
+			</form>
+			<audio controls autoplay="true" hidden="true" loop="true">
+	          <source src="music/baseafterbase.mp3" type="audio/mpeg">
+	        </audio>  
+		</div>
+	</body>
+</html>

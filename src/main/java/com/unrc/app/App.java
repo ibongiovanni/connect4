@@ -15,7 +15,6 @@ public class App
     {
         staticFileLocation("/public");
 
-
         /**
          * Before-filters are evaluated before each request.
          * Class Base will open a new connection and attach it to the current thread.
@@ -67,7 +66,7 @@ public class App
             user_data[1] = req.queryParams("last_name");
             user_data[2] = req.queryParams("email");
             String message="That email is already used :(";
-
+            String color = "red";
             User u = User.findFirst("email=?",user_data[2]);
 
             if(u==null){
@@ -76,10 +75,12 @@ public class App
                 u.saveIt();
                 u.newRank();
                 message="User Created! :)";
+                color="#06FF00";
             }
            
             Map map = new HashMap();
             map.put("message",message);
+            map.put("color",color);
             return new ModelAndView(map, "home.mustache");
         }, new MustacheTemplateEngine());
 
@@ -125,7 +126,7 @@ public class App
             
             String message = name_player1 + " plays";
             String color = "yellow";
-            String sound = "music/ready.wav";
+            String sound = "music/ready.mp3";
 
             Map map = new HashMap();
             map.put("game_id", game_id);
@@ -205,15 +206,15 @@ public class App
                     p.saveIt();
 
                     if (!grid.checkWin()) {
-                        if (ord % 2 != 0) { message = name_player2 + " plays"; color = "red"; sound= "music/point.wav"; }
-                        else { message = name_player1 + " plays"; color = "yellow"; sound= "music/point.wav"; }
+                        if (ord % 2 != 0) { message = name_player2 + " plays"; color = "red"; sound= "music/point.mp3"; }
+                        else { message = name_player1 + " plays"; color = "yellow"; sound= "music/point.mp3"; }
                     }
                     else {
                         if (ord % 2 != 0) { 
                             message = name_player1 + " won the game!";
                             color = "yellow";
                             finished = true;
-                            sound = "music/winmario.wav";
+                            sound = "music/winmario.mp3";
                             g.set("winner", id_player_1);
                             g.saveIt();
                             u.updateRank(3);
@@ -222,7 +223,7 @@ public class App
                             message = name_player2 + " won the game!";
                             color = "red";
                             finished = true;
-                            sound = "music/winmario.wav";
+                            sound = "music/winmario.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
                             v.updateRank(3);
@@ -232,7 +233,7 @@ public class App
                 else {
                     message = "The column is full, choose another!";
                     color = "maroon";
-                    sound = "music/error.wav";
+                    sound = "music/error.mp3";
                 }
             }
             else {
@@ -240,7 +241,7 @@ public class App
                 message = "The game was a tie !!!";
                 color = "#36FF36";
                 finished = true;
-                sound = "music/error.wav";
+                sound = "music/error.mp3";
                 g.set("winner", 0);
                 g.saveIt();
                 u.updateRank(1);
@@ -278,5 +279,65 @@ public class App
             return new ModelAndView(map, "game.mustache");
 
         }, new MustacheTemplateEngine());
+
+        get("/head2head", (req,res) -> {
+
+            Map<String, Object> attributes = new HashMap();
+
+            List<User> users = User.findAll();
+            int size = users.size();// This way, you will pre-populate your list.
+
+            List<HashMap> order = new LinkedList<HashMap>();
+            HashMap mp;
+            for (User u : users ) {
+                mp = new HashMap();
+                mp.put("id",u.getString("id"));
+                mp.put("itemName",u.getString("email"));
+                order.add(mp);
+            }
+
+            Map<String, Object> map = new HashMap();
+            map.put("order", order);
+
+            return new ModelAndView(map, "head2head.mustache");
+        }, new MustacheTemplateEngine());
+
+        post("/showrecords", (req, res) -> {
+            int id_player_1 = Integer.parseInt(req.queryParams("player_1"));
+            int id_player_2 = Integer.parseInt(req.queryParams("player_2"));
+
+            List<Game> games = Game.where("(player_1=? and player_2=? and winner is not null)or(winner is not null and player_1=? and player_2=?)",id_player_1,id_player_2,id_player_2,id_player_1);
+            games.size();
+
+            int win1=0; //Contador de victorias player_1
+            int win2=0; //Contador de victorias player_2
+            int deu=0; //Contador de empates
+
+            for (Game g : games ) {
+                int r = g.getInteger("winner");
+                if (r==0) deu++;
+                else{
+                    if(r==id_player_1) win1++;
+                    else win2++;
+                }
+            }
+
+            User u = User.findById(id_player_1);
+            String name_player1 = u.getString("first_name");
+
+            User v = User.findById(id_player_2);
+            String name_player2 = v.getString("first_name");
+
+            Map map = new HashMap();
+            map.put("win1",win1);
+            map.put("win2",win2);
+            map.put("deu",deu);
+            map.put("name_player1",name_player1);
+            map.put("name_player2",name_player2);
+
+            return new ModelAndView(map, "showrecords.mustache");
+            
+        }, new MustacheTemplateEngine());
+
     }
 }

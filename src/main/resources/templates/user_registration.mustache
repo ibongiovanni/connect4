@@ -1,83 +1,87 @@
 <SCRIPT LANGUAGE="JavaScript1.2">
    function required()  
-	{  
-		//var email = document.forms["form1"]["email"].value;
-		var fname = document.forms["form1"]["first_name"].value;  
-		var lname = document.forms["form1"]["last_name"].value;  
-		if ( fname == "" || lname == "" )  
-		{  
-			alert("All Fields Are Required\nPlease Input A Value");  
-			return false;  
-		}  
-		return true;  
-	}  
+    {  
+        //var email = document.forms["form1"]["email"].value;
+        var fname = document.forms["form1"]["first_name"].value;  
+        var lname = document.forms["form1"]["last_name"].value;  
+        if ( fname == "" || lname == "" )  
+        {  
+            alert("All Fields Are Required\nPlease Input A Value");  
+            return false;  
+        }  
+        return true;  
+    }  
 </SCRIPT>
 
 <script language="JavaScript1.2">
 
-	//Advanced Email Check credit-
-	//By JavaScript Kit (http://www.javascriptkit.com)
-	//Over 200+ free scripts here!
+    //Advanced Email Check credit-
+    //By JavaScript Kit (http://www.javascriptkit.com)
+    //Over 200+ free scripts here!
 
-	var testresults
-	function checkemail(){
-		var str=document.form1.email.value
-		var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
-		if (filter.test(str))
-			testresults=true
-		else{
-			alert("Please input a valid email address!")
-			testresults=false
-		}
-		return (testresults)
-		}
-		</script>
+    var testresults
+    function checkemail(){
+        var str=document.form1.email.value
+        var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+        if (filter.test(str))
+            testresults=true
+        else{
+            alert("Please input a valid email address!")
+            testresults=false
+        }
+        return (testresults)
+        }
+        </script>
 
 <script>
-	function checkbae(){
-		if (document.layers||document.getElementById||document.all)
-			return checkemail()
-		else
-			return true
-	}
+    function checkbae(){
+        if (document.layers||document.getElementById||document.all)
+            return checkemail()
+        else
+            return true
+    }
 </script>
 
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="siteStyle">
-		<title>CONNECT4</title>
-		<div align="center"><img src="connect-4-logo.png"></div>
-    	<p></p>
-	</head>
-	<body>
-	<div id="navcontainer">
-      	<ul>
-      	<li><a href="/">Home</a></li>
-      	<li><a href="/user_registration">Register</a></li>
-      	<li><a href="/play">Play</a></li>
-        <li><a href="/users">Ranking</a></li>      
-        </ul>
-    </div>
-    
-	<form method="post" action="/create_user" onsubmit="return !!(required(this) & checkbae(this))" name="form1">
-		<p>First name:
-		<input type="text" name="first_name">
-		</p>
-		<br>
-		<p>Last name:
-		<input type="text" name="last_name">
-		</p>
-		<br>
-		<p>e-mail:
-		<input type="text" name="email">
-		<br>
-		<input type="submit" value="Submit">
-		</p>
-	</form>
-	<audio controls autoplay="true" hidden="true" loop="true">
-      <source src="music/timemachine.wav" type="audio/wav">
-    </audio>  
-	</body>
+    <head>
+        <link rel="stylesheet" type="text/css" href="siteStyle">
+        <title>CONNECT4</title>
+    </head>
+    <body>
+      <div align="center" class="header">
+       <img src="connect-4-logo.png" class="logo">
+      </div>
+      <div class="marco">
+        <div id="navcontainer">
+            <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/user_registration">Register</a></li>
+            <li><a href="/play">Play</a></li>
+            <li><a href="/users">Ranking</a></li>
+            <li><a href="/head2head">H2H</a></li>      
+            </ul>
+        </div>
+        
+        <form method="post" action="/create_user" onsubmit="return !!(required(this) & checkbae(this))" name="form1">
+            <p>First name:
+            <input type="text" name="first_name">
+            </p>
+            <br>
+            <p>Last name:
+            <input type="text" name="last_name">
+            </p>
+            <br>
+            <p>e-mail:
+            <input type="text" name="email">
+            <br>
+            <input type="submit" value="Submit">
+            </p>
+        </form>
+        <audio controls autoplay="true" hidden="true" loop="true">
+          <source src="music/timemachine.mp3" type="audio/mpeg">
+        </audio>
+      </div>  
+    </body>
 </html>
