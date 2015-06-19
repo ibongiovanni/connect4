@@ -188,3 +188,11 @@ p {
 .deuces,.numsd{
   color: blue;
 }
+
+.footerlink{
+  float: right;
+  height: 15px;
+  margin: 0px 5px 0px 0px; 
+  text-decoration: none;
+  padding-top: 5%;
+}

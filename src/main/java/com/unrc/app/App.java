@@ -38,6 +38,10 @@ public class App
 
         get("/", (req,res) -> {
             return new ModelAndView(null, "home.mustache");
+        }, new MustacheTemplateEngine());
+
+        get("/credits", (req,res) -> {
+            return new ModelAndView(null, "credits.mustache");
         }, new MustacheTemplateEngine()); 
        
         get("/users", (req, res) -> {       
