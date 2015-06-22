@@ -19,15 +19,18 @@ h1 {
 }
 
 h2 {
-	font-family: "Comic Sans MS",cursive,sans-serif;
-	font-size: 150%;
-	color: #718DA5;
-	text-align: left;
+	font-size: 175%;
+  color: #DEEA68;
+  text-align: center;
+  font-family: Helvetica;
+  font-weight: bold;
+  text-shadow: -1px 2px 1px rgba(0, 0, 0, 0.5);
+  font-variant: small-caps;
 }
 p {
 	font-family: "Comic Sans MS",cursive,sans-serif;
 	font-size: 100%;
-	color: #718DA5;
+	color: #FFF;
 	text-align: left;	
 }
 
@@ -52,6 +55,9 @@ p {
     padding: 7px;
     text-decoration: none;
     text-transform: uppercase;
+    font-family: monospace;
+    font-size: 19px;
+    border-radius: 6px;
 }
 
 #navcontainer ul li a:hover, a:active
@@ -146,6 +152,7 @@ p {
 .logo{
   margin-top: 4px; 
   width: 400px;
+  max-height: 91%;
 }
 
 .homeboton{
@@ -195,4 +202,52 @@ p {
   margin: 0px 5px 0px 0px; 
   text-decoration: none;
   padding-top: 5%;
+}
+
+
+#rankt tr th {
+  background-color: #000000;
+  border-style: ridge;
+  border-color: #D4FF71;
+  border-width: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background: linear-gradient(to bottom, 
+    rgba(76,76,76,1) 0%, 
+    rgba(89,89,89,1) 12%, 
+    rgba(102,102,102,1) 25%, 
+    rgba(71,71,71,1) 39%, 
+    rgba(44,44,44,1) 50%, 
+    rgba(0,0,0,1) 51%, 
+    rgba(17,17,17,1) 60%, 
+    rgba(43,43,43,1) 76%, 
+    rgba(28,28,28,1) 91%, 
+    rgba(19,19,19,1) 100%);
+}
+
+#rankt tr th p{
+  color: #1EE709;
+}
+
+#rankt tr td {
+    color: #ffffff;
+    font-family: Helvetica;
+    font-size: 17px;
+    font-variant: normal;
+    text-align: center;
+    text-transform: uppercase;
+    border-color: #000000;
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-style: dashed;
+    font-weight: bold;
+    text-shadow: -1px 2px 1px rgba(0, 0, 0, 0.88);
+}
+
+
+table {counter-reset:section;}
+
+.count:before {
+  counter-increment:section;
+  content:counter(section);
 }

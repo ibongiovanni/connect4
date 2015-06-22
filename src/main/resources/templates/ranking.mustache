@@ -35,17 +35,19 @@
           <li><a href="/head2head">H2H</a></li>      
           </ul>
     </div>
-    <div style="width: 66%;" class="cuerpo">
+    <div style="width: 66%;" class="cuerpo" id="rankt">
       <h2>Ranking</h2>
-      <table style="float:left; padding-left: 61px;">
+      <table style="float:left; padding-left: 16px;">
         <tr>
+          <th><p>Position</p></th>
           <th><p>First name</p></th>
           <th><p>Last name</p></th>    
         </tr>
         {{#users}}
         <tr>
-          <td><p>{{firstName}}</p></td>
-          <td><p>{{lastName}}</p></td>    
+          <td class="count" style="text-align:center"> </td>
+          <td>{{firstName}}</td>
+          <td>{{lastName}}</td>    
         </tr>
         {{/users}}
       </table>
@@ -55,7 +57,7 @@
         </tr>
         {{#ranks}}
         <tr>
-          <td><p>{{points}}</p></td>
+          <td style="text-align:center">{{points}}</td>
         </tr>
         {{/ranks}}
       </table>
@@ -63,3 +65,4 @@
   </div>
 </body>
 </html>
+
