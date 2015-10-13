@@ -210,8 +210,16 @@ public class App
                     p.saveIt();
 
                     if (!grid.checkWin()) {
-                        if (ord % 2 != 0) { message = name_player2 + " plays"; color = "red"; sound= "music/point.mp3"; }
-                        else { message = name_player1 + " plays"; color = "yellow"; sound= "music/point.mp3"; }
+                        if (ord % 2 != 0) {
+                            message = name_player2 + " plays"; 
+                            color = "red"; 
+                            sound= "music/point.mp3"; 
+                        }
+                        else { 
+                            message = name_player1 + " plays"; 
+                            color = "yellow"; 
+                            sound= "music/point.mp3"; 
+                        }
                     }
                     else {
                         if (ord % 2 != 0) { 
