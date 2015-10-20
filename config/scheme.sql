@@ -7,7 +7,9 @@ CREATE TABLE users(
     email VARCHAR(60) UNIQUE,
     first_name VARCHAR(56),
     last_name VARCHAR(56),
-  CONSTRAINT users_pk PRIMARY KEY (id)
+    username  VARCHAR(56) UNIQUE,
+    password  VARCHAR(56),
+   CONSTRAINT users_pk PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS ranks;

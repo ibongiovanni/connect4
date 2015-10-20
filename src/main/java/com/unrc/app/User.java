@@ -40,7 +40,9 @@ public class User extends Model {
 
   public String idUser() {
     return this.getString("id"); 
-  
   }
 
+  public String userName() {
+    return this.getString("username"); 
+  }
 }
