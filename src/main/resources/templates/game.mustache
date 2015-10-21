@@ -18,6 +18,31 @@
 	<head>
         <link rel="stylesheet" type="text/css" href="siteStyle">
         <title>CONNECT4</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready( function(){
+          $(".boton").on("click",function(ev){
+            console.log(ev);
+            console.log(this);
+            var g_id = $("#game_id").value();
+            var c = $("#column").value();
+            ev.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/drop",
+                dataType: "json",
+                data: { "game_id": g_id, "column": c},
+                success: function( msg ) {
+                alert( "Data Saved: " + msg );
+            }     
+            });
+
+               
+            return false;
+          });
+      });   
+    </script>
     </head>
     <body>
         <div align="center" class="header">
@@ -33,8 +58,8 @@
                     </audio> 
               		<th>
                      <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" value="0">
+                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
+                     <input type="hidden" name="column" id="column" value="0">
                      <button class="boton" type="submit" value="1">1</button>
                      </form>   
                     </th>
