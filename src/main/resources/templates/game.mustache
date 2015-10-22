@@ -19,30 +19,28 @@
         <link rel="stylesheet" type="text/css" href="siteStyle">
         <title>CONNECT4</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-    </script>
-    <script type="text/javascript">
-        $(document).ready( function(){
-          $(".boton").on("click",function(ev){
-            console.log(ev);
-            console.log(this);
-            var g_id = $("#game_id").value();
-            var c = $("#column").value();
-            ev.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "/drop",
-                dataType: "json",
-                data: { "game_id": g_id, "column": c},
-                success: function( msg ) {
-                alert( "Data Saved: " + msg );
-            }     
-            });
-
-               
-            return false;
-          });
-      });   
-    </script>
+        </script>
+        <script>
+            $(document).ready( function(){
+                $(".boton").on("click",function(ev){
+                    console.log(ev);
+                    console.log(this);
+                    var game_id = $('#game_id').val();
+                    var column = $('#column').val();
+                    $.ajax({
+                        method: "POST",
+                        url: "/drop",
+                        //dataType: "json",
+                        data: {"game_id": game_id, "column": column},
+                        success: function( msg ) {
+                            alert( "Data Saved: " + msg );
+                        }     
+                    });
+                    ev.preventDefault();   
+                    return false;
+                });
+            });   
+        </script>
     </head>
     <body>
         <div align="center" class="header">
@@ -53,7 +51,7 @@
             <div id="gameboard" class="cuerpo2" align="center">
                 <table align="center">
                     <caption style="color:{{colored}};margin-bottom: 7px;">{{message}}</caption>
-                    <audio controls autoplay="true" hidden="true" >
+                    <audio controls autoplay="true" hidden="true">
                       <source src={{sound}} type="audio/mpeg">
                     </audio> 
               		<th>
@@ -65,43 +63,43 @@
                     </th>
                 	<th>
                      <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" value="1">
+                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
+                     <input type="hidden" name="column" id="column" value="1">
                      <button class="boton" type="submit" value="2">2</button>
                      </form>    
                     </th> 
                 	<th>
                      <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" value="2">
+                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
+                     <input type="hidden" name="column" id="column" value="2">
                      <button class="boton" type="submit" value="3">3</button>
                      </form>    
                     </th>
                 	<th>
                      <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" value="3">
+                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
+                     <input type="hidden" name="column" id="column" value="3">
                      <button class="boton" type="submit" value="4">4</button>
                      </form>    
                     </th>
                 	<th>
                      <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" value="4">
+                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
+                     <input type="hidden" name="column" id="column" value="4">
                      <button class="boton" type="submit" value="5">5</button>
                      </form>    
                     </th>
                 	<th>
                      <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" value="5">
+                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
+                     <input type="hidden" name="column" id="column" value="5">
                      <button class="boton" type="submit" value="6">6</button>
                      </form>    
                     </th>
                 	<th>
                      <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" value="6">
+                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
+                     <input type="hidden" name="column" id="column" value="6">
                      <button class="boton" type="submit" value="7">7</button>
                      </form>    
                     </th>
