@@ -7,7 +7,7 @@ body {
   margin: 0px;
   height: 100%;
   background-image: url("fondo.jpg");
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size: 100% auto;
 }
 
