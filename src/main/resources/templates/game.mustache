@@ -18,90 +18,86 @@
 	<head>
         <link rel="stylesheet" type="text/css" href="siteStyle">
         <title>CONNECT4</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        <script src="js/jquery.min.js">
         </script>
         <script>
+
+            function reload (ev){
+                    console.log(ev);
+                    console.log(this);
+                    var game_id = this.id;
+                    var column = this.value-1;
+                    $("#container").load("/drop #gameboard",{"game_id": game_id, "column": column}, enableAJAX);
+                    ev.preventDefault();   
+                    return false;
+            }
+
+            $(document).ready( function(){
+                $(".dropButton").on("click", reload)
+            });
+
+            function enableAJAX (data){
+                $(".dropButton").on("click", reload);
+                console.log(data); 
+            }
+
+            /*
             $(document).ready( function(){
                 $(".boton").on("click",function(ev){
                     console.log(ev);
                     console.log(this);
-                    var game_id = $('#game_id').val();
-                    var column = $('#column').val();
-                    $.ajax({
-                        method: "POST",
-                        url: "/drop",
-                        //dataType: "json",
-                        data: {"game_id": game_id, "column": column},
-                        success: function( msg ) {
-                            alert( "Data Saved: " + msg );
-                        }     
-                    });
+                    var game_id = {{game_id}};
+                    var column = this.value-1;
+                    // $.ajax({
+                    //     method: "POST",
+                    //     url: "/drop",
+                    //     //dataType: "json",
+                    //     data: {"game_id": game_id, "column": column},
+                    //     success: function( msg ) {
+                    //         alert( "Data Saved: " + msg );
+                    //     }     
+                    // });
+                    $("#gameboard").load("/drop #table",{"game_id": game_id, "column": column});
+                    //return true;
                     ev.preventDefault();   
                     return false;
                 });
-            });   
+            }); 
+            */
         </script>
     </head>
     <body>
         <div align="center" class="header">
             <img src="connect-4-logo.png" class="logo">
         </div>
-        <div class="marco" {{#finished}} style="padding-bottom:12px;" {{/finished}}>      
-            <br>
+        <div id="container" class="marco" {{#finished}} style="padding-bottom:12px;" {{/finished}}>      
             <div id="gameboard" class="cuerpo2" align="center">
+                <br>
                 <table align="center">
                     <caption style="color:{{colored}};margin-bottom: 7px;">{{message}}</caption>
                     <audio controls autoplay="true" hidden="true">
                       <source src={{sound}} type="audio/mpeg">
                     </audio> 
               		<th>
-                     <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" id="column" value="0">
-                     <button class="boton" type="submit" value="1">1</button>
-                     </form>   
+                     <button class="boton dropButton" id="{{game_id}}" value="1">1</button>  
                     </th>
                 	<th>
-                     <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" id="column" value="1">
-                     <button class="boton" type="submit" value="2">2</button>
-                     </form>    
+                     <button class="boton dropButton" id="{{game_id}}" value="2">2</button>   
                     </th> 
                 	<th>
-                     <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" id="column" value="2">
-                     <button class="boton" type="submit" value="3">3</button>
-                     </form>    
+                     <button class="boton dropButton" id="{{game_id}}" value="3">3</button>
                     </th>
                 	<th>
-                     <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" id="column" value="3">
-                     <button class="boton" type="submit" value="4">4</button>
-                     </form>    
+                     <button class="boton dropButton" id="{{game_id}}" value="4">4</button>
                     </th>
                 	<th>
-                     <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" id="column" value="4">
-                     <button class="boton" type="submit" value="5">5</button>
-                     </form>    
+                     <button class="boton dropButton" id="{{game_id}}" value="5">5</button>
                     </th>
                 	<th>
-                     <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" id="column" value="5">
-                     <button class="boton" type="submit" value="6">6</button>
-                     </form>    
+                     <button class="boton dropButton" id="{{game_id}}" value="6">6</button>
                     </th>
                 	<th>
-                     <form method="post" action="/drop">
-                     <input type="hidden" name="game_id" id="game_id" value={{game_id}}>
-                     <input type="hidden" name="column" id="column" value="6">
-                     <button class="boton" type="submit" value="7">7</button>
-                     </form>    
+                     <button class="boton dropButton" id="{{game_id}}" value="7">7</button>
                     </th>
               		
               		<tr>
@@ -159,7 +155,6 @@
                     	<td id="{{celda42}}">{{celda42}}</td>
                 	</tr>
             	</table>
-            </div>
                 <div class="cuerpo">
                     <p style='color:{{colored}};margin-bottom: 4px;margin-top: 18px;'>
                         {{#finished}}
@@ -178,5 +173,6 @@
                     </p>
                 </div>
             </div>
-    	</body>
+        </div>
+    </body>
 </html>
