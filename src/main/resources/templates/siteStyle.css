@@ -175,6 +175,13 @@ p {
     cursor: pointer;
 }
 
+.muteButton {
+  float: left;
+  position: absolute;
+  margin-bottom: 5px;
+  bottom: 0;
+}
+
 .tg{
   width: 100%;
   table-layout: fixed;
@@ -196,12 +203,19 @@ p {
   color: blue;
 }
 
+#footer{
+    bottom: 0;
+    height: 35px;
+    position: absolute;
+    width: 100%;
+}
+
 .footerlink{
   float: right;
   height: 15px;
   margin: 0px 5px 0px 0px; 
   text-decoration: none;
-  padding-top: 5%;
+  margin-top: 15;
 }
 
 
