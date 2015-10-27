@@ -66,13 +66,13 @@ p {
 }
 
 
-#gameboard td#X {
+#gameboard td.X {
 			color: yellow;
 			background-image: url("yellowcoin.png");
       background-size: 50px;
       font-size: 1px;
 }
-#gameboard td#O {
+#gameboard td.O {
 			color: red;
 			background-image: url("redcoin.png");
       background-size: 50px;
