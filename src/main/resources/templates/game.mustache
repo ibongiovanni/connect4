@@ -46,8 +46,9 @@
 
             function updateView(data){
                 $("#message").html(data.message).css("color",data.colored);
+                $("#audioSource").attr("src",data.sound);
                 if (data.finished) {
-
+                    $("#endGameOptions").css("visibility","visible");
                 };
                 if (data.successful) {
                     var cell = '#c'+data.cell;
@@ -94,7 +95,7 @@
                 <table align="center">
                     <caption id="message" style="color:{{colored}};margin-bottom: 7px;">{{message}}</caption>
                     <audio controls autoplay="true" hidden="true">
-                      <source src={{sound}} type="audio/mpeg">
+                      <source id="audioSource" src={{sound}} type="audio/mpeg">
                     </audio> 
               		<th>
                      <button class="boton dropButton" id="{{game_id}}" value="1">1</button>  
@@ -173,23 +174,21 @@
                         <td id="c42" class="{{celda42}}">{{celda42}}</td>
                     </tr>
             	</table>
-                <div class="cuerpo">
-                    <p style='color:{{colored}};margin-bottom: 4px;margin-top: 18px;'>
-                        {{#finished}}
-                            <form method="post" action="/create_game" style="margin-left:35px; margin-bottom: 2px;">
-                                <input type="hidden" name="player_1" value="{{p2id}}">
-                                <input type="hidden" name="player_2" value="{{p1id}}">
-                                <button class="boton" style="width:125px; box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5);" type="submit" value="1">Play Again?</button>
-                            </form>
-                            <button class="boton" 
-                                        style=" width:125px; 
-                                                box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5); 
-                                                margin-left: 35px; 
-                                                margin-top: 3px;" 
-                                        onclick="location.href='/'">Back To Home</button>
-                        {{/finished}}
-                    </p>
-                </div>
+            </div>
+            <div id="endGameOptions" class="cuerpo" style="visibility: hidden;">
+                <p style='color:{{colored}};margin-bottom: 4px;margin-top: 18px;'>
+                    <form method="post" action="/create_game" style="margin-left:35px; margin-bottom: 2px;">
+                        <input type="hidden" name="player_1" value="{{p2id}}">
+                        <input type="hidden" name="player_2" value="{{p1id}}">
+                        <button class="boton" style="width:125px; box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5);" type="submit" value="1">Play Again?</button>
+                    </form>
+                    <button class="boton" 
+                                style=" width:125px; 
+                                        box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5); 
+                                        margin-left: 35px; 
+                                        margin-top: 3px;" 
+                                onclick="location.href='/'">Back To Home</button>
+                </p>
             </div>
         </div>
         {{> footer}}

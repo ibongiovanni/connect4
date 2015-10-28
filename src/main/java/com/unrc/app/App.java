@@ -143,6 +143,8 @@ public class App
             map.put("message", message);
             map.put("colored",color);
             map.put("sound", sound);
+            map.put("p1id", id_player_1);
+            map.put("p2id", id_player_2);
 
             Grid grid = new Grid();
 
