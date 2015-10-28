@@ -15,6 +15,15 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  cursor: url("cursor.png"), auto;
+}
+
+a {
+  cursor: url("cursorb.png"), auto;
+}
+
+select {
+    cursor: url("cursorb.png"), auto;
 }
 
 h1 {
@@ -132,7 +141,7 @@ p {
 .boton:hover {
     color: #FFF;
     background: #900;
-    cursor: pointer;
+    cursor: url("cursorb.png"), auto;
 }
 
 .marco {
@@ -178,7 +187,7 @@ p {
 .homeboton:hover {
     color: #FFF;
     background: #900;
-    cursor: pointer;
+    cursor: url("cursorb.png"), auto;
 }
 
 .muteButton {
