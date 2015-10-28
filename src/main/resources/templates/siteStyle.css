@@ -1,3 +1,8 @@
+@font-face {
+  font-family: bitsFont;
+  src: url("fonts/PressStart2P.ttf");
+}
+
 html{
   height: 100%;
 }
@@ -123,7 +128,7 @@ p {
     margin-left: 175px;
 }
  html body p,caption {
-    font-family: Helvetica;
+    font-family: bitsFont;
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;
@@ -171,6 +176,7 @@ p {
 }
 
 .homeboton{
+  font-family: bitsFont;
   font-weight: bold;
   width: 100%;
   margin-top: 28px;
@@ -233,6 +239,12 @@ p {
   margin-top: 15;
 }
 
+#message {
+  font-family: bitsFont;
+  font-size: largue;
+  padding: 5px;
+  box-shadow: rgb(0, 0, 38) -5px 4px 1px;
+}
 
 #rankt tr th, #message {
   background-color: #000000;
