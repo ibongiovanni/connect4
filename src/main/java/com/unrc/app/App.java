@@ -5,14 +5,20 @@ import org.javalite.activejdbc.Base;
 import static spark.Spark.*;
 import spark.ModelAndView;
 import java.util.*;
+
+import com.google.gson.Gson;
+
 /**
  * 
  *
  */
 public class App
 {
+    //private Gson gson = new Gson();
+
     public static void main( String[] args )
     {
+        Gson gson = new Gson();
         staticFileLocation("/public");
 
         /**
@@ -281,8 +287,147 @@ public class App
                 }           
             }
             return new ModelAndView(map, "game.mustache");
-
         }, new MustacheTemplateEngine());
+
+        post("/drop2", (req, res) -> {
+
+            int game_id = Integer.parseInt(req.queryParams("game_id"));
+            int column = Integer.parseInt(req.queryParams("column"));
+            String message = "";
+            String color = "";
+            boolean finished = false;
+            String sound = "";
+            int cellNumber = 0;
+            char coinValue = ' ';
+            boolean successful = false;
+
+            Game g = Game.findById(game_id);
+            int height = g.getInteger("height");
+            int width = g.getInteger("width");
+            int maxPlays = height * width;    
+
+            int id_player_1 = g.getInteger("player_1");
+            int id_player_2 = g.getInteger("player_2");
+
+            User u = User.findById(id_player_1);
+            String name_player1 = u.getString("first_name");
+
+            User v = User.findById(id_player_2);
+            String name_player2 = v.getString("first_name");
+
+            Grid grid = new Grid();
+
+            //Rebuild the game board
+            List<Play> list = Play.where("game_id = ?", game_id);
+            int ord = 1;
+            for (Play p : list) {
+                int col = p.getInteger("col");
+                grid.dropAt(col, grid.actualDisc()).getFirst();
+                ord++;
+            }
+
+
+            if (!grid.checkWin() && ord <= maxPlays) {
+                //Make the move
+                Pair drop = grid.dropAt(column, grid.actualDisc());
+                //drop.First == Was the play successful?
+                //drop.Second == In that case, in wich row stay the last move?
+
+                successful = drop.getFirst();
+                //If drop.First is True then the play was successful
+                if (drop.getFirst()) {
+                    Play p = new Play();// save play in DB.
+                    p.set("game_id", game_id, "ord", ord, "col", column, "row", drop.getSecond()); 
+                    p.saveIt();
+                    cellNumber = (1+column+7*drop.getSecond());
+                    if (!grid.checkWin()) {
+                        if (ord % 2 != 0) { 
+                            message = name_player2 + " plays"; 
+                            color = "red"; 
+                            sound= "music/point.mp3"; 
+                            coinValue= 'X';
+                        }
+                        else { 
+                            message = name_player1 + " plays"; 
+                            color = "yellow"; 
+                            sound= "music/point.mp3";
+                            coinValue= 'O'; 
+                        }
+                    }
+                    else {
+                        if (ord % 2 != 0) { 
+                            message = name_player1 + " won the game!";
+                            coinValue = 'X';
+                            color = "yellow";
+                            finished = true;
+                            sound = "music/winmario.mp3";
+                            g.set("winner", id_player_1);
+                            g.saveIt();
+                            u.updateRank(3);
+                        }
+                        else {
+                            message = name_player2 + " won the game!";
+                            coinValue = 'O';
+                            color = "red";
+                            finished = true;
+                            sound = "music/winmario.mp3";
+                            g.set("winner", id_player_2);
+                            g.saveIt();
+                            v.updateRank(3);
+                        }
+                    }                    
+                }
+                else {
+                    message = "The column is full, choose another!";
+                    color = "maroon";
+                    sound = "music/error.mp3";
+                }
+            }
+            else {
+                if (ord > maxPlays) { 
+                    message = "The game was a tie !!!";
+                    color = "#36FF36";
+                    finished = true;
+                    sound = "music/error.mp3";
+                    g.set("winner", 0);
+                    g.saveIt();
+                    u.updateRank(1);
+                    v.updateRank(1); 
+                }
+                else { message = "The game is over"; color = "#36FF36"; finished=true; }
+                }
+
+            Map map = new HashMap();
+            map.put("game_id", game_id);
+            map.put("cell", cellNumber);
+            map.put("coin", coinValue);
+            map.put("message", message);
+            map.put("colored", color);
+            map.put("finished", finished);
+            map.put("successful",successful);
+            map.put("sound", sound);
+            map.put("p1id", id_player_1);
+            map.put("p2id", id_player_2);
+
+            /*int k = 1;
+            for (int i = 0; i < 6 ; i++) {
+                for (int j = 0; j < 7; j++) {
+                    if (grid.getValue(i,j) == 1) {
+                        map.put("celda"+k, "X");
+                    }
+                    else {
+                        if (grid.getValue(i,j) == -1) {
+                            map.put("celda"+k, "O");    
+                        }
+                        else {
+                            map.put("celda"+k, " ");
+                        }
+                    } 
+                    k++;
+                }           
+            }*/
+            return map;
+        }, gson::toJson);
 
         get("/head2head", (req,res) -> {
 
