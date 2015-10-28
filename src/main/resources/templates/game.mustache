@@ -27,14 +27,35 @@
                     console.log(this);
                     var game_id = this.id;
                     var column = this.value-1;
-                    $("#container").load("/drop #gameboard",{"game_id": game_id, "column": column}, enableAJAX);
+                    //$("#container").load("/drop #gameboard",{"game_id": game_id, "column": column}, enableAJAX);
+                    $.ajax({
+                         method: "POST",
+                         url: "/drop2",
+                         dataType: "json",
+                         data: {"game_id": game_id, "column": column},
+                    }).done( 
+                        updateView,
+                        function (data){
+                            console.log(data);
+                            //updateView
+                        }
+                    );
                     ev.preventDefault();   
                     return false;
             }
 
-            $(document).ready( function(){
-                $(".dropButton").on("click", reload)
-            });
+            function updateView(data){
+                $("#message").html(data.message).css("color",data.colored);
+                if (data.finished) {
+
+                };
+                if (data.successful) {
+                    var cell = '#c'+data.cell;
+                    $(cell).html(data.coin).attr("class",data.coin);
+                }
+            }
+
+            $(document).ready(enableAJAX);
 
             function enableAJAX (data){
                 $(".dropButton").on("click", reload);
@@ -48,15 +69,12 @@
                     console.log(this);
                     var game_id = {{game_id}};
                     var column = this.value-1;
-                    // $.ajax({
-                    //     method: "POST",
-                    //     url: "/drop",
-                    //     //dataType: "json",
-                    //     data: {"game_id": game_id, "column": column},
-                    //     success: function( msg ) {
-                    //         alert( "Data Saved: " + msg );
-                    //     }     
-                    // });
+                    $.ajax({
+                         method: "POST",
+                         url: "/drop",
+                         dataType: "json",
+                         data: {"game_id": game_id, "column": column},
+                    });
                     $("#gameboard").load("/drop #table",{"game_id": game_id, "column": column});
                     //return true;
                     ev.preventDefault();   
@@ -74,7 +92,7 @@
             <div id="gameboard" class="cuerpo2" align="center">
                 <br>
                 <table align="center">
-                    <caption style="color:{{colored}};margin-bottom: 7px;">{{message}}</caption>
+                    <caption id="message" style="color:{{colored}};margin-bottom: 7px;">{{message}}</caption>
                     <audio controls autoplay="true" hidden="true">
                       <source src={{sound}} type="audio/mpeg">
                     </audio> 
