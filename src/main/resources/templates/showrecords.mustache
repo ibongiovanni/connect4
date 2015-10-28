@@ -19,9 +19,7 @@
     <title>CONNECT4</title>
   </head>
 <body>
-  <div align="center" class="header">
-      <img src="connect-4-logo.png" class="logo">
-  </div>
+  {{> header}}
   <div class="marco">
     <audio controls autoplay="true" hidden="true" loop="true">
       <source src="music/ranking.mp3" type="audio/mpeg">
@@ -45,9 +43,9 @@
           <th class="deuces" style="font-size: 15px;">Deuces</th>
           <th class="name2">{{name_player2}} wins</th>
         </tr>
-        <tr style="font-size: 56px; font-family: Impact,Charcoal,sans-serif;">
+        <tr style="font-size: 43px;">
           <td class="nums1">{{win1}}</td>
-          <td class="numsd" style="font-size: 36px;">{{deu}}</td>
+          <td class="numsd" style="font-size: 28px;">{{deu}}</td>
           <td class="nums2">{{win2}}</td>
         </tr>
       </table>
