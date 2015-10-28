@@ -48,6 +48,8 @@
             function updateView(data){
                 $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
                 $("#audioSource").attr("src",data.sound);
+                $(".sound").trigger("load");                
+                $(".sound").trigger("play");
                 if (data.finished) {
                     $("#endGameOptions").css("visibility","visible");
                    // $(".dropButton").css("visibility","hidden");
@@ -96,7 +98,7 @@
                 <br>
                 <table align="center">
                     <caption id="message" style="color:{{colored}};margin-bottom: 7px;">{{message}}</caption>
-                    <audio controls autoplay="true" hidden="true">
+                    <audio class="sound" controls autoplay="true" hidden="true">
                       <source id="audioSource" src={{sound}} type="audio/mpeg">
                     </audio>
                     <tr id="playButtons">
