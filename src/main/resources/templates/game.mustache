@@ -45,14 +45,17 @@
             }
 
             function updateView(data){
-                $("#message").html(data.message).css("color",data.colored);
+                $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
                 $("#audioSource").attr("src",data.sound);
                 if (data.finished) {
                     $("#endGameOptions").css("visibility","visible");
+                   // $(".dropButton").css("visibility","hidden");
+                   $("#playButtons").remove();
+                   $("#message").css("margin-bottom","30px");
                 };
                 if (data.successful) {
                     var cell = '#c'+data.cell;
-                    $(cell).html(data.coin).attr("class",data.coin);
+                    $(cell).attr("class",data.coin);
                 }
             }
 
@@ -96,29 +99,30 @@
                     <caption id="message" style="color:{{colored}};margin-bottom: 7px;">{{message}}</caption>
                     <audio controls autoplay="true" hidden="true">
                       <source id="audioSource" src={{sound}} type="audio/mpeg">
-                    </audio> 
-              		<th>
-                     <button class="boton dropButton" id="{{game_id}}" value="1">1</button>  
-                    </th>
-                	<th>
-                     <button class="boton dropButton" id="{{game_id}}" value="2">2</button>   
-                    </th> 
-                	<th>
-                     <button class="boton dropButton" id="{{game_id}}" value="3">3</button>
-                    </th>
-                	<th>
-                     <button class="boton dropButton" id="{{game_id}}" value="4">4</button>
-                    </th>
-                	<th>
-                     <button class="boton dropButton" id="{{game_id}}" value="5">5</button>
-                    </th>
-                	<th>
-                     <button class="boton dropButton" id="{{game_id}}" value="6">6</button>
-                    </th>
-                	<th>
-                     <button class="boton dropButton" id="{{game_id}}" value="7">7</button>
-                    </th>
-              		
+                    </audio>
+                    <tr id="playButtons">
+                  		<th>
+                         <button class="boton dropButton" id="{{game_id}}" value="1">1</button>  
+                        </th>
+                    	<th>
+                         <button class="boton dropButton" id="{{game_id}}" value="2">2</button>   
+                        </th> 
+                    	<th>
+                         <button class="boton dropButton" id="{{game_id}}" value="3">3</button>
+                        </th>
+                    	<th>
+                         <button class="boton dropButton" id="{{game_id}}" value="4">4</button>
+                        </th>
+                    	<th>
+                         <button class="boton dropButton" id="{{game_id}}" value="5">5</button>
+                        </th>
+                    	<th>
+                         <button class="boton dropButton" id="{{game_id}}" value="6">6</button>
+                        </th>
+                    	<th>
+                         <button class="boton dropButton" id="{{game_id}}" value="7">7</button>
+                        </th>
+              		</tr>
               		<tr>
                         <td id="c1" class="{{celda1}}">{{celda1}}</td>
                         <td id="c2" class="{{celda2}}">{{celda2}}</td>

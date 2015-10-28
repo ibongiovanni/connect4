@@ -219,7 +219,7 @@ p {
 }
 
 
-#rankt tr th {
+#rankt tr th, #message {
   background-color: #000000;
   border-style: ridge;
   border-color: #D4FF71;
