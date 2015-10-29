@@ -1,5 +1,5 @@
 <div id="footer">
-  <button class="muteButton boton " onclick="document.getElementsByTagName('AUDIO')[0].muted=!document.getElementsByTagName('AUDIO')[0].muted"> 
+  <button class="muteButton boton " onclick="toggleMuteAudio()"> 
   </button>
   <p class="footerlink">
     <a style="text-decoration: none;
@@ -7,3 +7,18 @@
               text-shadow: -1px 2px 0.5px rgba(213, 213, 213, 0.5);" href="/credits">Credits</a>
   </p>
 </div>
+
+<script>
+	function toggleMuteAudio(){
+    	$("audio").prop("muted",!$("audio").prop("muted"));
+		var muted = $("audio").prop("muted");
+		refreshMuteButton(muted);
+	}
+	function refreshMuteButton(muted){
+		if (muted) {
+			$(".muteButton").attr("style","background-image: url('muted.png');");
+		} else{
+			$(".muteButton").removeAttr("style");
+		};
+	}
+</script>
