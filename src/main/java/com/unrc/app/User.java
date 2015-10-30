@@ -29,6 +29,10 @@ public class User extends Model {
     r.set("number", (score + points));
     r.saveIt();
   }
+
+  public boolean is_correct_password(String pass){
+    return this.getString("password").equals(pass);
+  }
   
   public String firstName() {
     return this.getString("first_name"); 

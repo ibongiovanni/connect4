@@ -43,7 +43,65 @@ public class App
         }, new MustacheTemplateEngine());  
 
         get("/", (req,res) -> {
-            return new ModelAndView(null, "home.mustache");
+            String id_session = req.session().attribute("ID_SESSION");
+            if (id_session != null) {
+                return new ModelAndView(null, "home.mustache");
+            }
+            else {
+                return new ModelAndView(null, "init.mustache");
+            } 
+        }, new MustacheTemplateEngine());
+
+        get("/login",(req,res) -> {
+            String id_session = req.session().attribute("ID_SESSION");
+            if (id_session != null) {
+                return new ModelAndView(null, "home.mustache");
+            }
+            else {
+                return new ModelAndView(null, "login.mustache");
+            }
+        }, new MustacheTemplateEngine());
+
+        post("/login_user",(req,res) -> {
+            String username = req.queryParams("username");
+            String password = req.queryParams("password");
+            String message;
+            String color;
+            Map attributes = new HashMap();                           
+            User user = User.findFirst("username=?",username);
+            if (user == null) {
+                message="Wrong user !!";
+                color = "red";
+                attributes.put("message",message);
+                attributes.put("color",color);
+                return new ModelAndView(attributes, "init.mustache");                
+            }
+            else {
+                if (user.is_correct_password(password)) {
+                    String id_session = user.getString("id");
+                    req.session().attribute("ID_SESSION",id_session);
+                    message="Welcome " + username + "!!";
+                    color = "#06FF00"; 
+                    attributes.put("message",message);
+                    attributes.put("color",color);
+                    return new ModelAndView(attributes, "home.mustache");
+                }
+                else {
+                    message="Wrong password !!";
+                    color = "red";
+                    attributes.put("message",message);
+                    attributes.put("color",color);
+                    return new ModelAndView(attributes, "init.mustache");
+                }                
+            }            
+        }, new MustacheTemplateEngine()); 
+
+        get("/logout",(req,res) -> {
+            String id_session = req.session().attribute("ID_SESSION");
+            if (id_session != null) {
+                req.session().removeAttribute("ID_SESSION");
+            }
+            return new ModelAndView(null, "init.mustache");
         }, new MustacheTemplateEngine());
 
         get("/credits", (req,res) -> {
