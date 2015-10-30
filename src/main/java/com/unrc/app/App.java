@@ -108,6 +108,7 @@ public class App
             return new ModelAndView(null, "credits.mustache");
         }, new MustacheTemplateEngine()); 
        
+
         get("/users", (req, res) -> {       
 
             Map<String, Object> attributes = new HashMap();
@@ -124,33 +125,40 @@ public class App
          
         }, new MustacheTemplateEngine());        
 
+
         get("/user_registration", (req, res) -> {
             return new ModelAndView(null, "user_registration.mustache");
         }, new MustacheTemplateEngine()); 
 
+
         post("/create_user", (req, res) -> {
-            String [] user_data = new String [3];
+            String [] user_data = new String [5];
             user_data[0] = req.queryParams("first_name");
             user_data[1] = req.queryParams("last_name");
             user_data[2] = req.queryParams("email");
-            String message="That email is already used :(";
+            user_data[3] = req.queryParams("username");
+            user_data[4] = req.queryParams("password");
+            String message="The username or email are already used :(";
             String color = "red";
-            User u = User.findFirst("email=?",user_data[2]);
+            User u = User.findFirst("username=?",user_data[3]);
+            User u1 = User.findFirst("email=?",user_data[2]);
 
-            if(u==null){
+            if((u==null)&&(u1==null)){
+                
                 u = new User();
-                u.set("first_name",user_data[0],"last_name",user_data[1],"email",user_data[2]);
+                u.set("first_name",user_data[0],"last_name",user_data[1],"email",user_data[2],"username",user_data[3],"password",user_data[4]);
                 u.saveIt();
                 u.newRank();
                 message="User Created! :)";
-                color="#06FF00";
+                color="#06FF00";    
             }
-           
+
             Map map = new HashMap();
             map.put("message",message);
             map.put("color",color);
             return new ModelAndView(map, "home.mustache");
         }, new MustacheTemplateEngine());
+
 
         get("/play", (req,res) -> {
 
@@ -164,7 +172,7 @@ public class App
             for (User u : users ) {
                 mp = new HashMap();
                 mp.put("id",u.getString("id"));
-                mp.put("itemName",u.getString("email"));
+                mp.put("itemName",u.getString("username"));
                 order.add(mp);
             }
 
@@ -173,6 +181,7 @@ public class App
 
             return new ModelAndView(map, "play.mustache");
         }, new MustacheTemplateEngine());
+
 
         post("/create_game", (req, res) -> {
             int id_player_1 = Integer.parseInt(req.queryParams("player_1"));
@@ -190,7 +199,7 @@ public class App
             int width = g.getInteger("width");
             
             User u = User.findById(id_player_1);
-            String name_player1 = u.getString("first_name");
+            String name_player1 = u.getString("username");
             
             String message = name_player1 + " plays";
             String color = "yellow";
@@ -253,10 +262,10 @@ public class App
             int id_player_2 = g.getInteger("player_2");
 
             User u = User.findById(id_player_1);
-            String name_player1 = u.getString("first_name");
+            String name_player1 = u.getString("username");
 
             User v = User.findById(id_player_2);
-            String name_player2 = v.getString("first_name");
+            String name_player2 = v.getString("username");
 
             Grid grid = new Grid();
 
@@ -276,8 +285,16 @@ public class App
                     p.saveIt();
 
                     if (!grid.checkWin()) {
-                        if (ord % 2 != 0) { message = name_player2 + " plays"; color = "red"; sound= "music/point.mp3"; }
-                        else { message = name_player1 + " plays"; color = "yellow"; sound= "music/point.mp3"; }
+                        if (ord % 2 != 0) {
+                            message = name_player2 + " plays"; 
+                            color = "red"; 
+                            sound= "music/point.mp3"; 
+                        }
+                        else { 
+                            message = name_player1 + " plays"; 
+                            color = "yellow"; 
+                            sound= "music/point.mp3"; 
+                        }
                     }
                     else {
                         if (ord % 2 != 0) { 
@@ -287,7 +304,7 @@ public class App
                             sound = "music/winmario.mp3";
                             g.set("winner", id_player_1);
                             g.saveIt();
-                            u.updateRank(3);
+                            u.updateRank(50);
                         }
                         else {
                             message = name_player2 + " won the game!";
@@ -296,7 +313,7 @@ public class App
                             sound = "music/winmario.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
-                            v.updateRank(3);
+                            v.updateRank(50);
                         }
                     }                    
                 }
@@ -314,8 +331,8 @@ public class App
                 sound = "music/error.mp3";
                 g.set("winner", 0);
                 g.saveIt();
-                u.updateRank(1);
-                v.updateRank(1); 
+                u.updateRank(15);
+                v.updateRank(15); 
                 }
                 else { message = "The game is over"; color = "#36FF36"; finished=true; }
                 }
@@ -501,7 +518,7 @@ public class App
             for (User u : users ) {
                 mp = new HashMap();
                 mp.put("id",u.getString("id"));
-                mp.put("itemName",u.getString("email"));
+                mp.put("itemName",u.getString("username"));
                 order.add(mp);
             }
 
@@ -510,6 +527,7 @@ public class App
 
             return new ModelAndView(map, "head2head.mustache");
         }, new MustacheTemplateEngine());
+
 
         post("/showrecords", (req, res) -> {
             int id_player_1 = Integer.parseInt(req.queryParams("player_1"));
@@ -532,10 +550,10 @@ public class App
             }
 
             User u = User.findById(id_player_1);
-            String name_player1 = u.getString("first_name");
+            String name_player1 = u.getString("username");
 
             User v = User.findById(id_player_2);
-            String name_player2 = v.getString("first_name");
+            String name_player2 = v.getString("username");
 
             Map map = new HashMap();
             map.put("win1",win1);

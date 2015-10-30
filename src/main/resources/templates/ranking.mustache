@@ -44,32 +44,28 @@
     </div>
     <div style="width: 100%;" class="cuerpo" id="rankt">
       <h2>Ranking</h2>
-      <div id="tablesContainer">
-        <table style="float:left; padding-left: 16px;">
-          <tr>
-            <th><p>Position</p></th>
-            <th><p>First name</p></th>
-            <th><p>Last name</p></th>    
-          </tr>
-          {{#users}}
-          <tr>
-            <td class="count" style="text-align:center"> </td>
-            <td>{{firstName}}</td>
-            <td>{{lastName}}</td>    
-          </tr>
-          {{/users}}
-        </table>
-        <table style="display: inline-block;">
-          <tr>
-            <th><p>Points</p></th>
-          </tr>
-          {{#ranks}}
-          <tr>
-            <td style="text-align:center">{{points}}</td>
-          </tr>
-          {{/ranks}}
-        </table>
-      </div>
+      <table style="float:left; padding-left: 16px;">
+        <tr>
+          <th><p>Position</p></th>
+          <th><p>User-Name</p></th>
+        </tr>
+        {{#users}}
+        <tr>
+          <td class="count" style="text-align:center"> </td>
+          <td>{{userName}}</td> 
+        </tr>
+        {{/users}}
+      </table>
+      <table>
+        <tr>
+          <th><p>Points</p></th>
+        </tr>
+        {{#ranks}}
+        <tr>
+          <td style="text-align:center">{{points}}</td>
+        </tr>
+        {{/ranks}}
+      </table>
     </div>
   </div>
   {{> footer}}

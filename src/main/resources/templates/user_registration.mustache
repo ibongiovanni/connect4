@@ -1,10 +1,12 @@
 <SCRIPT LANGUAGE="JavaScript1.2">
    function required()  
     {  
-        //var email = document.forms["form1"]["email"].value;
+        var email = document.forms["form1"]["email"].value;
         var fname = document.forms["form1"]["first_name"].value;  
-        var lname = document.forms["form1"]["last_name"].value;  
-        if ( fname == "" || lname == "" )  
+        var lname = document.forms["form1"]["last_name"].value; 
+        var uname = document.forms["form1"]["username"].value;
+        var pswrd = document.forms["form1"]["password"].value; 
+        if ( fname == "" || lname == "" || uname == "" || pswrd == "" || email == "")  
         {  
             alert("All Fields Are Required\nPlease Input A Value");  
             return false;  
@@ -42,7 +44,6 @@
     }
 </script>
 
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,6 +67,20 @@
         </div>
         <br>
         <form method="post" action="/create_user" onsubmit="return !!(required(this) & checkbae(this))" name="form1">
+            <p>Username:
+            <input type="text" name="username">
+            </p>
+            <br>
+            <p>Password:
+            <input  title="Password must contain at least 6 characters, including UPPER/lowercase and numbers" type="password" 
+            required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" type="password" name="password" onchange="
+            this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+            if(this.checkValidity()) form.pwd2.pattern = this.value;">
+            </p>
+            <br>
+            <p>Confirm Password: <input title="Please enter the same Password as above" type="password" name="pwd2" 
+            onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"></p>
+            <br>
             <p>First name:
             <input type="text" name="first_name">
             </p>
