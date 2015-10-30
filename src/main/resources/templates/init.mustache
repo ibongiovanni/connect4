@@ -1,0 +1,47 @@
+<SCRIPT LANGUAGE="JavaScript1.2">
+   <!--
+      NS4 = document.layers;
+      if (NS4) {
+         origWidth = innerWidth;
+         origHeight = innerHeight;
+      }   
+   function reDo() {
+      if (innerWidth != origWidth || innerHeight != origHeight) 
+         location.reload();
+   }   
+   if (NS4) onresize = reDo;
+   //-->
+</SCRIPT>
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="app-icon.png">
+    <link rel="stylesheet" type="text/css" href="siteStyle">
+    <title>CONNECT4</title>
+    <script src="js/jquery.min.js">
+    </script>
+  </head>
+
+  <body>
+    {{> header}}
+    <div class="marco">
+      <div id="navcontainer">
+        
+        <p style="color: {{color}}">
+          {{message}}
+        </p>
+        </div>
+        <div class="cuerpo" style="margin-bottom: 40px;">
+          <button class="homeboton" onclick="location.href='/login'">LOGIN
+          </button>
+          <button class="homeboton" onclick="location.href='/user_registration'">REGISTER
+          </button>         
+        </div>
+        <audio id="player" controls autoplay="true" hidden="true" loop="true">
+          <source src="music/hexagon.mp3" type="audio/mpeg">
+        </audio>
+        
+    </div>
+    {{> footer}}
+  </body>
+</html>
