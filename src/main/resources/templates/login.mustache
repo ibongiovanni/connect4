@@ -1,0 +1,48 @@
+<SCRIPT LANGUAGE="JavaScript1.2">
+   function required()  
+    {  
+        var uname = document.forms["form1"]["username"].value;
+        var pswrd = document.forms["form1"]["password"].value; 
+        if (uname == "" || pswrd == "")  
+        {  
+            alert("All Fields Are Required\nPlease Input A Value");  
+            return false;  
+        }  
+        return true;  
+    }  
+</SCRIPT>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="siteStyle">
+        <title>CONNECT4</title>
+    </head>
+    <body>
+      <div align="center" class="header">
+       <img src="connect-4-logo.png" class="logo">
+      </div>
+      <div class="marco">
+        <div id="navcontainer">
+            <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/user_registration">Register</a></li>
+            </ul>
+        </div>
+        <br>
+        <form method="post" action="/login_user" onsubmit="return !!(required(this)" name="form1">
+            <p>Username:
+            <input type="text" name="username">
+            </p>         
+            <p>Password:
+            <input type="password" name="password">
+            <br>
+            <input style="width: 60px; margin-top: 15px; text-transform: capitalize; font-variant: small-caps;" value="Login" class="boton" type="submit">
+            </p>
+        </form>
+        <audio controls autoplay="true" hidden="true" loop="true">
+          <source src="music/timemachine.mp3" type="audio/mpeg">
+        </audio>
+      </div>  
+    </body>
+</html>
