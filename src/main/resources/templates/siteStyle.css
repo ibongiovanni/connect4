@@ -75,22 +75,41 @@ p {
 
 #navcontainer ul li a:link, a:visited
 {
-    width: 300px;
-    font-weight: bold;
-    color: #FFFF00;
-    background-color: #B20000;
-    text-align: center;
-    padding: 7px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-family: bitsFont;
-    font-size: 12;
-    border-radius: 6px;
+  width: 300px;
+  font-weight: bold;
+  color: #FFFF00;
+  /*background-color: #B20000;*/
+  background: linear-gradient(to bottom, #ff3019 0%,#b20000 100%);
+  text-align: center;
+  padding: 7px;
+  text-decoration: none;
+  text-shadow: rgba(0, 0, 0, 0.6) -1px 2px 1px;
+  text-transform: uppercase;
+  font-family: bitsFont;
+  font-size: smaller;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-color: #730000;
 }
 
 #navcontainer ul li a:hover,#navcontainer ul li a:active
 {
-    background-color: #990000;
+  background: linear-gradient(to bottom, #990000 0%,#b20000 100%);
+  text-shadow: #FFFACA 0px 0px 6px;
+}
+
+#navcontainer ul li a.first {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-left-style: none;
+}
+
+#navcontainer ul li a.last {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-right-style: none;
 }
 
 
