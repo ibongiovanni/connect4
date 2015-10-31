@@ -54,6 +54,11 @@ p {
 	text-align: left;	
 }
 
+#navcontainer {
+    margin: auto;
+    width: fit-content;
+}
+
 #navcontainer ul
 {
     list-style-type: none;
@@ -63,7 +68,10 @@ p {
     padding-top: 15px;
 }
 
-#navcontainer ul li { display: inline; }
+#navcontainer ul li { 
+  display: inline; 
+  float: left;
+}
 
 #navcontainer ul li a:link, a:visited
 {
