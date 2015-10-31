@@ -1,5 +1,5 @@
 <div id="footer">
-  <button class="muteButton boton " onclick="toggleMuteAudio()"> 
+  <button class="muteButton boton " onclick="toggleMuteAudio()" title="Press here or 'm' for mute the page"> 
   </button>
   <p class="footerlink" style="margin-top: 20px;">
     <a style="text-decoration: none;
@@ -22,4 +22,10 @@
 			$(".muteButton").removeAttr("style");
 		};
 	}
+
+	$(document).keydown(function(e) {
+		if(e.which == 77){ //Was 'm' pressed
+			toggleMuteAudio();
+		}
+	});
 </script>
