@@ -55,7 +55,8 @@
             $(document).keydown(keymove);
 
             function updateView(data){
-                $("#message").html("CPU Plays").css("color","red").css("border-color","red");
+                $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
+                //$("#message").html("CPU Plays").css("color","red").css("border-color","red");
                 $("#audioSource").attr("src",data.sound);
                 $(".sound").trigger("load");                
                 $(".sound").trigger("play");

@@ -538,6 +538,17 @@ public class App
                         p.set("game_id", game_id, "ord", ord, "col", moveAi, "row", drop.getSecond());
                         p.saveIt();
                     }
+                    if (ord==maxPlays) {
+                            coinValue= 'O'; 
+                            message = "The game was a tie !!!";
+                            color = "#36FF36";
+                            finished = true;
+                            sound = "music/error.mp3";
+                            g.set("winner", 0);
+                            g.saveIt();
+                            u.updateRank(15);
+                            v.updateRank(15); 
+                    }  
                     if (grid.checkWin()){
                         if (ord % 2 != 0) { 
                             message = name_player1 + " won the game!";
