@@ -31,10 +31,24 @@
           {{message}}
         </p>
         </div>
+        <div id="loginfield" class="marco" style="width: 60%">
+          <form method="post" action="/login_user" onsubmit="return !!(required(this)" name="form1">
+            <p>Username:<br>
+              <input type="text" name="username">
+            </p>         
+            <p>Password:<br>
+              <input type="password" name="password" style="margin-left: 17px;">
+              <br>
+            </p>
+            <p>
+              <input style="width: 60px; text-transform: capitalize; font-variant: small-caps;" value="Login" class="boton" type="submit">
+            </p>
+          </form>
+        </div>
         <div class="cuerpo" style="margin-bottom: 40px;">
-          <button class="homeboton" onclick="location.href='/login'">LOGIN
-          </button>
-          <button class="homeboton" onclick="location.href='/user_registration'">REGISTER
+          <!-- <button class="homeboton" onclick="location.href='/login'">LOGIN
+          </button> -->
+          <button class="homeboton" onclick="location.href='/user_registration'">SIGN UP!
           </button>         
         </div>
         <audio id="player" controls autoplay="true" hidden="true" loop="true">
