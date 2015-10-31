@@ -387,10 +387,10 @@ public class App
             int id_player_2 = g.getInteger("player_2");
 
             User u = User.findById(id_player_1);
-            String name_player1 = u.getString("first_name");
+            String name_player1 = u.getString("username");
 
             User v = User.findById(id_player_2);
-            String name_player2 = v.getString("first_name");
+            String name_player2 = v.getString("username");
 
             Grid grid = new Grid();
 
@@ -440,7 +440,8 @@ public class App
                             sound = "music/winmario.mp3";
                             g.set("winner", id_player_1);
                             g.saveIt();
-                            u.updateRank(3);
+                            u.updateRank((Integer)5000/ord);
+                            v.updateRank(ord);
                         }
                         else {
                             message = name_player2 + " won the game!";
@@ -450,7 +451,8 @@ public class App
                             sound = "music/winmario.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
-                            v.updateRank(3);
+                            v.updateRank((Integer)5000/ord);
+                            u.updateRank(ord);
                         }
                     }                    
                 }
@@ -468,8 +470,8 @@ public class App
                     sound = "music/error.mp3";
                     g.set("winner", 0);
                     g.saveIt();
-                    u.updateRank(1);
-                    v.updateRank(1); 
+                    u.updateRank(15);
+                    v.updateRank(15); 
                 }
                 else { message = "The game is over"; color = "#36FF36"; finished=true; }
                 }
@@ -486,23 +488,6 @@ public class App
             map.put("p1id", id_player_1);
             map.put("p2id", id_player_2);
 
-            /*int k = 1;
-            for (int i = 0; i < 6 ; i++) {
-                for (int j = 0; j < 7; j++) {
-                    if (grid.getValue(i,j) == 1) {
-                        map.put("celda"+k, "X");
-                    }
-                    else {
-                        if (grid.getValue(i,j) == -1) {
-                            map.put("celda"+k, "O");    
-                        }
-                        else {
-                            map.put("celda"+k, " ");
-                        }
-                    } 
-                    k++;
-                }           
-            }*/
             return map;
         }, gson::toJson);
 

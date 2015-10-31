@@ -32,7 +32,7 @@ select {
 }
 
 h1 {
-	font-family: "Comic Sans MS",cursive,sans-serif;
+	font-family: bitsFont;
 	font-size: 300%;
 	color: #718DA5;
 	text-align: center;
@@ -42,7 +42,7 @@ h2 {
 	font-size: 175%;
   color: #DEEA68;
   text-align: center;
-  font-family: Helvetica;
+  font-family: bitsFont;
   font-weight: bold;
   text-shadow: -1px 2px 1px rgba(0, 0, 0, 0.5);
   font-variant: small-caps;

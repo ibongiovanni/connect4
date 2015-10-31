@@ -18,7 +18,7 @@
     <style type="text/css">
       #tablesContainer {
         margin: auto;
-        width: 444px;
+        width: 300px;
       }
     </style>
     <link rel="shortcut icon" type="image/x-icon" href="app-icon.png">
@@ -44,28 +44,30 @@
     </div>
     <div style="width: 100%;" class="cuerpo" id="rankt">
       <h2>Ranking</h2>
-      <table style="float:left; padding-left: 16px;">
-        <tr>
-          <th><p>Position</p></th>
-          <th><p>User-Name</p></th>
-        </tr>
-        {{#users}}
-        <tr>
-          <td class="count" style="text-align:center"> </td>
-          <td>{{userName}}</td> 
-        </tr>
-        {{/users}}
-      </table>
-      <table>
-        <tr>
-          <th><p>Points</p></th>
-        </tr>
-        {{#ranks}}
-        <tr>
-          <td style="text-align:center">{{points}}</td>
-        </tr>
-        {{/ranks}}
-      </table>
+      <div id="tablesContainer">
+        <table style="float:left; padding-left: 16px;">
+          <tr>
+            <th><p>Position</p></th>
+            <th><p>Nickname</p></th>   
+          </tr>
+          {{#users}}
+          <tr>
+            <td class="count" style="text-align:center"> </td>
+            <td>{{userName}}</td>   
+          </tr>
+          {{/users}}
+        </table>
+        <table style="display: inline-block;">
+          <tr>
+            <th><p>Points</p></th>
+          </tr>
+          {{#ranks}}
+          <tr>
+            <td style="text-align:center">{{points}}</td>
+          </tr>
+          {{/ranks}}
+        </table>
+      </div>
     </div>
   </div>
   {{> footer}}
