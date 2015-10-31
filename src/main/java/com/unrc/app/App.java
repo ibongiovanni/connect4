@@ -336,7 +336,7 @@ public class App
                 }
                 else {
                     message = "The column is full, choose another!";
-                    color = "maroon";
+                    color = (ord%2!=0)? "yellow":"red";
                     sound = "music/error.mp3";
                 }
             }
