@@ -1,6 +1,8 @@
 package com.unrc.app;
 
 import com.unrc.app.User;
+import com.unrc.app.ai.*;
+import java.util.concurrent.ThreadLocalRandom;
 import org.javalite.activejdbc.Base;
 import static spark.Spark.*;
 import spark.ModelAndView;
@@ -381,6 +383,222 @@ public class App
 
             return map;
         }, gson::toJson);
+
+        /**********************************************************************
+        *   AI methods
+        *   
+        *
+        **/
+        Board b = new Board();
+        Connect4AI ai = new Connect4AI(b); 
+
+        get("/playai",(req,res) -> {
+            String id_session = req.session().attribute("ID_SESSION");
+            if (id_session == null) {
+                Map attributes = new HashMap();
+                attributes.put("color","red");
+                attributes.put("message","you must be loged in");
+                return new ModelAndView(attributes, "init.mustache");
+            }
+            int id_player_1 = Integer.parseInt(id_session);// Integer.parseInt(req.params(":id"));
+            int id_player_2 = 3;
+
+            Game g = Game.findFirst("(player_1=? and player_2=? and winner is null)or(winner is null and player_1=? and player_2=?)",id_player_1,id_player_2,id_player_2,id_player_1);
+
+            if(g==null){
+                g = new Game(id_player_1,id_player_2,6,7);
+                g.saveIt();
+            }
+
+            int game_id = g.getInteger("id");
+            int height = g.getInteger("height");
+            int width = g.getInteger("width");
+            
+            User u = User.findById(id_player_1);
+            String name_player1 = u.getString("first_name");
+            
+            String message = name_player1 + " plays";
+            String color = "yellow";
+            String sound = "music/ready.mp3";
+
+            Map map = new HashMap();
+            map.put("game_id", game_id);
+            map.put("message", message);
+            map.put("colored",color);
+            map.put("sound", sound);
+            map.put("p1id", id_player_1);
+            map.put("p2id", id_player_2);
+
+            Grid grid = new Grid();
+            b.resetBoard();
+
+            List<Play> list = Play.where("game_id = ?", game_id);
+            int ord = 1;
+            for (Play p : list) {
+                int col = p.getInteger("col");
+                grid.dropAt(col, grid.actualDisc()).getFirst();
+                b.placeMove(col,(ord%2==0)?1:2);
+                ord++;
+            }
+            int k = 1;
+            for (int i = 0; i < 6 ; i++) {
+                for (int j = 0; j < 7; j++) {
+                    if (grid.getValue(i,j) == 1) {
+                        map.put("celda"+k, "X");
+                    }
+                    else {
+                        if (grid.getValue(i,j) == -1) {
+                            map.put("celda"+k, "O");    
+                        }
+                        else {
+                            map.put("celda"+k, " ");
+                        }
+                    } 
+                    k++;
+                }           
+            }
+            b.displayBoard();
+            return new ModelAndView(map, "gameai.mustache");
+        }, new MustacheTemplateEngine());
+
+        post("/dropai", (req, res) -> {
+
+            int game_id = Integer.parseInt(req.queryParams("game_id"));
+            int column = Integer.parseInt(req.queryParams("column"));
+            String message = "";
+            String color = "";
+            boolean finished = false;
+            String sound = "";
+            int cellNumber = 0;
+            int cellAi = 0;
+            char coinValue = ' ';
+            boolean successful = false;
+            int moveAi = 0;
+
+            Game g = Game.findById(game_id);
+            int height = g.getInteger("height");
+            int width = g.getInteger("width");
+            int maxPlays = height * width;    
+
+            int id_player_1 = g.getInteger("player_1");
+            int id_player_2 = g.getInteger("player_2");
+
+            User u = User.findById(id_player_1);
+            String name_player1 = u.getString("first_name");
+
+            User v = User.findById(id_player_2);
+            String name_player2 = v.getString("first_name");
+
+            Grid grid = new Grid();
+
+            //Rebuild the game board
+            List<Play> list = Play.where("game_id = ?", game_id);
+            int ord = 1;
+            for (Play p : list) {
+                int col = p.getInteger("col");
+                grid.dropAt(col, grid.actualDisc()).getFirst();
+                ord++;
+            }
+
+
+            if (!grid.checkWin() && ord <= maxPlays) {
+                //Make the move
+                Pair drop = grid.dropAt(column, grid.actualDisc());
+                //drop.First == Was the play successful?
+                //drop.Second == In that case, in wich row stay the last move?
+
+                successful = drop.getFirst();
+                //If drop.First is True then the play was successful
+                if (drop.getFirst()) {
+                    b.placeMove(column,2);
+                    Play p = new Play();// save play in DB.
+                    p.set("game_id", game_id, "ord", ord, "col", column, "row", drop.getSecond()); 
+                    p.saveIt();
+                    cellNumber = (1+column+7*drop.getSecond());
+                    if (!grid.checkWin()) {
+                        message = name_player1 + " plays"; 
+                        color = "yellow"; 
+                        sound= "music/point.mp3"; 
+                        coinValue= 'X';
+                        // now the AI plays
+                        moveAi = ai.getAIMove();    //get the AI move
+                        if (moveAi==-1) { //sometimes getAIMove throws -1
+                            do{
+                                moveAi = ThreadLocalRandom.current().nextInt(0, 6 + 1);
+                            } 
+                            while(grid.fullColumn(moveAi));
+                        }
+                        System.out.println("moveAI= "+moveAi);
+                        b.placeMove(moveAi,1);      //make move on AI-board
+                        drop = grid.dropAt(moveAi,-1);     //make move in our board
+                        b.displayBoard();
+                        ord++;
+                        cellAi = (1+moveAi+7*drop.getSecond());
+                        p = new Play();// save play in DB.
+                        p.set("game_id", game_id, "ord", ord, "col", moveAi, "row", drop.getSecond());
+                        p.saveIt();
+                    }
+                    if (grid.checkWin()){
+                        if (ord % 2 != 0) { 
+                            message = name_player1 + " won the game!";
+                            coinValue = 'X';
+                            color = "yellow";
+                            finished = true;
+                            sound = "music/winmario.mp3";
+                            g.set("winner", id_player_1);
+                            g.saveIt();
+                            u.updateRank(3);
+                        }
+                        else {
+                            message = name_player2 + " won the game!";
+                            coinValue = 'X';
+                            color = "red";
+                            finished = true;
+                            sound = "music/winmario.mp3";
+                            g.set("winner", id_player_2);
+                            g.saveIt();
+                            v.updateRank(3);
+                        }
+                    }                    
+                }
+                else {
+                    message = "The column is full, choose another!";
+                    color = "maroon";
+                    sound = "music/error.mp3";
+                }
+            }
+            else {
+                if (ord > maxPlays) { 
+                    message = "The game was a tie !!!";
+                    color = "#36FF36";
+                    finished = true;
+                    sound = "music/error.mp3";
+                    g.set("winner", 0);
+                    g.saveIt();
+                    u.updateRank(1);
+                    v.updateRank(1); 
+                }
+                else { message = "The game is over"; color = "#36FF36"; finished=true; }
+            }
+
+            Map map = new HashMap();
+            map.put("game_id", game_id);
+            map.put("cell", cellNumber);
+            map.put("coin", coinValue);
+            map.put("message", message);
+            map.put("colored", color);
+            map.put("finished", finished);
+            map.put("successful",successful);
+            map.put("sound", sound);
+            map.put("p1id", id_player_1);
+            map.put("p2id", id_player_2);
+            map.put("cellAI",cellAi);
+
+            return map;
+        }, gson::toJson);  
+
+        /* End of AI methods
+        **********************************************************************/
 
         get("/head2head", (req,res) -> {
 
