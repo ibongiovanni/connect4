@@ -76,27 +76,7 @@
                 $(".dropButton").on("click", reload);
                 console.log(data); 
             }
-
-            /*
-            $(document).ready( function(){
-                $(".boton").on("click",function(ev){
-                    console.log(ev);
-                    console.log(this);
-                    var game_id = {{game_id}};
-                    var column = this.value-1;
-                    $.ajax({
-                         method: "POST",
-                         url: "/drop",
-                         dataType: "json",
-                         data: {"game_id": game_id, "column": column},
-                    });
-                    $("#gameboard").load("/drop #table",{"game_id": game_id, "column": column});
-                    //return true;
-                    ev.preventDefault();   
-                    return false;
-                });
-            }); 
-            */
+            
         </script>
     </head>
     <body>
