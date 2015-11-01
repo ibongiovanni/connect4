@@ -29,7 +29,16 @@ public class App
          * Class Base will open a new connection and attach it to the current thread.
          */
         before((request, response) -> {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/connect4_development", "root", "root");    
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/connect4_development", "root", "root");
+            // System.out.println(request.uri());
+            // boolean authenticated = false;
+            // String id_session = request.session().attribute("ID_SESSION");
+            // if (id_session != null || request.uri().equals("/")) {
+            //     authenticated = true;
+            // }
+            // if (!authenticated) {
+            //     response.redirect("/");
+            // }   
         });
 
         /**

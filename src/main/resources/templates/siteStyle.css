@@ -182,6 +182,11 @@ p {
     cursor: url("cursorb.png"), auto;
 }
 
+.dropButton {
+    font-family: bitsFont;
+    font-size: small;
+}
+
 .marco {
     width: 50%;
     margin-left: auto;
