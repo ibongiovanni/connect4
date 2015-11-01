@@ -5,7 +5,7 @@ public class Connect4AI {
     private Board b;
     private Scanner scan;
     private int nextMoveLocation=-1;
-    private int maxDepth = 9;
+    private int maxDepth = 4;
     
     public Connect4AI(Board b){
         this.b = b;
