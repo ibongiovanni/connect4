@@ -621,12 +621,12 @@ public class App
             String color = "";
 
             int moveAi = ai.getAIMove();    //get the AI move
-            // try{ // Wait at least 1 second
-            //     TimeUnit.MILLISECONDS.sleep(500);
-            // }
-            // catch(InterruptedException ex) {
-            //     Thread.currentThread().interrupt();
-            // }
+            try{ // Wait some time
+                TimeUnit.MILLISECONDS.sleep(350);
+            }
+            catch(InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
             if (moveAi==-1) { //sometimes getAIMove throws -1
                 do{
                     moveAi = ThreadLocalRandom.current().nextInt(0, 6 + 1);
