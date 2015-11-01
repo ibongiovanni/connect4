@@ -3,6 +3,7 @@ package com.unrc.app;
 import com.unrc.app.User;
 import com.unrc.app.ai.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import org.javalite.activejdbc.Base;
 import static spark.Spark.*;
 import spark.ModelAndView;
@@ -391,6 +392,7 @@ public class App
         **/
         Board b = new Board();
         Connect4AI ai = new Connect4AI(b); 
+        Grid grid = new Grid();
 
         get("/playai",(req,res) -> {
             String id_session = req.session().attribute("ID_SESSION");
@@ -429,7 +431,7 @@ public class App
             map.put("p1id", id_player_1);
             map.put("p2id", id_player_2);
 
-            Grid grid = new Grid();
+            grid.resetGrid();
             b.resetBoard();
 
             List<Play> list = Play.where("game_id = ?", game_id);
@@ -489,16 +491,16 @@ public class App
             User v = User.findById(id_player_2);
             String name_player2 = v.getString("first_name");
 
-            Grid grid = new Grid();
+            
 
             //Rebuild the game board
             List<Play> list = Play.where("game_id = ?", game_id);
-            int ord = 1;
-            for (Play p : list) {
-                int col = p.getInteger("col");
-                grid.dropAt(col, grid.actualDisc()).getFirst();
-                ord++;
-            }
+            int ord = list.size();
+            // for (Play p : list) {
+            //     int col = p.getInteger("col");
+            //     grid.dropAt(col, grid.actualDisc()).getFirst();
+            //     ord++;
+            // }
 
 
             if (!grid.checkWin() && ord <= maxPlays) {
@@ -510,6 +512,7 @@ public class App
                 successful = drop.getFirst();
                 //If drop.First is True then the play was successful
                 if (drop.getFirst()) {
+                    ord++;
                     b.placeMove(column,2);
                     Play p = new Play();// save play in DB.
                     p.set("game_id", game_id, "ord", ord, "col", column, "row", drop.getSecond()); 
@@ -521,22 +524,22 @@ public class App
                         sound= "music/point.mp3"; 
                         coinValue= 'X';
                         // now the AI plays
-                        moveAi = ai.getAIMove();    //get the AI move
-                        if (moveAi==-1) { //sometimes getAIMove throws -1
-                            do{
-                                moveAi = ThreadLocalRandom.current().nextInt(0, 6 + 1);
-                            } 
-                            while(grid.fullColumn(moveAi));
-                        }
-                        System.out.println("moveAI= "+moveAi);
-                        b.placeMove(moveAi,1);      //make move on AI-board
-                        drop = grid.dropAt(moveAi,-1);     //make move in our board
-                        b.displayBoard();
-                        ord++;
-                        cellAi = (1+moveAi+7*drop.getSecond());
-                        p = new Play();// save play in DB.
-                        p.set("game_id", game_id, "ord", ord, "col", moveAi, "row", drop.getSecond());
-                        p.saveIt();
+                        // moveAi = ai.getAIMove();    //get the AI move
+                        // if (moveAi==-1) { //sometimes getAIMove throws -1
+                        //     do{
+                        //         moveAi = ThreadLocalRandom.current().nextInt(0, 6 + 1);
+                        //     } 
+                        //     while(grid.fullColumn(moveAi));
+                        // }
+                        // System.out.println("moveAI= "+moveAi);
+                        // b.placeMove(moveAi,1);      //make move on AI-board
+                        // drop = grid.dropAt(moveAi,-1);     //make move in our board
+                        // b.displayBoard();
+                        // ord++;
+                        // cellAi = (1+moveAi+7*drop.getSecond());
+                        // p = new Play();// save play in DB.
+                        // p.set("game_id", game_id, "ord", ord, "col", moveAi, "row", drop.getSecond());
+                        // p.saveIt();
                     }
                     if (ord==maxPlays) {
                             coinValue= 'O'; 
@@ -558,7 +561,8 @@ public class App
                             sound = "music/winmario.mp3";
                             g.set("winner", id_player_1);
                             g.saveIt();
-                            u.updateRank(3);
+                            u.updateRank(5000/ord);
+                            v.updateRank(ord);
                         }
                         else {
                             message = name_player2 + " won the game!";
@@ -574,7 +578,7 @@ public class App
                 }
                 else {
                     message = "The column is full, choose another!";
-                    color = "maroon";
+                    color = "yellow";
                     sound = "music/error.mp3";
                 }
             }
@@ -586,8 +590,8 @@ public class App
                     sound = "music/error.mp3";
                     g.set("winner", 0);
                     g.saveIt();
-                    u.updateRank(1);
-                    v.updateRank(1); 
+                    u.updateRank(15);
+                    v.updateRank(15); 
                 }
                 else { message = "The game is over"; color = "#36FF36"; finished=true; }
             }
@@ -603,10 +607,73 @@ public class App
             map.put("sound", sound);
             map.put("p1id", id_player_1);
             map.put("p2id", id_player_2);
-            map.put("cellAI",cellAi);
+            map.put("ord",ord);
 
             return map;
-        }, gson::toJson);  
+        }, gson::toJson);
+
+        post("/moveai", (req,res) -> {
+            int ord = Integer.parseInt(req.queryParams("ord"));
+            int game_id = Integer.parseInt(req.queryParams("game_id"));
+            Map map = new HashMap();
+            boolean finished =false;
+            String message = "";
+            String color = "";
+
+            int moveAi = ai.getAIMove();    //get the AI move
+            // try{ // Wait at least 1 second
+            //     TimeUnit.MILLISECONDS.sleep(500);
+            // }
+            // catch(InterruptedException ex) {
+            //     Thread.currentThread().interrupt();
+            // }
+            if (moveAi==-1) { //sometimes getAIMove throws -1
+                do{
+                    moveAi = ThreadLocalRandom.current().nextInt(0, 6 + 1);
+                } 
+                while(grid.fullColumn(moveAi));
+            }
+            System.out.println("moveAI= "+moveAi);
+            b.placeMove(moveAi,1);      //make move on AI-board
+            Pair drop = grid.dropAt(moveAi,-1);     //make move in our board
+            b.displayBoard();
+            System.out.println(grid.toString());
+            ord++;
+            int cellAi = (1+moveAi+7*drop.getSecond());
+            Play p = new Play();// save play in DB.
+            p.set("game_id", game_id, "ord", ord, "col", moveAi, "row", drop.getSecond());
+            p.saveIt();
+            if (grid.checkWin()) {
+                message = "CPU won the game!";
+                color = "red";
+                finished = true;
+                String sound = "music/winmario.mp3";
+                map.put("sound",sound);
+
+                Game g = Game.findById(game_id);
+                User v = User.findById(3);
+                g.set("winner", 3);
+                g.saveIt();
+                v.updateRank(5000/ord);
+            }
+            if (ord==42) {
+                message = "The game was a tie !!!";
+                color = "#36FF36";
+                finished = true;
+                String sound = "music/error.mp3";
+                map.put("sound",sound);
+                Game g = Game.findById(game_id);
+                User v = User.findById(3);
+                g.set("winner", 0);
+                g.saveIt();
+            }
+
+            map.put("message",message);
+            map.put("colored",color);
+            map.put("finished",finished);
+            map.put("cellAi",cellAi);
+            return map;
+        }, gson::toJson);
 
         /* End of AI methods
         **********************************************************************/

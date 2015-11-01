@@ -24,6 +24,14 @@ public class Grid {
 		}
 	}
 
+	public void resetGrid(){
+		for (int i = 0; i < height ; i++) {
+			for (int j = 0; j < width; j++) {
+				board [i] [j] = 0;
+			}			
+		}
+	}
+
 	/** 
 	 *
 	 */

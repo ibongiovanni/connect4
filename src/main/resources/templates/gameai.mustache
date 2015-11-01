@@ -32,6 +32,8 @@
             }
 
             function sendMove(game_id, column){
+                disableAJAX(); //Disable click action to avoid fast double-click sends
+                disasociateKeyMove();
                 $.ajax({
                          method: "POST",
                          url: "/dropai",
@@ -52,7 +54,13 @@
                 }
             }
 
-            $(document).keydown(keymove);
+            function asociateKeyMove(){
+                $(document).keydown(keymove);
+            }
+
+            function disasociateKeyMove(){
+                $(document).off();
+            }
 
             function updateView(data){
                 $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
@@ -69,23 +77,56 @@
                     var cell = '#c'+data.cell;
                     $(cell).attr("class",data.coin);
                     //setTimeout(waitAndMove(data),000);
-                    waitAndMove(data);
+                    if (!data.finished) {waitAndMove(data);} 
+                }
+                else{
+                    enableAJAX(); //Re-enable click action
+                    asociateKeyMove();
                 }
             }
 
             function waitAndMove(data) {
-                var aicell = '#c'+data.cellAI;
-                $(aicell).attr("class","O");
-                $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
+                $.ajax({
+                         method: "POST",
+                         url: "/moveai",
+                         dataType: "json",
+                         data: {"game_id": {{game_id}}, "ord": data.ord},
+                    }).done( 
+                        function (data){
+                            console.log(data);
+                            var aicell = '#c'+data.cellAi;
+                            $(aicell).attr("class","O");
+                            $(".sound").trigger("load");
+                            $(".sound").trigger("play");
+                            if (data.finished) {
+                                $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
+                                $("#endGameOptions").css("visibility","visible");
+                                $("#playButtons").remove();
+                                $("#message").css("margin-bottom","30px");
+                                $("#audioSource").attr("src",data.sound);
+                                $(".sound").trigger("load");                
+                                $(".sound").trigger("play");
+                            };
+                            enableAJAX(); //Re-enable click action
+                            asociateKeyMove();
+                        }
+                    );
+                
             }
 
-            $(document).ready(enableAJAX);
+            $(document).ready(function(){
+                enableAJAX();
+                asociateKeyMove();
+                });
 
             function enableAJAX (data){
                 $(".dropButton").on("click", reload);
                 console.log(data); 
             }
 
+            function disableAJAX(){
+                $(".dropButton").off();
+            }
            
         </script>
     </head>
