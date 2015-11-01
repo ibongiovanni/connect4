@@ -343,3 +343,18 @@ table {counter-reset:section;}
   counter-increment:section;
   content:counter(section);
 }
+
+input[type="text"], input[type="password"] {
+    border-radius: 7px;
+}
+
+input[type="text"], input[type="password"] {
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+}
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border: solid 1px #707070;
+  box-shadow: rgb(3, 21, 150) 0px 0px 8px 6px;
+  outline: none;
+}

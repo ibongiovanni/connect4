@@ -145,7 +145,7 @@ public class App
             String color = "red";
             User u = User.findFirst("username=?",user_data[3]);
             User u1 = User.findFirst("email=?",user_data[2]);
-
+            Map map = new HashMap();
             if((u==null)&&(u1==null)){
                 
                 u = new User();
@@ -155,8 +155,11 @@ public class App
                 message="User Created! :)";
                 color="#06FF00";    
             }
+            else{
+                map.put("message",message);
+                return new ModelAndView(map, "user_registration.mustache");
+            }
 
-            Map map = new HashMap();
             map.put("message",message);
             map.put("color",color);
             return new ModelAndView(map, "home.mustache");

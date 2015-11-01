@@ -24,7 +24,8 @@
 	}
 
 	$(document).keydown(function(e) {
-		if(e.which == 77){ //Was 'm' pressed
+		var target = $(e.target);
+		if(e.which == 77 && !target.is("input")){ //Was 'm' pressed
 			toggleMuteAudio();
 		}
 	});

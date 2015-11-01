@@ -55,6 +55,7 @@
     <body>
       {{> header}}
       <div class="marco">
+        <p style="color: red">{{message}}</p>
         <br>
         <form method="post" action="/create_user" onsubmit="return !!(required(this) & checkbae(this))" name="form1">
             <p style="margin-left: 127px;">Username:
