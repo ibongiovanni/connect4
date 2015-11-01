@@ -26,10 +26,11 @@
     {{> header}}
     <div class="marco">
       <div id="navcontainer">
-      	
-        <p style="color: {{color}}">
+      	{{#message}}
+        <p id="message" style="color: {{color}}">
           {{message}}
         </p>
+        {{/message}}
         </div>
         <div class="cuerpo" style="margin-bottom: 40px;">
           <button class="homeboton" onclick="location.href='/play'">PLAY

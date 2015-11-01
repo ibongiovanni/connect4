@@ -26,10 +26,11 @@
     {{> header}}
     <div class="marco">
       <div id="navcontainer">
-        
-        <p style="color: {{color}}">
+        {{#message}}
+        <p id="message" style="color: {{color}}">
           {{message}}
         </p>
+        {{/message}}
         </div>
         <div id="loginfield" class="marco" style="width: 60%">
           <form method="post" action="/login_user" onsubmit="return !!(required(this)" name="form1">
