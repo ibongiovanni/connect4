@@ -86,7 +86,7 @@ p {
   text-shadow: rgba(0, 0, 0, 0.6) -1px 2px 1px;
   text-transform: uppercase;
   font-family: bitsFont;
-  font-size: smaller;
+  font-size: x-small;
   border-left-width: 1px;
   border-left-style: solid;
   border-right-width: 1px;
