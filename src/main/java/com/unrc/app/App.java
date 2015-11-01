@@ -170,7 +170,7 @@ public class App
 
             Map<String, Object> attributes = new HashMap();
 
-            List<User> users = User.findAll();
+            List<User> users = User.where("username != 'CPU'");
             int size = users.size();// This way, you will pre-populate your list.
 
             List<HashMap> order = new LinkedList<HashMap>();
@@ -526,23 +526,6 @@ public class App
                         color = "yellow"; 
                         sound= "music/point.mp3"; 
                         coinValue= 'X';
-                        // now the AI plays
-                        // moveAi = ai.getAIMove();    //get the AI move
-                        // if (moveAi==-1) { //sometimes getAIMove throws -1
-                        //     do{
-                        //         moveAi = ThreadLocalRandom.current().nextInt(0, 6 + 1);
-                        //     } 
-                        //     while(grid.fullColumn(moveAi));
-                        // }
-                        // System.out.println("moveAI= "+moveAi);
-                        // b.placeMove(moveAi,1);      //make move on AI-board
-                        // drop = grid.dropAt(moveAi,-1);     //make move in our board
-                        // b.displayBoard();
-                        // ord++;
-                        // cellAi = (1+moveAi+7*drop.getSecond());
-                        // p = new Play();// save play in DB.
-                        // p.set("game_id", game_id, "ord", ord, "col", moveAi, "row", drop.getSecond());
-                        // p.saveIt();
                     }
                     if (ord==maxPlays) {
                             coinValue= 'O'; 
@@ -552,8 +535,6 @@ public class App
                             sound = "music/error.mp3";
                             g.set("winner", 0);
                             g.saveIt();
-                            u.updateRank(15);
-                            v.updateRank(15); 
                     }  
                     if (grid.checkWin()){
                         if (ord % 2 != 0) { 
@@ -564,8 +545,6 @@ public class App
                             sound = "music/winmario.mp3";
                             g.set("winner", id_player_1);
                             g.saveIt();
-                            u.updateRank(5000/ord);
-                            v.updateRank(ord);
                         }
                         else {
                             message = name_player2 + " won the game!";
@@ -575,7 +554,6 @@ public class App
                             sound = "music/winmario.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
-                            v.updateRank(3);
                         }
                     }                    
                 }
@@ -592,9 +570,7 @@ public class App
                     finished = true;
                     sound = "music/error.mp3";
                     g.set("winner", 0);
-                    g.saveIt();
-                    u.updateRank(15);
-                    v.updateRank(15); 
+                    g.saveIt(); 
                 }
                 else { message = "The game is over"; color = "#36FF36"; finished=true; }
             }
@@ -626,12 +602,9 @@ public class App
             int moveAi = ai.getAIMove();    //get the AI move
             try{ // Wait some time
                 TimeUnit.MILLISECONDS.sleep(350);
-            }
-            catch(InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
+            } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
             if (moveAi==-1) { //sometimes getAIMove throws -1
-                do{
+                do{ //so in that case I get a random value ¯\_(ツ)_/¯
                     moveAi = ThreadLocalRandom.current().nextInt(0, 6 + 1);
                 } 
                 while(grid.fullColumn(moveAi));
@@ -640,6 +613,7 @@ public class App
             b.placeMove(moveAi,1);      //make move on AI-board
             Pair drop = grid.dropAt(moveAi,-1);     //make move in our board
             b.displayBoard();
+            System.out.println("Game Result= "+ai.gameResult(b));
             System.out.println(grid.toString());
             ord++;
             int cellAi = (1+moveAi+7*drop.getSecond());
@@ -654,10 +628,8 @@ public class App
                 map.put("sound",sound);
 
                 Game g = Game.findById(game_id);
-                User v = User.findById(3);
                 g.set("winner", 3);
                 g.saveIt();
-                v.updateRank(5000/ord);
             }
             if (ord==42) {
                 message = "The game was a tie !!!";
