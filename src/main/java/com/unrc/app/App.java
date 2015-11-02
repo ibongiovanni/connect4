@@ -756,9 +756,9 @@ public class App
     }
 
     public static String randomSound (){
-        int N = (int)(Math.random()*15 + 1);
+        int n = ThreadLocalRandom.current().nextInt(1, 30);
         String sound;
-        switch (N) {
+        switch (n) {
             case 1:  sound = "music/AI/random.mp3";
                      break;
             case 2:  sound = "music/AI/random1.mp3";
