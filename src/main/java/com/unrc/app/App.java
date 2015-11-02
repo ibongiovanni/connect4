@@ -696,10 +696,18 @@ public class App
         get("/head2head", (req,res) -> {
 
             Map<String, Object> attributes = new HashMap();
+            String id_session = req.session().attribute("ID_SESSION");
+            if (id_session == null) {
+                attributes.put("color","red");
+                attributes.put("message","you must be logged in");
+                return new ModelAndView(attributes, "init.mustache");
+            }
+            int id_player = Integer.parseInt(id_session);
 
-            List<User> users = User.findAll();
+            List<User> users = User.where("id != ?",id_player);
             int size = users.size();// This way, you will pre-populate your list.
-
+            User v = User.findById(id_player);
+            String username = v.getString("username");
             List<HashMap> order = new LinkedList<HashMap>();
             HashMap mp;
             for (User u : users ) {
@@ -711,6 +719,8 @@ public class App
 
             Map<String, Object> map = new HashMap();
             map.put("order", order);
+            map.put("username",username);
+            map.put("id_player",id_player);
 
             return new ModelAndView(map, "head2head.mustache");
         }, new MustacheTemplateEngine());

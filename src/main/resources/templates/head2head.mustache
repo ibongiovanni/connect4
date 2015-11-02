@@ -26,23 +26,27 @@
 	        	View Head To Head Records Between Two Players
 	        </p>
 	        <p style="color:yellow">
-			<select name="player_1" form="carform">
+			<!-- <select name="player_1" form="carform">
 				{{#order}}
 			 		<option value="{{id}}">{{itemName}}</option> 
 				{{/order}}
-			</select>
+			</select> -->
+			{{username}}
 			</p>
 			<p style="color: rgba(245, 3, 3, 0); font-size: 18px; text-shadow: -1px 2px 0.5px rgba(144, 5, 5, 0.8);">
 				• VS •
 			</p>
 			<p style="color:red">
-			<select name="player_2" form="carform">
-				{{#order}}
-			 		<option value="{{id}}">{{itemName}}</option> 
-				{{/order}}
-			</select>
+			<label>
+				<select name="player_2" form="carform">
+					{{#order}}
+				 		<option value="{{id}}">{{itemName}}</option> 
+					{{/order}}
+				</select>
+			</label>
 			</p><br>
 			<form method="post" action="/showrecords" id="carform" name="create_game" onsubmit="return check(this)" class="cuerpo" style="width: 17%;">
+				 <input type="hidden" name="player_1" value="{{id_player}}">
 			<button class="boton" style="width:125px; box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5);" type="submit" value="1">CHECK!</button>
 			</form>
 			<audio controls autoplay="true" hidden="true" loop="true">
