@@ -190,6 +190,7 @@ p {
 
 .marco {
     width: 50%;
+    min-width: 515px;
     margin-left: auto;
     margin-right: auto;
     border-style: ridge;

@@ -1,10 +1,12 @@
-<div id="footer">
-  <button class="muteButton boton " onclick="toggleMuteAudio()" title="Press here or 'm' for mute the page"> 
+<div id="footer" style="
+    background: linear-gradient(to bottom, #20206c 0%,#9779fb 33%,#7652F9 56%,#20206c 100%);
+    height: 28px;">
+  <button class="muteButton boton " onclick="toggleMuteAudio()" title="Press here or 'm' for mute the page" style="    margin-left: 2px;"> 
   </button>
-  <p class="footerlink" style="margin-top: 20px;">
+  <p class="footerlink" style="margin-top: 8px;">
     <a style="text-decoration: none;
               color: rgba(128, 128, 128, 0);
-              text-shadow: -1px 2px 0.5px rgba(213, 213, 213, 0.5);
+              text-shadow: -1px 2px 0.5px rgba(0, 0, 0, 0.47);
               font-size: x-small;" href="/credits">Credits</a>
   </p>
 </div>
@@ -23,10 +25,16 @@
 		};
 	}
 
-	$(document).keydown(function(e) {
+	function muteAction(e) {
 		var target = $(e.target);
 		if(e.which == 77 && !target.is("input")){ //Was 'm' pressed
 			toggleMuteAudio();
 		}
-	});
+	}
+	
+	function bindMuteButton(){
+		$(document).keydown(muteAction);
+	}
+
+	$(document).keydown(muteAction);
 </script>
