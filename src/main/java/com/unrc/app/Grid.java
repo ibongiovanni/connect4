@@ -9,6 +9,7 @@ public class Grid {
 	int [] [] board;	//represents a game board.
 	int height;			//height of the game board. 
 	int width;			//width of the game board.
+	private int [] winCells = new int[4]; // each one of the cells that conform a win line
 
 	/**
 	 * Constructor.
@@ -121,25 +122,52 @@ public class Grid {
 	 	for (int k = 0; k < 4 && column < width-3; k++) {
 	 			sum += board[row][column+k];	
 	 		}
-	 	if (Math.abs(sum) == 4) { return true; }
+	 	if (Math.abs(sum) == 4) { 
+	 		winCells[0] = (1+column+7*row);
+	 		winCells[1] = (1+(column+1)+7*row);
+	 		winCells[2] = (1+(column+2)+7*row);
+	 		winCells[3] = (1+(column+3)+7*row);
+	 		return true; 
+	 	}
+
 	 	// column control up.
 	 	sum = 0;
 	 	for (int k = 0; k < 4 && row > 2; k++) {
 	 			sum += board[row-k][column];
 	 		}
-	 	if (Math.abs(sum) == 4) { return true; }
+	 	if (Math.abs(sum) == 4) { 
+	 		winCells[0] = (1+column+7*row);
+	 		winCells[1] = (1+(column)+7*(row-1));
+	 		winCells[2] = (1+(column)+7*(row-2));
+	 		winCells[3] = (1+(column)+7*(row-3));
+	 		return true; 
+	 	}
+
 	 	// diagonal control to the right.
 	 	sum = 0;
 	 	for (int k = 0; k < 4 && row > 2 && column < width-3; k++) {
 	 			sum += board[row-k][column+k];
 	 		}
-	 	if (Math.abs(sum) == 4) { return true; }
+	 	if (Math.abs(sum) == 4) { 
+	 		winCells[0] = (1+column+7*row);
+	 		winCells[1] = (1+(column+1)+7*(row-1));
+	 		winCells[2] = (1+(column+2)+7*(row-2));
+	 		winCells[3] = (1+(column+3)+7*(row-3));
+	 		return true; 
+	 	}
+
 	 	// diagonal control to the left.
 	 	sum = 0;
 	 	for (int k = 0; k < 4 && row > 2 && column > 2; k++) {
 	 			sum += board[row-k][column-k];
 	 		}
-	 	if (Math.abs(sum) == 4) { return true; }
+	 	if (Math.abs(sum) == 4) { 
+	 		winCells[0] = (1+column+7*row);
+	 		winCells[1] = (1+(column-1)+7*(row-1));
+	 		winCells[2] = (1+(column-2)+7*(row-2));
+	 		winCells[3] = (1+(column-3)+7*(row-3));
+	 		return true; 
+	 	}
 
 	 	return false;
 	}
@@ -168,5 +196,9 @@ public class Grid {
 		}
 		if (aux == 0) { return 1; }
 		else { return -1; }
+	}
+
+	public int[] getWinCells (){
+		return winCells;
 	}
 }

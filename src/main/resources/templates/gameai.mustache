@@ -82,6 +82,13 @@
                     if (!data.finished) {
                         $("#message").html("CPU Plays").css("color","red").css("border-color","red");
                         waitAndMove(data);
+                    }
+                    else{
+                        if (data.winner == "1") {
+                            for (var i = 0; i < data.winCells.length; i++) {
+                                $("#c"+data.winCells[i]).css('background-image', 'url("yellowcoin.gif")');
+                            };
+                        };
                     } 
                 }
                 else{
@@ -111,6 +118,11 @@
                                 $("#audioSource").attr("src",data.sound);
                                 $(".sound").trigger("load");                
                                 $(".sound").trigger("play");
+                                if (data.winner == "2") {
+                                    for (var i = 0; i < data.winCells.length; i++) {
+                                        $("#c"+data.winCells[i]).css('background-image', 'url("redcoin.gif")');
+                                    };
+                                };
                             }
                             else{
                                 $("#message").html(msg).css("color","yellow").css("border-color","yellow");

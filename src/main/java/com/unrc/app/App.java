@@ -479,6 +479,7 @@ public class App
 
             int game_id = Integer.parseInt(req.queryParams("game_id"));
             int column = Integer.parseInt(req.queryParams("column"));
+            Map map = new HashMap();
             String message = "";
             String color = "";
             boolean finished = false;
@@ -551,6 +552,8 @@ public class App
                             coinValue = 'X';
                             color = "yellow";
                             finished = true;
+                            map.put("winner", "1");
+                            map.put("winCells",grid.getWinCells());
                             sound = "music/winmario.mp3";
                             g.set("winner", id_player_1);
                             g.saveIt();
@@ -584,7 +587,7 @@ public class App
                 else { message = "The game is over"; color = "#36FF36"; finished=true; }
             }
 
-            Map map = new HashMap();
+            
             map.put("game_id", game_id);
             map.put("cell", cellNumber);
             map.put("coin", coinValue);
@@ -635,6 +638,8 @@ public class App
                 finished = true;
                 String sound = "music/winmario.mp3";
                 map.put("sound",sound);
+                map.put("winner", "2");
+                map.put("winCells",grid.getWinCells());
 
                 Game g = Game.findById(game_id);
                 g.set("winner", 3);
