@@ -411,7 +411,7 @@ public class App
             if (id_session == null) {
                 Map attributes = new HashMap();
                 attributes.put("color","red");
-                attributes.put("message","you must be loged in");
+                attributes.put("message","you must be logged in");
                 return new ModelAndView(attributes, "init.mustache");
             }
             int id_player_1 = Integer.parseInt(id_session);// Integer.parseInt(req.params(":id"));
@@ -608,7 +608,7 @@ public class App
             String message = "";
             String color = "";
 
-            int moveAi = ai.getAIMove();    //get the AI move
+            int moveAi = ai.getAIMove(ThreadLocalRandom.current().nextInt(3, 9));    //get the AI move (with a random MaxDepth)
             try{ // Wait some time
                 TimeUnit.MILLISECONDS.sleep(350);
             } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }

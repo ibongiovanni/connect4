@@ -26,6 +26,7 @@
             function reload (ev){
                     console.log(ev);
                     console.log(this);
+                    $(this).blur();
                     var game_id = this.id;
                     var column = this.value-1;
                     sendMove(game_id, column);
@@ -63,6 +64,7 @@
             }
 
             function updateView(data){
+                msg = data.message;
                 $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
                 //$("#message").html("CPU Plays").css("color","red").css("border-color","red");
                 $("#audioSource").attr("src",data.sound);
@@ -77,7 +79,10 @@
                     var cell = '#c'+data.cell;
                     $(cell).attr("class",data.coin);
                     //setTimeout(waitAndMove(data),000);
-                    if (!data.finished) {waitAndMove(data);} 
+                    if (!data.finished) {
+                        $("#message").html("CPU Plays").css("color","red").css("border-color","red");
+                        waitAndMove(data);
+                    } 
                 }
                 else{
                     enableAJAX(); //Re-enable click action
@@ -106,7 +111,10 @@
                                 $("#audioSource").attr("src",data.sound);
                                 $(".sound").trigger("load");                
                                 $(".sound").trigger("play");
-                            };
+                            }
+                            else{
+                                $("#message").html(msg).css("color","yellow").css("border-color","yellow");
+                            }
                             enableAJAX(); //Re-enable click action
                             asociateKeyMove();
                         }

@@ -176,7 +176,8 @@ p {
     border-radius: 49px;
     box-shadow: 1px 1px 0px #000;
 }
-.boton:hover {
+.boton:hover , .dropButton:focus {
+    outline: none;
     color: #FFF;
     background: #900;
     cursor: url("cursorb.png"), auto;

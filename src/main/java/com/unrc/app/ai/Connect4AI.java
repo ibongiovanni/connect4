@@ -5,7 +5,7 @@ public class Connect4AI {
     private Board b;
     private Scanner scan;
     private int nextMoveLocation=-1;
-    private int maxDepth = 4;
+    private int maxDepth = 6;
     
     public Connect4AI(Board b){
         this.b = b;
@@ -269,7 +269,9 @@ public class Connect4AI {
         return turn==1?maxScore:minScore;
     }
     
-    public int getAIMove(){
+    public int getAIMove(int mDepth){
+        System.out.println("Searching with maxDepth= "+mDepth);
+        maxDepth = mDepth;
         nextMoveLocation = -1;
         minimax(0, 1, Integer.MIN_VALUE, Integer.MAX_VALUE);
         return nextMoveLocation;
@@ -295,7 +297,7 @@ public class Connect4AI {
             else if(gameResult==2){System.out.println("You Win!");break;}
             else if(gameResult==0){System.out.println("Draw!");break;}
             
-            b.placeMove(getAIMove(), 1);
+            b.placeMove(getAIMove(maxDepth), 1);
             b.displayBoard();
             gameResult = gameResult(b);
             if(gameResult==1){System.out.println("AI Wins!");break;}
