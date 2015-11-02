@@ -255,6 +255,16 @@ public class App
                 }           
             }
 
+            String method = "post";
+            String action = "/create_game";
+            int valuep1 = id_player_2;
+            int valuep2 = id_player_1;
+
+            map.put("method",method);
+            map.put("action",action);
+            map.put("valuep1",valuep1);
+            map.put("valuep2",valuep2);
+
             return new ModelAndView(map, "game.mustache");
             
         }, new MustacheTemplateEngine());
@@ -263,6 +273,7 @@ public class App
 
             int game_id = Integer.parseInt(req.queryParams("game_id"));
             int column = Integer.parseInt(req.queryParams("column"));
+            Map map = new HashMap();
             String message = "";
             String color = "";
             boolean finished = false;
@@ -344,6 +355,8 @@ public class App
                             color = "yellow";
                             finished = true;
                             sound = "music/user_win.mp3";
+                            map.put("winner", "1");
+                            map.put("winCells",grid.getWinCells());
                             g.set("winner", id_player_1);
                             g.saveIt();
                             u.updateRank((Integer)5000/ord);
@@ -354,6 +367,8 @@ public class App
                             coinValue = 'O';
                             color = "red";
                             finished = true;
+                            map.put("winner", "2");
+                            map.put("winCells",grid.getWinCells());
                             sound = "music/user_win.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
@@ -382,7 +397,7 @@ public class App
                 else { message = "The game is over"; color = "#36FF36"; finished=true; }
                 }
 
-            Map map = new HashMap();
+            
             map.put("game_id", game_id);
             map.put("cell", cellNumber);
             map.put("coin", coinValue);
@@ -472,6 +487,17 @@ public class App
                 }           
             }
             b.displayBoard();
+
+            String method = "get";
+            String action = "/playai";
+            int valuep1 = id_player_1;
+            int valuep2 = id_player_2;
+
+            map.put("method",method);
+            map.put("action",action);
+            map.put("valuep1",valuep1);
+            map.put("valuep2",valuep2);
+
             return new ModelAndView(map, "gameai.mustache");
         }, new MustacheTemplateEngine());
 
