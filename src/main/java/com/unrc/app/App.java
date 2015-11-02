@@ -343,7 +343,7 @@ public class App
                             coinValue = 'X';
                             color = "yellow";
                             finished = true;
-                            sound = "music/winmario.mp3";
+                            sound = "music/user_win.mp3";
                             g.set("winner", id_player_1);
                             g.saveIt();
                             u.updateRank((Integer)5000/ord);
@@ -354,7 +354,7 @@ public class App
                             coinValue = 'O';
                             color = "red";
                             finished = true;
-                            sound = "music/winmario.mp3";
+                            sound = "music/user_win.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
                             v.updateRank((Integer)5000/ord);
@@ -433,7 +433,7 @@ public class App
             
             String message = name_player1 + " plays";
             String color = "yellow";
-            String sound = "music/ready.mp3";
+            String sound = "music/AI/ready.mp3";
 
             Map map = new HashMap();
             map.put("game_id", game_id);
@@ -514,8 +514,7 @@ public class App
             //     grid.dropAt(col, grid.actualDisc()).getFirst();
             //     ord++;
             // }
-
-
+           
             if (!grid.checkWin() && ord <= maxPlays) {
                 //Make the move
                 Pair drop = grid.dropAt(column, grid.actualDisc());
@@ -534,7 +533,7 @@ public class App
                     if (!grid.checkWin()) {
                         message = name_player1 + " plays"; 
                         color = "yellow"; 
-                        sound= "music/point.mp3"; 
+                        sound= "music/point.mp3";
                         coinValue= 'X';
                     }
                     if (ord==maxPlays) {
@@ -554,7 +553,7 @@ public class App
                             finished = true;
                             map.put("winner", "1");
                             map.put("winCells",grid.getWinCells());
-                            sound = "music/winmario.mp3";
+                            sound = "music/user_win.mp3";
                             g.set("winner", id_player_1);
                             g.saveIt();
                         }
@@ -563,7 +562,7 @@ public class App
                             coinValue = 'X';
                             color = "red";
                             finished = true;
-                            sound = "music/winmario.mp3";
+                            sound = "music/user_win.mp3.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
                         }
@@ -613,7 +612,7 @@ public class App
 
             int moveAi = ai.getAIMove(ThreadLocalRandom.current().nextInt(3, 9));    //get the AI move (with a random MaxDepth)
             try{ // Wait some time
-                TimeUnit.MILLISECONDS.sleep(350);
+                TimeUnit.MILLISECONDS.sleep(400);
             } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
             if (moveAi==-1) { //sometimes getAIMove throws -1
                 do{ //so in that case I get a random value ¯\_(ツ)_/¯
@@ -632,15 +631,14 @@ public class App
             Play p = new Play();// save play in DB.
             p.set("game_id", game_id, "ord", ord, "col", moveAi, "row", drop.getSecond());
             p.saveIt();
+            String sound= randomSound();
             if (grid.checkWin()) {
                 message = "CPU won the game!";
                 color = "red";
                 finished = true;
-                String sound = "music/winmario.mp3";
-                map.put("sound",sound);
+                sound = "music/AI/win.mp3";
                 map.put("winner", "2");
                 map.put("winCells",grid.getWinCells());
-
                 Game g = Game.findById(game_id);
                 g.set("winner", 3);
                 g.saveIt();
@@ -649,20 +647,22 @@ public class App
                 message = "The game was a tie !!!";
                 color = "#36FF36";
                 finished = true;
-                String sound = "music/error.mp3";
+                sound = "music/error.mp3";
                 map.put("sound",sound);
                 Game g = Game.findById(game_id);
                 User v = User.findById(3);
                 g.set("winner", 0);
                 g.saveIt();
             }
-
+            map.put("sound",sound);
             map.put("message",message);
             map.put("colored",color);
             map.put("finished",finished);
             map.put("cellAi",cellAi);
             return map;
         }, gson::toJson);
+   
+        
 
         /* End of AI methods
         **********************************************************************/
@@ -728,4 +728,33 @@ public class App
         }, new MustacheTemplateEngine());
 
     }
+
+    public static String randomSound (){
+        int N = (int)(Math.random()*15 + 1);
+        String sound;
+        switch (N) {
+            case 1:  sound = "music/AI/random.mp3";
+                     break;
+            case 2:  sound = "music/AI/random1.mp3";
+                     break;
+            case 3:  sound = "music/AI/random2.mp3";
+                     break;
+            case 4:  sound = "music/AI/random3.mp3";
+                     break;
+            case 5:  sound = "music/AI/random4.mp3";
+                     break;
+            case 6:  sound = "music/AI/random5.mp3";
+                     break;
+            case 7:  sound = "music/AI/random6.mp3";
+                     break;
+            case 8:  sound = "music/AI/random7.mp3";
+                     break;
+            case 9:  sound = "music/AI/random8.mp3";
+                     break;         
+            default: sound = "music/point.mp3";
+                     break;
+        }
+        return sound;
+    }    
+
 }
