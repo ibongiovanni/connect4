@@ -98,14 +98,15 @@
                             $(aicell).attr("class","O");
                             $(".sound").trigger("load");
                             $(".sound").trigger("play");
+                            $("#audioSource").attr("src",data.sound);
+                            $(".sound").trigger("load");                
+                            $(".sound").trigger("play");
                             if (data.finished) {
                                 $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
                                 $("#endGameOptions").css("visibility","visible");
                                 $("#playButtons").remove();
                                 $("#message").css("margin-bottom","30px");
-                                $("#audioSource").attr("src",data.sound);
-                                $(".sound").trigger("load");                
-                                $(".sound").trigger("play");
+                                
                             };
                             enableAJAX(); //Re-enable click action
                             asociateKeyMove();
