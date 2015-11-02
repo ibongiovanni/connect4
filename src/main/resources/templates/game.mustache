@@ -61,6 +61,7 @@
                 $(".sound").trigger("play");
                 if (data.finished) {
                     $("#endGameOptions").css("visibility","visible");
+                    focusOnPlayAgain();
                     $("#playButtons").remove();
                     $("#message").css("margin-bottom","30px");
                     if (data.winner) {

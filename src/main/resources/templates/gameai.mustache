@@ -72,6 +72,7 @@
                 $(".sound").trigger("play");
                 if (data.finished) {
                     $("#endGameOptions").css("visibility","visible");
+                    focusOnPlayAgain();
                     $("#playButtons").remove();
                     $("#message").css("margin-bottom","30px");
                 };
@@ -117,6 +118,7 @@
                             if (data.finished) {
                                 $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
                                 $("#endGameOptions").css("visibility","visible");
+                                focusOnPlayAgain();
                                 $("#playButtons").remove();
                                 $("#message").css("margin-bottom","30px");
                                 if (data.winner == "2") {

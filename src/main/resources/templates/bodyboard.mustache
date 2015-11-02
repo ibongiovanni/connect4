@@ -91,7 +91,7 @@
             <form method="{{method}}" action="{{action}}" style="margin-left:35px; margin-bottom: 2px;">
                 <input type="hidden" name="player_1" value="{{valuep1}}">
                 <input type="hidden" name="player_2" value="{{valuep2}}">
-                <button class="boton" style="width:125px; box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5);" type="submit" value="1">Play Again?</button>
+                <button id="playAgainButton" class="boton" style="width:125px; box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5);" type="submit" value="1">Play Again?</button>
             </form>
             <button class="boton" 
                         style=" width:125px; 
@@ -103,3 +103,8 @@
     </div>
 </div>
 {{> footer}}
+<script>
+    function focusOnPlayAgain(){
+        $("#playAgainButton").focus();
+    }
+</script>
