@@ -63,6 +63,13 @@
                     $("#endGameOptions").css("visibility","visible");
                     $("#playButtons").remove();
                     $("#message").css("margin-bottom","30px");
+                    if (data.winner) {
+                        var coinImage = (data.winner=="1")? "yellowcoin.gif" : "redcoin.gif";
+                        for (var i = 0; i < data.winCells.length; i++) {
+                            $("#c"+data.winCells[i]).css('background-image', 'url('+coinImage+')');
+                        };
+                    };
+
                 };
                 if (data.successful) {
                     var cell = '#c'+data.cell;
@@ -83,7 +90,7 @@
 
         <script>
         function soundEnought(){
-          setTimeout(timeSound,500)
+          setTimeout(timeSound,500);}
         </script>
         
         <script>
