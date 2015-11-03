@@ -100,9 +100,12 @@ p {
   }
 }
 
-#navcontainer ul li a:hover,#navcontainer ul li a:active
+#navcontainer ul li a:hover
 {
   background: linear-gradient(to bottom, #990000 0%,#b20000 100%);
+}
+
+#navcontainer ul li a:active{
   text-shadow: #FFFACA 0px 0px 6px;
 }
 
