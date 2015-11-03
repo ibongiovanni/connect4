@@ -234,12 +234,18 @@ p {
 }
 
 .homeboton:hover {
-    color: #FFF;
-    background: #900;
-    cursor: url("cursorb.png"), auto;
-    height: 61px;
-    margin-top: 11px;
-    margin-bottom: 11px;
+  color: #FFF;
+  background: #900;
+  cursor: url("cursorb.png"), auto;
+  height: 61px;
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
+.homeboton:active {
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+  right: 5px;
 }
 
 @media (max-width: 875px){
@@ -430,14 +436,14 @@ label:before {
     display:block;
 }
 
-#endGameOptions button:active {
+#endGameOptions button, .wideButton{
+  box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5);
+  width: 125px;
+}
+
+#endGameOptions button:active, .wideButton:active{
     position: relative;
     top: 5;
     left: -5;
     box-shadow: none;
-}
-
-#endGameOptions button{
-  box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5);
-  width: 125px;
 }
