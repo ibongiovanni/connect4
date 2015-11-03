@@ -183,6 +183,13 @@ p {
     cursor: url("cursorb.png"), auto;
 }
 
+.boton:active{
+  box-shadow: none;
+  position: relative;
+  top: 1px;
+  left: 1px;
+}
+
 .dropButton {
     font-family: bitsFont;
     font-size: small;
