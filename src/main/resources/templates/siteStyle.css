@@ -429,3 +429,15 @@ label:before {
     pointer-events:none;
     display:block;
 }
+
+#endGameOptions button:active {
+    position: relative;
+    top: 5;
+    left: -5;
+    box-shadow: none;
+}
+
+#endGameOptions button{
+  box-shadow: -5px 5px 1px rgba(0, 0, 0, 0.5);
+  width: 125px;
+}
