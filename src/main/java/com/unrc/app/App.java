@@ -443,7 +443,7 @@ public class App
                 return new ModelAndView(attributes, "init.mustache");
             }
             int id_player_1 = Integer.parseInt(id_session);// Integer.parseInt(req.params(":id"));
-            int id_player_2 = 3;
+            int id_player_2 = 1;
 
             Game g = Game.findFirst("(player_1=? and player_2=? and winner is null)or(winner is null and player_1=? and player_2=?)",id_player_1,id_player_2,id_player_2,id_player_1);
 
@@ -679,7 +679,7 @@ public class App
                 map.put("winner", "2");
                 map.put("winCells",grid.getWinCells());
                 Game g = Game.findById(game_id);
-                g.set("winner", 3);
+                g.set("winner", 1);
                 g.saveIt();
             }
             if (ord==42) {
@@ -689,7 +689,7 @@ public class App
                 sound = "music/error.mp3";
                 map.put("sound",sound);
                 Game g = Game.findById(game_id);
-                User v = User.findById(3);
+                User v = User.findById(1);
                 g.set("winner", 0);
                 g.saveIt();
             }

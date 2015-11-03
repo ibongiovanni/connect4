@@ -11,6 +11,9 @@ CREATE TABLE users(
     password  VARCHAR(56),
    CONSTRAINT users_pk PRIMARY KEY (id)
 );
+-- Creating the CPU user
+INSERT INTO `connect4_development`.`users` (`id`, `email`, `first_name`, `last_name`, `username`) VALUES ('1', 'none', 'Deep', 'Purple', 'CPU');
+
 
 DROP TABLE IF EXISTS ranks;
 
