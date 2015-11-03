@@ -11,10 +11,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="shortcut icon" type="image/x-icon" href="app-icon.png">
-		<link rel="stylesheet" type="text/css" href="siteStyle">
-		<title>CONNECT4</title>
-		<script src="js/jquery.min.js"></script>
+		{{> resources}}
 	</head>
 	<body>
 		{{> header}}
@@ -39,7 +36,7 @@
 				</select>
 			</label>
 			</p><br>
-			<form method="post" action="/create_game" id="carform" name="create_game" onsubmit="return check(this)" class="cuerpo" style="width: 17%;">
+			<form method="post" action="/game/create" id="carform" name="create_game" onsubmit="return check(this)" class="cuerpo" style="width: 17%;">
 			<button class="boton wideButton" type="submit" value="1">BEGIN!</button>
 			</form>
 			<audio controls autoplay="true" hidden="true" loop="true">

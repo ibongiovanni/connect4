@@ -16,10 +16,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <link rel="shortcut icon" type="image/x-icon" href="app-icon.png">
-        <link rel="stylesheet" type="text/css" href="siteStyle">
-        <title>CONNECT4</title>
-        <script src="js/jquery.min.js">
+        {{> resources}}
         </script>
         <script>
 
@@ -35,6 +32,7 @@
             function sendMove(game_id, column){
                 disableAJAX(); //Disable click action to avoid fast double-click sends
                 disasociateKeyMove();
+
                 $.ajax({
                          method: "POST",
                          url: "/dropai",
@@ -110,11 +108,11 @@
                             console.log(data);
                             var aicell = '#c'+data.cellAi;
                             $(aicell).attr("class","O");
-                            $(".sound").trigger("load");
-                            $(".sound").trigger("play");
-                            // $("#audioSource").attr("src",data.sound);
-                            // $(".sound").trigger("load");                
+                            // $(".sound").trigger("load");
                             // $(".sound").trigger("play");
+                            $("#audioSource").attr("src",data.sound);
+                            $(".sound").trigger("load");                
+                            $(".sound").trigger("play");
                             if (data.finished) {
                                 $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
                                 $("#endGameOptions").css("visibility","visible");

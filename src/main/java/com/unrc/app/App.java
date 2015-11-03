@@ -198,7 +198,7 @@ public class App
         }, new MustacheTemplateEngine());
 
 
-        post("/create_game", (req, res) -> {
+        post("/game/create", (req, res) -> {
             int id_player_1 = Integer.parseInt(req.queryParams("player_1"));
             int id_player_2 = Integer.parseInt(req.queryParams("player_2"));
 
@@ -210,6 +210,19 @@ public class App
             }
 
             int game_id = g.getInteger("id");
+
+            res.redirect("/game/"+game_id);
+            return false;
+        });
+
+        get("/game/:id", (req,res) -> {
+            System.out.println(req.params(":id"));
+            int game_id = Integer.parseInt(req.params(":id"));
+            Game g = Game.findById(game_id);
+
+
+            int id_player_1 = g.getInteger("player_1");
+            int id_player_2 = g.getInteger("player_2");
             int height = g.getInteger("height");
             int width = g.getInteger("width");
             
