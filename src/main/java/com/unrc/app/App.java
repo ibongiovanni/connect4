@@ -231,7 +231,7 @@ public class App
             
             String message = name_player1 + " plays";
             String color = "yellow";
-            String sound = "music/ready.mp3";
+            String sound = "/music/ready.mp3";
 
             Map map = new HashMap();
             map.put("game_id", game_id);
@@ -340,7 +340,7 @@ public class App
                             message = "The game was a tie !!!";
                             color = "#36FF36";
                             finished = true;
-                            sound = "music/error.mp3";
+                            sound = "/music/error.mp3";
                             g.set("winner", 0);
                             g.saveIt();
                             u.updateRank(15);
@@ -350,13 +350,13 @@ public class App
                             if (ord % 2 != 0) { 
                                 message = name_player2 + " plays"; 
                                 color = "red"; 
-                                sound= "music/point.mp3"; 
+                                sound= "/music/point.mp3"; 
                                 coinValue= 'X';
                             }
                             else { 
                                 message = name_player1 + " plays"; 
                                 color = "yellow"; 
-                                sound= "music/point.mp3";
+                                sound= "/music/point.mp3";
                                 coinValue= 'O'; 
                             }
                         }
@@ -367,7 +367,7 @@ public class App
                             coinValue = 'X';
                             color = "yellow";
                             finished = true;
-                            sound = "music/user_win.mp3";
+                            sound = "/music/user_win.mp3";
                             map.put("winner", "1");
                             map.put("winCells",grid.getWinCells());
                             g.set("winner", id_player_1);
@@ -382,7 +382,7 @@ public class App
                             finished = true;
                             map.put("winner", "2");
                             map.put("winCells",grid.getWinCells());
-                            sound = "music/user_win.mp3";
+                            sound = "/music/user_win.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
                             v.updateRank((Integer)5000/ord);
@@ -393,7 +393,7 @@ public class App
                 else {
                     message = "The column is full, choose another!";
                     color = (ord%2!=0)? "yellow":"red";
-                    sound = "music/error.mp3";
+                    sound = "/music/error.mp3";
                 }
             }
             else {
@@ -401,7 +401,7 @@ public class App
                     message = "The game was a tie !!!";
                     color = "#36FF36";
                     finished = true;
-                    sound = "music/error.mp3";
+                    sound = "/music/error.mp3";
                     g.set("winner", 0);
                     g.saveIt();
                     u.updateRank(15);
@@ -461,7 +461,7 @@ public class App
             
             String message = name_player1 + " plays";
             String color = "yellow";
-            String sound = "music/AI/ready.mp3";
+            String sound = "/music/AI/ready.mp3";
 
             Map map = new HashMap();
             map.put("game_id", game_id);
@@ -572,7 +572,7 @@ public class App
                     if (!grid.checkWin()) {
                         message = name_player1 + " plays"; 
                         color = "yellow"; 
-                        sound= "music/point.mp3";
+                        sound= "/music/point.mp3";
                         coinValue= 'X';
                     }
                     if (ord==maxPlays) {
@@ -580,7 +580,7 @@ public class App
                             message = "The game was a tie !!!";
                             color = "#36FF36";
                             finished = true;
-                            sound = "music/error.mp3";
+                            sound = "/music/error.mp3";
                             g.set("winner", 0);
                             g.saveIt();
                     }  
@@ -592,7 +592,7 @@ public class App
                             finished = true;
                             map.put("winner", "1");
                             map.put("winCells",grid.getWinCells());
-                            sound = "music/user_win.mp3";
+                            sound = "/music/user_win.mp3";
                             g.set("winner", id_player_1);
                             g.saveIt();
                         }
@@ -601,7 +601,7 @@ public class App
                             coinValue = 'X';
                             color = "red";
                             finished = true;
-                            sound = "music/user_win.mp3.mp3";
+                            sound = "/music/user_win.mp3.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
                         }
@@ -610,7 +610,7 @@ public class App
                 else {
                     message = "The column is full, choose another!";
                     color = "yellow";
-                    sound = "music/error.mp3";
+                    sound = "/music/error.mp3";
                 }
             }
             else {
@@ -618,7 +618,7 @@ public class App
                     message = "The game was a tie !!!";
                     color = "#36FF36";
                     finished = true;
-                    sound = "music/error.mp3";
+                    sound = "/music/error.mp3";
                     g.set("winner", 0);
                     g.saveIt(); 
                 }
@@ -675,7 +675,7 @@ public class App
                 message = "CPU won the game!";
                 color = "red";
                 finished = true;
-                sound = "music/AI/win.mp3";
+                sound = "/music/AI/win.mp3";
                 map.put("winner", "2");
                 map.put("winCells",grid.getWinCells());
                 Game g = Game.findById(game_id);
@@ -686,7 +686,7 @@ public class App
                 message = "The game was a tie !!!";
                 color = "#36FF36";
                 finished = true;
-                sound = "music/error.mp3";
+                sound = "/music/error.mp3";
                 map.put("sound",sound);
                 Game g = Game.findById(game_id);
                 User v = User.findById(3);
@@ -779,28 +779,28 @@ public class App
     }
 
     public static String randomSound (){
-        int n = ThreadLocalRandom.current().nextInt(1, 30);
+        int n = ThreadLocalRandom.current().nextInt(1, 25);
         String sound;
         switch (n) {
-            case 1:  sound = "music/AI/random.mp3";
+            case 1:  sound = "/music/AI/random.mp3";
                      break;
-            case 2:  sound = "music/AI/random1.mp3";
+            case 2:  sound = "/music/AI/random1.mp3";
                      break;
-            case 3:  sound = "music/AI/random2.mp3";
+            case 3:  sound = "/music/AI/random2.mp3";
                      break;
-            case 4:  sound = "music/AI/random3.mp3";
+            case 4:  sound = "/music/AI/random3.mp3";
                      break;
-            case 5:  sound = "music/AI/random4.mp3";
+            case 5:  sound = "/music/AI/random4.mp3";
                      break;
-            case 6:  sound = "music/AI/random5.mp3";
+            case 6:  sound = "/music/AI/random5.mp3";
                      break;
-            case 7:  sound = "music/AI/random6.mp3";
+            case 7:  sound = "/music/AI/random6.mp3";
                      break;
-            case 8:  sound = "music/AI/random7.mp3";
+            case 8:  sound = "/music/AI/random7.mp3";
                      break;
-            case 9:  sound = "music/AI/random8.mp3";
+            case 9:  sound = "/music/AI/random8.mp3";
                      break;         
-            default: sound = "music/point.mp3";
+            default: sound = "/music/point.mp3";
                      break;
         }
         return sound;
