@@ -57,6 +57,8 @@ p {
 #navcontainer {
     margin: auto;
     width: fit-content;
+    margin: 5px auto auto;
+    width: -moz-fit-content;
 }
 
 #navcontainer ul
@@ -222,7 +224,7 @@ p {
 .logo{
   margin-top: 4px; 
   margin-bottom: 4px;
-  width: 400px;
+  height: 12%;
   max-height: 91%;
 }
 
@@ -243,7 +245,7 @@ p {
   /*transition: height 0.3s;*/
 }
 
-.homeboton:hover {
+.homeboton:hover, .homeboton:focus {
   color: #FFF;
   background: #900;
   cursor: url("/cursorb.png"), auto;
