@@ -39,12 +39,13 @@
           };
 
         }(jQuery));
-          function handler (ev,msg){
-            console.log("Handler");
-            console.log(msg);
-            console.log(ev);
+
+          function handler (ev,data){
+            updateView(data);
+            console.log(data);
           }
-          $.subscribe("juego",handler);
+
+          $.subscribe("{{game_id}}",handler);
           
         </script>
         <script>
@@ -54,7 +55,6 @@
                     //console.log(this);
                     var game_id = this.id;
                     var column = this.value-1;
-                    //$.publish("juego",["holaMundo"]);
                     sendMove(game_id, column);
             }
 
@@ -65,9 +65,9 @@
                          dataType: "json",
                          data: {"game_id": game_id, "column": column},
                     }).done( 
-                        updateView,
-                        function (){
-                            $.publish("juego",["holaMundo"]);
+                        //updateView,
+                        function (data){
+                            $.publish(game_id,data);
                         }
                     );
             }
@@ -94,7 +94,7 @@
                     if (data.winner) {
                         var coinImage = (data.winner=="1")? "yellowcoin.gif" : "redcoin.gif";
                         for (var i = 0; i < data.winCells.length; i++) {
-                            $("#c"+data.winCells[i]).css('background-image', 'url('+coinImage+')');
+                            $("#c"+data.winCells[i]).css('background-image', 'url(/'+coinImage+')');
                         };
                     };
 

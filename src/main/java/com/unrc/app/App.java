@@ -269,7 +269,7 @@ public class App
             }
 
             String method = "post";
-            String action = "/create_game";
+            String action = "/game/create";
             int valuep1 = id_player_2;
             int valuep2 = id_player_1;
 
