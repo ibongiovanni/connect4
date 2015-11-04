@@ -171,7 +171,7 @@ public class App
 
             map.put("message",message);
             map.put("color",color);
-            return new ModelAndView(map, "home.mustache");
+            return new ModelAndView(map, "init.mustache");
         }, new MustacheTemplateEngine());
 
 
@@ -457,7 +457,7 @@ public class App
             int width = g.getInteger("width");
             
             User u = User.findById(id_player_1);
-            String name_player1 = u.getString("first_name");
+            String name_player1 = u.getString("username");
             
             String message = name_player1 + " plays";
             String color = "yellow";
