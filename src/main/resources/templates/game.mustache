@@ -65,10 +65,10 @@
                          dataType: "json",
                          data: {"game_id": game_id, "column": column},
                     }).done( 
-                        //updateView,
-                        function (data){
-                            $.publish(game_id,data);
-                        }
+                        updateView
+                        // function (data){
+                        //     $.publish(game_id,data);
+                        // }
                     );
             }
 
