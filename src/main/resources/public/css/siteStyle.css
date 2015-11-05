@@ -43,7 +43,7 @@ h2 {
   color: #DEEA68;
   text-align: center;
   font-family: bitsFont;
-  font-weight: bold;
+  /*font-weight: bold;*/
   text-shadow: -1px 2px 1px rgba(0, 0, 0, 0.5);
   font-variant: small-caps;
 }
@@ -78,7 +78,7 @@ p {
 #navcontainer ul li a:link, a:visited
 {
   width: 300px;
-  font-weight: bold;
+  /*font-weight: bold;*/
   color: #FFFF00;
   /*background-color: #B20000;*/
   background: linear-gradient(to bottom, #ff3019 0%,#b20000 100%);
@@ -99,6 +99,11 @@ p {
 @media (max-width: 970px){
   #navcontainer ul li a:link, a:visited{
     font-size: x-small;
+  }
+}
+@media (max-height: : 700px){
+  form p {
+    margin-top: 0px;
   }
 }
 
@@ -169,7 +174,7 @@ p {
     font-family: bitsFont;
     text-transform: uppercase;
     text-align: center;
-    font-weight: bold;
+    /*font-weight: bold;*/
     text-shadow: -1px 2px 1px rgba(0, 0, 0, 0.5);
 }
 .boton {
@@ -197,6 +202,7 @@ p {
 
 .dropButton {
     font-family: bitsFont;
+    font-weight: normal;
     font-size: small;
 }
 
@@ -231,7 +237,7 @@ p {
 
 .homeboton{
   font-family: bitsFont;
-  font-weight: bold;
+  /*font-weight: bold;*/
   width: 100%;
   margin-top: 14px;
   margin-bottom: 14px;

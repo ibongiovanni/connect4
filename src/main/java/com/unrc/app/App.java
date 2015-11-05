@@ -538,10 +538,10 @@ public class App
             int id_player_2 = g.getInteger("player_2");
 
             User u = User.findById(id_player_1);
-            String name_player1 = u.getString("first_name");
+            String name_player1 = u.getString("username");
 
             User v = User.findById(id_player_2);
-            String name_player2 = v.getString("first_name");
+            String name_player2 = v.getString("username");
 
             
 
