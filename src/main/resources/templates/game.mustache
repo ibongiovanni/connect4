@@ -108,7 +108,7 @@
                       $("#message").html("Congrats, You Won!")
                     };
                     if (data.winner) {
-                        var coinImage = (data.winner=="1")? "yellowcoin.gif" : "redcoin.gif";
+                        var coinImage = (data.winner=="{{p1id}}")? "yellowcoin.gif" : "redcoin.gif";
                         for (var i = 0; i < data.winCells.length; i++) {
                             $("#c"+data.winCells[i]).css('background-image', 'url(/'+coinImage+')');
                         };

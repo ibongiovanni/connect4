@@ -251,18 +251,11 @@ public class App
             int id_player_2 = g.getInteger("player_2");
             int height = g.getInteger("height");
             int width = g.getInteger("width");
-            
-            User u = User.findById(id_player_1);
-            String name_player1 = u.getString("username");
-            
-            String message = name_player1 + " plays";
-            String color = "yellow";
             String sound = "/music/ready.mp3";
+            
 
             Map map = new HashMap();
             map.put("game_id", game_id);
-            map.put("message", message);
-            map.put("colored",color);
             map.put("sound", sound);
             map.put("p1id", id_player_1);
             map.put("p2id", id_player_2);
@@ -307,6 +300,20 @@ public class App
             map.put("valuep2",valuep2);
             map.put("ord",ord-1);
 
+
+            User u = User.findById(id_player_1);
+            String color = "yellow";
+
+            if ((ord-1)%2!=0){
+                u = User.findById(id_player_2);
+                color = "red";
+            }
+            
+            String name_player = u.getString("username");
+            String message = name_player + " plays";
+
+            map.put("message", message);
+            map.put("colored",color);
 
             return new ModelAndView(map, "game.mustache");
             
