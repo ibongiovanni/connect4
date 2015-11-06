@@ -72,7 +72,7 @@
                     $("#endGameOptions").css("visibility","visible");
                     focusOnPlayAgain();
                     $("#playButtons").remove();
-                    $("#message").css("margin-bottom","30px");
+                    $("#message").css("margin-bottom","28px");
                 };
                 if (data.successful) {
                     var cell = '#c'+data.cell;
@@ -118,7 +118,7 @@
                                 $("#endGameOptions").css("visibility","visible");
                                 focusOnPlayAgain();
                                 $("#playButtons").remove();
-                                $("#message").css("margin-bottom","30px");
+                                $("#message").css("margin-bottom","28px");
                                 if (data.winner == "2") {
                                     for (var i = 0; i < data.winCells.length; i++) {
                                         $("#c"+data.winCells[i]).css('background-image', 'url("redcoin.gif")');
