@@ -25,6 +25,19 @@ public class Grid {
 		}
 	}
 
+	public void buildFromGame(int game_id){
+		Game g = Game.findById(game_id);
+		height = g.getInteger("height");
+		width = g.getInteger("width");
+		List<Play> list = Play.where("game_id = ?", game_id);
+        int ord = 1;
+        for (Play p : list) {
+            int col = p.getInteger("col");
+            dropAt(col, actualDisc()).getFirst();
+            ord++;
+        }
+	}
+
 	public void resetGrid(){
 		for (int i = 0; i < height ; i++) {
 			for (int j = 0; j < width; j++) {

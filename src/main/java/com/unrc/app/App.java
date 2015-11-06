@@ -513,6 +513,12 @@ public class App
             if (winner != 0) {
                 finished = true;
                 sound = "/music/user_win.mp3";
+                Grid grid = new Grid();
+                grid.buildFromGame(game_id);
+                grid.checkWin();
+                winCells= grid.getWinCells();
+                map.put("winCells",winCells);
+                System.out.println(grid.toString());
                 if (winner==id_player_1){
                     map.put("winner","1");
                     message = username1+" won the game";
@@ -544,7 +550,7 @@ public class App
 
 
             map.put("winner", winner);
-            map.put("winCells",winCells);
+            
             map.put("message", message);
             map.put("colored", color);
             map.put("finished", finished);
