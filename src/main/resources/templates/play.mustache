@@ -18,14 +18,14 @@
 		<div class="marco">
 			{{> navbar}}
 		    <br><br>
-	        <p style="color:yellow; font-size: 12;">Player 1:
-	        <label>
+	        <p style="color:yellow; font-size: 12;">Select your opponent {{username}}
+	        <!-- <label>
 				<select name="player_1" form="carform">
 					{{#order}}
 				 		<option value="{{id}}">{{itemName}}</option> 
 					{{/order}}
 				</select>
-			</label>
+			</label> -->
 			</p><br>
 			<p style="color:red; font-size: 12;">Player 2:
 			<label>
@@ -37,6 +37,7 @@
 			</label>
 			</p><br>
 			<form method="post" action="/game/create" id="carform" name="create_game" onsubmit="return check(this)" class="cuerpo" style="width: 17%;">
+				<input type="hidden" name="player_1" value="{{id_player}}">
 			<button class="boton wideButton" type="submit" value="1">BEGIN!</button>
 			</form>
 			<audio controls autoplay="true" hidden="true" loop="true">

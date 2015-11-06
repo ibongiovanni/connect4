@@ -176,11 +176,25 @@ public class App
 
 
         get("/play", (req,res) -> {
+            String id_session = req.session().attribute("ID_SESSION");
+            if (id_session == null) {
+                Map attributes = new HashMap();
+                attributes.put("color","red");
+                attributes.put("message","you must be logged in");
+                return new ModelAndView(attributes, "init.mustache");
+            }
 
-            Map<String, Object> attributes = new HashMap();
+            int id_player = Integer.parseInt(id_session);
 
-            List<User> users = User.where("username != 'CPU'");
+            List<User> users = User.where("id != ? and username != 'CPU'",id_player);
             int size = users.size();// This way, you will pre-populate your list.
+            User v = User.findById(id_player);
+            String username = v.getString("username");
+
+            // Map<String, Object> attributes = new HashMap();
+
+            // List<User> users = User.where("username != 'CPU'");
+            // int size = users.size();// This way, you will pre-populate your list.
 
             List<HashMap> order = new LinkedList<HashMap>();
             HashMap mp;
@@ -193,6 +207,8 @@ public class App
 
             Map<String, Object> map = new HashMap();
             map.put("order", order);
+            map.put("username", username);
+            map.put("id_player", id_player);
 
             return new ModelAndView(map, "play.mustache");
         }, new MustacheTemplateEngine());
@@ -218,6 +234,13 @@ public class App
         
 
         get("/game/:id", (req,res) -> {
+            String id_session = req.session().attribute("ID_SESSION");
+            if (id_session == null) {
+                Map attributes = new HashMap();
+                attributes.put("color","red");
+                attributes.put("message","you must be logged in");
+                return new ModelAndView(attributes, "init.mustache");
+            }
             System.out.println(req.params(":id"));
             int game_id = Integer.parseInt(req.params(":id"));
             Game g = Game.findById(game_id);
