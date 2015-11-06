@@ -241,6 +241,7 @@ public class App
                 attributes.put("message","you must be logged in");
                 return new ModelAndView(attributes, "init.mustache");
             }
+            int session = Integer.parseInt(id_session);
             System.out.println(req.params(":id"));
             int game_id = Integer.parseInt(req.params(":id"));
             Game g = Game.findById(game_id);
@@ -265,6 +266,8 @@ public class App
             map.put("sound", sound);
             map.put("p1id", id_player_1);
             map.put("p2id", id_player_2);
+            map.put("session", session);
+
 
             Grid grid = new Grid();
 
@@ -302,6 +305,8 @@ public class App
             map.put("action",action);
             map.put("valuep1",valuep1);
             map.put("valuep2",valuep2);
+            map.put("ord",ord-1);
+
 
             return new ModelAndView(map, "game.mustache");
             
@@ -482,9 +487,13 @@ public class App
                 } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
                 actOrd =  Math.toIntExact(Play.count("game_id = ?",game_id));
             }
-            Play lastplay = Play.findFirst("game_id = ? and ord = ?",game_id,actOrd);
-            int row = lastplay.getInteger("row");
-            int col = lastplay.getInteger("col");
+            int row=-1;
+            int col=-1;
+            if (actOrd>0){
+                Play lastplay = Play.findFirst("game_id = ? and ord = ?",game_id,actOrd);
+                row = lastplay.getInteger("row");
+                col = lastplay.getInteger("col");
+            }
             int cell = (1+col+row*7);
             char coin = (actOrd%2==0)? 'O':'X'; 
 
@@ -493,7 +502,7 @@ public class App
             map.put("cell",cell);
             map.put("coin",coin);
 
-
+            int turn;
             String message = "";
             String color = "";
             boolean finished = false;
@@ -508,11 +517,13 @@ public class App
                     map.put("winner","1");
                     message = username1+" won the game";
                     color = "yellow";
+                    turn=id_player_1;
                 }
                 else{
                     map.put("winner","2");
                     message = username2+" won the game";
                     color = "red";
+                    turn = id_player_2;
                 }
             }
             else{
@@ -521,11 +532,13 @@ public class App
                     map.put("winner","1");
                     message = username1+" plays";
                     color = "yellow";
+                    turn = id_player_1;
                 }
                 else{
                     map.put("winner","2");
                     message = username2+" plays";
                     color = "red";
+                    turn = id_player_2;
                 }
             }
 
@@ -539,6 +552,7 @@ public class App
             map.put("sound", sound);
             map.put("p1id", id_player_1);
             map.put("p2id", id_player_2);
+            map.put("turn", turn);
 
             return map;
             

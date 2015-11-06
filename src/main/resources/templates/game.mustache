@@ -18,7 +18,7 @@
 	<head>
         {{> resources}}
         <script>
-        var ord = 0;
+        var ord = {{ord}};
 
         function waitForMsg(){
           $.ajax({
@@ -45,7 +45,8 @@
             }
           }).done(function(data){
               console.log(data);
-              updateView(data);
+              if (ord>0) updateView(data);
+              
             } 
           );
         }
@@ -53,6 +54,7 @@
         </script>
         <script>
 
+            var session = {{session}};
             function reload (){
                     //console.log(ev);
                     //console.log(this);
@@ -62,6 +64,7 @@
             }
 
             function sendMove(game_id, column){
+                  disableAJAX();
                   $.ajax({
                          method: "POST",
                          url: "/drop2",
@@ -69,9 +72,12 @@
                          data: {"game_id": game_id, "column": column},
                     }).done( 
                         //updateView
-                        // function (data){
-                        //     $.publish(game_id,data);
-                        // }
+                        function (data){
+                            if (!data.successful) {
+                              $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
+                              enableAJAX();
+                            };
+                        }
                     );
             }
 
@@ -82,10 +88,14 @@
                 }
             }
 
-            $(document).keydown(keymove);
+            
 
             function updateView(data){
                 $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
+                if (data.turn==session) {
+                  $("#message").html("Is Your Turn!");
+                  enableAJAX();
+                }
                 $("#audioSource").attr("src",data.sound);
                 $(".sound").trigger("load");                
                 $(".sound").trigger("play");
@@ -94,6 +104,9 @@
                     focusOnPlayAgain();
                     $("#playButtons").remove();
                     $("#message").css("margin-bottom","28px");
+                    if (data.winner==session) {
+                      $("#message").html("Congrats, You Won!")
+                    };
                     if (data.winner) {
                         var coinImage = (data.winner=="1")? "yellowcoin.gif" : "redcoin.gif";
                         for (var i = 0; i < data.winCells.length; i++) {
@@ -109,13 +122,25 @@
             }
 
             $(document).ready( function(){
-              enableAJAX();
+              if({{ord}}%2==0 && {{session}}=={{p1id}}){ //if is turn for p1 and u're p1
+                enableAJAX();
+              }
+              if ({{ord}}%2!=0 && {{session}}=={{p2id}}) { //if is turn for p2 and u're p2
+                enableAJAX();
+              };
               waitForMsg();
             });
 
             function enableAJAX (data){
                 $(".dropButton").on("click", reload);
+                $(document).keydown(keymove);
+                bindMuteButton();
                 //console.log(data); 
+            }
+
+            function disableAJAX(){
+                $(".dropButton").off();
+                $(document).off();
             }
 
         </script>
