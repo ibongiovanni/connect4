@@ -215,6 +215,8 @@ public class App
             return false;
         });
 
+        
+
         get("/game/:id", (req,res) -> {
             System.out.println(req.params(":id"));
             int game_id = Integer.parseInt(req.params(":id"));
@@ -282,18 +284,21 @@ public class App
             
         }, new MustacheTemplateEngine());
 
+        
+
         post("/drop2", (req, res) -> {
 
             int game_id = Integer.parseInt(req.queryParams("game_id"));
             int column = Integer.parseInt(req.queryParams("column"));
             Map map = new HashMap();
+            int cellNumber = 0;
+            char coinValue = ' ';
             String message = "";
             String color = "";
             boolean finished = false;
             String sound = "";
-            int cellNumber = 0;
-            char coinValue = ' ';
             boolean successful = false;
+            int [] winCells = new int[4];
 
             Game g = Game.findById(game_id);
             int height = g.getInteger("height");
@@ -369,7 +374,8 @@ public class App
                             finished = true;
                             sound = "/music/user_win.mp3";
                             map.put("winner", "1");
-                            map.put("winCells",grid.getWinCells());
+                            winCells = grid.getWinCells();
+                            map.put("winCells", winCells);
                             g.set("winner", id_player_1);
                             g.saveIt();
                             u.updateRank((Integer)5000/ord);
@@ -381,7 +387,8 @@ public class App
                             color = "red";
                             finished = true;
                             map.put("winner", "2");
-                            map.put("winCells",grid.getWinCells());
+                            winCells = grid.getWinCells();
+                            map.put("winCells", winCells);
                             sound = "/music/user_win.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
@@ -424,6 +431,96 @@ public class App
 
             return map;
         }, gson::toJson);
+
+    
+        get("/lastplay",(req, res) -> {
+            System.out.println("game_id= "+req.queryParams("game_id"));
+            System.out.println("ord= "+req.queryParams("ord"));
+            int game_id = Integer.parseInt(req.queryParams("game_id"));
+            int ord = Integer.parseInt(req.queryParams("ord"));
+
+            Game g = Game.findById(game_id);
+            int id_player_1 = g.getInteger("player_1");
+            int id_player_2 = g.getInteger("player_2");
+            User p1 = User.findById(id_player_1);
+            User p2 = User.findById(id_player_2);
+            String username1 = p1.getString("username");
+            String username2 = p2.getString("username");
+            int winner = 0;
+            if (g.getInteger("winner") != null) {
+                winner = g.getInteger("winner");
+            }
+            System.out.println("winner= "+winner);
+
+            int actOrd =  Math.toIntExact(Play.count("game_id = ?",game_id));
+            while(ord>=actOrd && winner == 0){
+                try{ // Wait some time
+                    TimeUnit.MILLISECONDS.sleep(1000);
+                } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
+                actOrd =  Math.toIntExact(Play.count("game_id = ?",game_id));
+            }
+            Play lastplay = Play.findFirst("game_id = ? and ord = ?",game_id,actOrd);
+            int row = lastplay.getInteger("row");
+            int col = lastplay.getInteger("col");
+            int cell = (1+col+row*7);
+            char coin = (actOrd%2==0)? 'O':'X'; 
+
+            Map map = new HashMap();
+            map.put("ord", actOrd);
+            map.put("cell",cell);
+            map.put("coin",coin);
+
+
+            String message = "";
+            String color = "";
+            boolean finished = false;
+            String sound = "";
+            boolean successful = true;
+            int [] winCells = new int[4];
+
+            if (winner != 0) {
+                finished = true;
+                sound = "/music/user_win.mp3";
+                if (winner==id_player_1){
+                    map.put("winner","1");
+                    message = username1+" won the game";
+                    color = "yellow";
+                }
+                else{
+                    map.put("winner","2");
+                    message = username2+" won the game";
+                    color = "red";
+                }
+            }
+            else{
+                sound= "/music/point.mp3";
+                if (actOrd%2==0){
+                    map.put("winner","1");
+                    message = username1+" plays";
+                    color = "yellow";
+                }
+                else{
+                    map.put("winner","2");
+                    message = username2+" plays";
+                    color = "red";
+                }
+            }
+
+
+            map.put("winner", winner);
+            map.put("winCells",winCells);
+            map.put("message", message);
+            map.put("colored", color);
+            map.put("finished", finished);
+            map.put("successful",successful);
+            map.put("sound", sound);
+            map.put("p1id", id_player_1);
+            map.put("p2id", id_player_2);
+
+            return map;
+            
+        }, gson::toJson);
+
 
         /**********************************************************************
         *   AI methods

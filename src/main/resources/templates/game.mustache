@@ -18,34 +18,37 @@
 	<head>
         {{> resources}}
         <script>
-        /* jQuery Tiny Pub/Sub - v0.7 - 10/27/2011
-         * http://benalman.com/
-         * Copyright (c) 2011 "Cowboy" Ben Alman; Licensed MIT, GPL */
+        var ord = 0;
 
-        (function($) {
+        function waitForMsg(){
+          $.ajax({
+            method: "GET",
+            url: "/lastplay",
+            dataType: "json",
+            async: true,
+            cache: false,
+            data: {"ord": ord, "game_id": {{game_id}}},
 
-          var o = $({});
-
-          $.subscribe = function() {
-            o.on.apply(o, arguments);
-          };
-
-          $.unsubscribe = function() {
-            o.off.apply(o, arguments);
-          };
-
-          $.publish = function() {
-            o.trigger.apply(o, arguments);
-          };
-
-        }(jQuery));
-
-          function handler (ev,data){
-            updateView(data);
-            console.log(data);
-          }
-
-          $.subscribe("{{game_id}}",handler);
+            success: function(data, stat, xhr){
+              //var json = eval('('+data+')');
+              //console.log(data);
+              //console.log(xhr);
+              var num = data.cell;//json['cell'];
+              var cell = '#c'+num;
+              //console.log(cell);
+              $(cell).attr("class", data.coin);//json['coin']);
+              ord = data.ord;//json['ord'];
+              //console.log(ord);
+              if (!data.finished) {
+                setTimeout('waitForMsg()',1000);
+              };
+            }
+          }).done(function(data){
+              console.log(data);
+              updateView(data);
+            } 
+          );
+        }
           
         </script>
         <script>
@@ -65,7 +68,7 @@
                          dataType: "json",
                          data: {"game_id": game_id, "column": column},
                     }).done( 
-                        updateView
+                        //updateView
                         // function (data){
                         //     $.publish(game_id,data);
                         // }
@@ -105,7 +108,10 @@
                 }
             }
 
-            $(document).ready(enableAJAX);
+            $(document).ready( function(){
+              enableAJAX();
+              waitForMsg();
+            });
 
             function enableAJAX (data){
                 $(".dropButton").on("click", reload);
