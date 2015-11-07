@@ -490,7 +490,7 @@ public class App
             int actOrd =  Math.toIntExact(Play.count("game_id = ?",game_id));
             while(ord>=actOrd && winner == 0){
                 try{ // Wait some time
-                    TimeUnit.MILLISECONDS.sleep(1000);
+                    TimeUnit.MILLISECONDS.sleep(750);
                 } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
                 actOrd =  Math.toIntExact(Play.count("game_id = ?",game_id));
             }
