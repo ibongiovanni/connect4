@@ -120,11 +120,19 @@
             $(document).ready( function(){
               if(ord%2==0 && session=={{p1id}}){ //if is turn for p1 and u're p1
                 enableAJAX();
-                $("#message").html("You First!");
+                if(ord==0){
+                  $("#message").html("You First!");
+                }else{
+                  $("#message").html("Is Your Turn!");
+                }
               }
               if (ord%2!=0 && session=={{p2id}}) { //if is turn for p2 and u're p2
                 enableAJAX();
-                $("#message").html("You First!");
+                if(ord==0){
+                  $("#message").html("You First!");
+                }else{
+                  $("#message").html("Is Your Turn!");
+                }
               };
               waitForMsg();
             });
@@ -138,7 +146,12 @@
 
             function disableAJAX(){
                 $(".dropButton").off();
+                $(".dropButton").on("click", blurButton);
                 $(document).off();
+            }
+
+            function blurButton(){
+              $(this).blur();
             }
 
         </script>
