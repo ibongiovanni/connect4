@@ -44,7 +44,7 @@
                   ord = data.ord;
                   if (ord>0) updateView(data);
                   if (!data.finished) {
-                    setTimeout('waitForMsg()',750);
+                    setTimeout('waitForMsg()',50);
                   };
                   
                   
@@ -55,6 +55,7 @@
             function reload (){
                     var game_id = this.id;
                     var column = this.value-1;
+                    $(this).blur();
                     sendMove(game_id, column);
             }
 
