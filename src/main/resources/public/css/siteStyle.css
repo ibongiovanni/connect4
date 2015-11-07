@@ -224,7 +224,8 @@ p {
 .header {
   height: fit-content;
   height: -moz-fit-content;
-  background: linear-gradient(#9779FB, #20206C) repeat scroll 0% 0% transparent;
+  /*background: linear-gradient(#9779FB, #20206C) repeat scroll 0% 0% transparent;*/
+  background: transparent linear-gradient(to bottom, #20206C 0%, #9779FB 33%, #7652F9 56%, #20206C 100%) repeat scroll 0% 0%;
   box-shadow: 0px 0px 4px 6px #000;
 }
 

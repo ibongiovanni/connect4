@@ -58,29 +58,29 @@
             <p style="margin-left: 127px;">Username:
             <input type="text" name="username">
             </p>
-            <br>
+            
             <p style="margin-left: 127px;">Password:
             <input  title="Password must contain at least 6 characters, including UPPER/lowercase and numbers" type="password" 
             required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" type="password" name="password" onchange="
             this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
             if(this.checkValidity()) form.pwd2.pattern = this.value;">
             </p>
-            <br>
+            
             <p>Confirm Password: <input title="Please enter the same Password as above" type="password" name="pwd2" 
             onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');"></p>
-            <br>
+            
             <p style="margin-left: 96px;">First name:
             <input type="text" name="first_name">
             </p>
-            <br>
+            
             <p style="margin-left: 111px;">Last name:
             <input type="text" name="last_name">
             </p>
-            <br>
+            
             <p style="margin-left: 158px;">e-mail:
             <input type="text" name="email">
             </p>
-            <br>
+            
             <p>
             <input style="width: 60px; text-transform: capitalize; font-variant: small-caps;" value="Submit" class="boton" type="submit">
             </p>
