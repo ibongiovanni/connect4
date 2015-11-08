@@ -627,7 +627,7 @@ public class App
             User u = User.findById(id_player_1);
             String name_player1 = u.getString("username");
             
-            String message = name_player1 + " plays";
+            String message = " You first!";
             String color = "yellow";
             String sound = "/music/AI/ready.mp3";
 
@@ -739,7 +739,7 @@ public class App
                     p.saveIt();
                     cellNumber = (1+column+7*drop.getSecond());
                     if (!grid.checkWin()) {
-                        message = name_player1 + " plays"; 
+                        message = "Is your turn!"; 
                         color = "yellow"; 
                         sound= "/music/point.mp3";
                         coinValue= 'X';
@@ -755,7 +755,7 @@ public class App
                     }  
                     if (grid.checkWin()){
                         if (ord % 2 != 0) { 
-                            message = name_player1 + " won the game!";
+                            message = "Congrats. you won!";
                             coinValue = 'X';
                             color = "yellow";
                             finished = true;
