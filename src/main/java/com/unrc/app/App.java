@@ -577,11 +577,32 @@ public class App
         *   
         *
         **/
+
+        get("/selectdif", (req,res) -> {
+            String id_session = req.session().attribute("ID_SESSION");
+            if (id_session == null) {
+                Map attributes = new HashMap();
+                attributes.put("color","red");
+                attributes.put("message","you must be logged in");
+                return new ModelAndView(attributes, "init.mustache");
+            }
+
+            Map map = new HashMap();
+            map.put("message", "Choose a difficulty level");
+            return new ModelAndView(map, "selectdif.mustache");
+        }, new MustacheTemplateEngine());
+
+
+
         Board b = new Board();
         Connect4AI ai = new Connect4AI(b); 
         Grid grid = new Grid();
 
+        
+
         get("/playai",(req,res) -> {
+            int maxDepth = Integer.parseInt(req.queryParams("depth"));
+            ai.setMaxDepth(maxDepth);
             String id_session = req.session().attribute("ID_SESSION");
             if (id_session == null) {
                 Map attributes = new HashMap();
@@ -617,6 +638,7 @@ public class App
             map.put("sound", sound);
             map.put("p1id", id_player_1);
             map.put("p2id", id_player_2);
+            map.put("depth", maxDepth);
 
             grid.resetGrid();
             b.resetBoard();
@@ -796,7 +818,7 @@ public class App
             String message = "";
             String color = "";
 
-            int moveAi = ai.getAIMove(ThreadLocalRandom.current().nextInt(3, 9));    //get the AI move (with a random MaxDepth)
+            int moveAi = ai.getAIMove();    //get the AI move (with a random MaxDepth)
             try{ // Wait some time
                 TimeUnit.MILLISECONDS.sleep(400);
             } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }

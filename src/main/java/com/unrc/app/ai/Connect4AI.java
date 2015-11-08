@@ -1,5 +1,6 @@
 package com.unrc.app.ai; 
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Connect4AI { 
     private Board b;
@@ -12,6 +13,9 @@ public class Connect4AI {
         scan = new Scanner(System.in);
     }
     
+    public void setMaxDepth(int mDepth){
+        maxDepth = mDepth;
+    }
     
     
     //Opponent's turn
@@ -269,11 +273,13 @@ public class Connect4AI {
         return turn==1?maxScore:minScore;
     }
     
-    public int getAIMove(int mDepth){
-        System.out.println("Searching with maxDepth= "+mDepth);
-        maxDepth = mDepth;
+    public int getAIMove(){
+        int aux = maxDepth;
+        maxDepth = ThreadLocalRandom.current().nextInt(maxDepth-(maxDepth/3), maxDepth+1);
+        System.out.println("Searching with maxDepth= "+maxDepth);
         nextMoveLocation = -1;
         minimax(0, 1, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        maxDepth = aux;
         return nextMoveLocation;
     }
     
@@ -297,7 +303,7 @@ public class Connect4AI {
             else if(gameResult==2){System.out.println("You Win!");break;}
             else if(gameResult==0){System.out.println("Draw!");break;}
             
-            b.placeMove(getAIMove(maxDepth), 1);
+            b.placeMove(getAIMove(), 1);
             b.displayBoard();
             gameResult = gameResult(b);
             if(gameResult==1){System.out.println("AI Wins!");break;}

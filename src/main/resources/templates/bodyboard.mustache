@@ -91,6 +91,7 @@
             <form method="{{method}}" action="{{action}}" style="margin-left:35px; margin-bottom: 2px;">
                 <input type="hidden" name="player_1" value="{{valuep1}}">
                 <input type="hidden" name="player_2" value="{{valuep2}}">
+                {{#depth}}<input type="hidden" name="depth" value="{{depth}}">{{/depth}}
                 <button id="playAgainButton" class="boton" type="submit" value="1">Play Again?</button>
             </form>
             <button class="boton" 

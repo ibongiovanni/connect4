@@ -27,22 +27,24 @@
     <div class="marco">
       <div id="navcontainer">
       	{{#message}}
-        <p id="message" style="color: {{color}}">
+        <p id="message" style="color: #FFE600; border-color: #DF0008">
           {{message}}
         </p>
         {{/message}}
         </div>
         <div class="cuerpo" style="margin-bottom: 40px;">
-          <button class="homeboton" onclick="location.href='/play'">PLAY
-          </button>
-          <button class="homeboton" onclick="location.href='/selectdif'">PLAY vs AI
-          </button>
-          <button class="homeboton" onclick="location.href='/users'">RANKING
-          </button>
-          <button class="homeboton" onclick="location.href='/head2head'">HEAD 2 HEAD
-          </button>
-          <button class="homeboton" onclick="location.href='/logout'">LOGOUT
-          </button>
+          <form method="get" action="/playai">
+                <input type="hidden" name="depth" value="3">
+                <button id="playAgainButton" class="homeboton" type="submit">EASY</button>
+          </form>
+          <form method="get" action="/playai">
+                <input type="hidden" name="depth" value="6">
+                <button id="playAgainButton" class="homeboton" type="submit">MEDIUM</button>
+          </form>
+          <form method="get" action="/playai">
+                <input type="hidden" name="depth" value="9">
+                <button id="playAgainButton" class="homeboton" type="submit">HARD</button>
+          </form>
         </div>
         <audio id="player" controls autoplay="true" hidden="true" loop="true">
           <source src="/music/homesound.mp3" type="audio/mpeg">
