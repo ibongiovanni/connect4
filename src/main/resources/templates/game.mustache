@@ -82,6 +82,10 @@
                     var column = e.which - 49;
                     sendMove({{game_id}},column);
                 }
+                if (e.which>=97 && e.which<=103){
+                    var column = e.which - 97;
+                    sendMove({{game_id}},column);
+                }
             }
 
             
