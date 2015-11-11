@@ -494,6 +494,10 @@ public class App
                 } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
                 actOrd =  Math.toIntExact(Play.count("game_id = ?",game_id));
             }
+            g = Game.findById(game_id);
+            if (g.getInteger("winner") != null) {
+                winner = g.getInteger("winner");
+            }
             int row=-1;
             int col=-1;
             if (actOrd>0){
