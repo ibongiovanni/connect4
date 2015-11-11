@@ -372,7 +372,7 @@ public class App
                 if (drop.getFirst()) {
                     Play p = new Play();// save play in DB.
                     p.set("game_id", game_id, "ord", ord, "col", column, "row", drop.getSecond()); 
-                    p.saveIt();
+                    
                     cellNumber = (1+column+7*drop.getSecond());
                     if (!grid.checkWin()) {
                         if (ord==maxPlays) {
@@ -408,7 +408,7 @@ public class App
                             color = "yellow";
                             finished = true;
                             sound = "/music/user_win.mp3";
-                            map.put("winner", "1");
+                            map.put("winner", id_player_1);
                             winCells = grid.getWinCells();
                             map.put("winCells", winCells);
                             g.set("winner", id_player_1);
@@ -421,7 +421,7 @@ public class App
                             coinValue = 'O';
                             color = "red";
                             finished = true;
-                            map.put("winner", "2");
+                            map.put("winner", id_player_2);
                             winCells = grid.getWinCells();
                             map.put("winCells", winCells);
                             sound = "/music/user_win.mp3";
@@ -431,6 +431,7 @@ public class App
                             u.updateRank(ord);
                         }
                     }                    
+                p.saveIt();
                 }
                 else {
                     message = "The column is full, choose another!";
@@ -488,6 +489,7 @@ public class App
             System.out.println("winner= "+winner);
 
             int actOrd =  Math.toIntExact(Play.count("game_id = ?",game_id));
+            System.out.println("actOrd = "+actOrd);
             while(ord>=actOrd && winner == 0){
                 try{ // Wait some time
                     TimeUnit.MILLISECONDS.sleep(750);

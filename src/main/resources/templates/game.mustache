@@ -40,11 +40,12 @@
                 //   };
                 // }
               }).done(function(data){
+                  console.log("coming from waitForMsg");
                   console.log(data);
                   ord = data.ord;
                   if (ord>0) updateView(data);
                   if (!data.finished) {
-                    setTimeout('waitForMsg()',50);
+                    //setTimeout('waitForMsg()',50);
                   };
                   
                   
@@ -72,7 +73,13 @@
                             if (!data.successful) {
                               $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
                               enableAJAX();
-                            };
+                            }else{
+                              console.log("coming from drop2");
+                              console.log(data)
+                              updateView(data);
+                              ord++;
+                              if (!data.finished) waitForMsg();
+                            }
                         }
                     );
             }
@@ -129,16 +136,18 @@
                 }else{
                   $("#message").html("Is Your Turn!");
                 }
-              }
-              if (ord%2!=0 && session=={{p2id}}) { //if is turn for p2 and u're p2
-                enableAJAX();
-                if(ord==0){
-                  $("#message").html("You First!");
-                }else{
-                  $("#message").html("Is Your Turn!");
+              }else{
+                  if (ord%2!=0 && session=={{p2id}}) { //if is turn for p2 and u're p2
+                    enableAJAX();
+                    if(ord==0){
+                      $("#message").html("You First!");
+                    }else{
+                      $("#message").html("Is Your Turn!");
+                    }
+                  }else{
+                    waitForMsg();
+                  }
                 }
-              };
-              waitForMsg();
             });
 
             function enableAJAX (data){
