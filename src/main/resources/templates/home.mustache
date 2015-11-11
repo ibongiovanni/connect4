@@ -1,14 +1,13 @@
 <html>
 	<head>
-    <audio id="player" controls autoplay="true" hidden="true">
-          <source src="/music/gameFound.mp3" type="audio/mpeg">
-    </audio>
     {{> resources}}
-    </script>
   </head>
 
   <body>
     {{> header}}
+    <audio id="player" controls autoplay="true" hidden="true">
+          <source src="/music/gameFound.mp3" type="audio/mpeg">
+    </audio>
     <div class="marco">
       <div id="navcontainer">
       	{{#message}}
