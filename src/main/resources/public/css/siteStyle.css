@@ -189,7 +189,7 @@ p {
 .boton:hover , .dropButton:focus {
     outline: none;
     color: #FFF;
-    background: #900;
+    background-color: #900;
     cursor: url("/cursorb.png"), auto;
 }
 
@@ -360,8 +360,10 @@ p {
 }
 
 #rankt tr th p{
+  margin: 4px 0px;
+  text-transform: none;
   color: #1EE709;
-  font-size: 10;
+  font-size: small;
 }
 
 #rankt tr td {
