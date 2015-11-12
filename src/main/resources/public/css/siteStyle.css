@@ -148,7 +148,7 @@ p {
 #gameboard table {
 			border-spacing: 2px;
       border-radius: 15px;
-      background-color: rgb(119, 67, 245);
+      background-color: hsla(230,85%,60%,1);
       box-shadow: -8px 8px 1px #000026;
 }
 #gameboard td {
