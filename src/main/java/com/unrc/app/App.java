@@ -407,7 +407,7 @@ public class App
                             coinValue = 'X';
                             color = "yellow";
                             finished = true;
-                            sound = "/music/user_win.mp3";
+                            sound = "/music/win.mp3";
                             map.put("winner", id_player_1);
                             winCells = grid.getWinCells();
                             map.put("winCells", winCells);
@@ -424,7 +424,7 @@ public class App
                             map.put("winner", id_player_2);
                             winCells = grid.getWinCells();
                             map.put("winCells", winCells);
-                            sound = "/music/user_win.mp3";
+                            sound = "/music/win.mp3";
                             g.set("winner", id_player_2);
                             g.saveIt();
                             v.updateRank((Integer)5000/ord);
@@ -525,7 +525,7 @@ public class App
 
             if (winner != 0) {
                 finished = true;
-                sound = "/music/user_win.mp3";
+                sound = "/music/lose.mp3";
                 Grid grid = new Grid();
                 grid.buildFromGame(game_id);
                 grid.checkWin();
