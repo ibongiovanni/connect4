@@ -79,6 +79,9 @@
                     focusOnPlayAgain();
                     $("#playButtons").remove();
                     $("#message").css("margin-bottom","28px");
+                    $("#backMusic").each(function(){
+                        this.pause();
+                    });
                     if (data.winner==session) {
                       $("#message").html("Congrats, You Won!")
                     };
