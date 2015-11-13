@@ -319,9 +319,13 @@ p {
 
 #footer{
     bottom: 0;
-    height: 35px;
     position: fixed;
     width: 100%;
+    background: linear-gradient(to bottom, #20206c 0%,#9779fb 33%,#7652F9 56%,#20206c 100%);
+    height: 28px;
+    border-style: ridge;
+    border-width: 2px 0 0 0;
+    border-color: #817F00;
 }
 
 .footerlink{

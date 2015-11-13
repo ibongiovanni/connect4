@@ -106,4 +106,14 @@
     function focusOnPlayAgain(){
         $("#playAgainButton").focus();
     }
+
+    function randomIntFromInterval(min,max)
+    {
+        return Math.floor(Math.random()*(max-min+1)+min);
+    }
+
+    $(document).ready(function(){       //200-250
+        var hue = randomIntFromInterval(150, 270);
+        $('table').css('background-color','hsla('+hue+',85%,60%,1)');
+    });
 </script>
