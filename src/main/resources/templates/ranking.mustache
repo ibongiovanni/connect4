@@ -5,6 +5,7 @@
         margin: auto;
         width: fit-content;
         width: -moz-fit-content;
+        min-width: 560px;
       }
     </style>
     {{> resources}}
@@ -22,13 +23,21 @@
       <div id="tablesContainer">
         <table style="float:left; padding-left: 16px;">
           <tr>
-            <th><p>Position</p></th>
-            <th><p>Nickname</p></th>   
+            <th><p>Pos</p></th>
+            <th><p>Nickname</p></th>
+            <th><p>Played</p></th>
+            <th><p>Ws</p></th>
+            <th><p>Ds</p></th>
+            <th><p>Ls</p></th>   
           </tr>
           {{#users}}
           <tr>
             <td class="count" style="text-align:center"> </td>
-            <td>{{userName}}</td>   
+            <td>{{userName}}</td>
+            <td style="font-family: Courier New;">{{matches}}</td>
+            <td style="color: #1EE709; font-family: Courier New;">{{wins}}</td>
+            <td style="color: #004BFF; font-family: Courier New;">{{draws}}</td>
+            <td style="color: #FF0000; font-family: Courier New;">{{losses}}</td>   
           </tr>
           {{/users}}
         </table>
