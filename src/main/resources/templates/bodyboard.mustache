@@ -111,9 +111,21 @@
     {
         return Math.floor(Math.random()*(max-min+1)+min);
     }
-
-    $(document).ready(function(){       //200-250
-        var hue = randomIntFromInterval(150, 270);
+    
+    function setTableColor(){       //200-250
+        var num = randomIntFromInterval(1, 7);
+        var hue;
+        switch (num){
+            case 1: hue = 32; break;
+            case 2: hue = 138; break;
+            case 3: hue = 150; break;
+            case 4: hue = 190; break;
+            case 5: hue = 200; break;
+            case 6: hue = 230; break;
+            case 7: hue = 250; break;
+        }
         $('table').css('background-color','hsla('+hue+',85%,60%,1)');
-    });
+    }
+
+    $(document).ready(setTableColor);
 </script>
