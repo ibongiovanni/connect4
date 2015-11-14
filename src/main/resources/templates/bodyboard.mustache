@@ -1,4 +1,10 @@
 {{> header}}
+<audio id="backMusic" controls autoplay="true" hidden="true" loop="true">
+  <source src="/music/credits.mp3" type="audio/mpeg">
+</audio>
+<script>
+    $("#backMusic").prop('volume',0.3);
+</script>
 <div id="container" class="marco" {{#finished}} style="padding-bottom:12px;" {{/finished}}>      
     <div id="gameboard" class="cuerpo2" align="center">
         <br>

@@ -61,6 +61,9 @@
                     focusOnPlayAgain();
                     $("#playButtons").remove();
                     $("#message").css("margin-bottom","28px");
+                    $("#backMusic").each(function(){
+                        this.pause();
+                    });
                 };
                 if (data.successful) {
                     var cell = '#c'+data.cell;
@@ -102,6 +105,9 @@
                             $(".sound").trigger("load");                
                             $(".sound").trigger("play");
                             if (data.finished) {
+                                $("#backMusic").each(function(){
+                                    this.pause();
+                                });
                                 $("#message").html(data.message).css("color",data.colored).css("border-color",data.colored);
                                 $("#endGameOptions").css("visibility","visible");
                                 focusOnPlayAgain();
