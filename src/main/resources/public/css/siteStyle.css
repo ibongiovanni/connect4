@@ -297,6 +297,10 @@ p {
   background-image: url("/mute.png");
 }
 
+.muteButton.boton:active {
+    position: absolute;
+}
+
 .tg{
   width: 100%;
   table-layout: fixed;
