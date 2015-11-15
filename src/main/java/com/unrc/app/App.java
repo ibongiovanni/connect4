@@ -951,7 +951,19 @@ public class App
             
         }, new MustacheTemplateEngine());
 
+        get("/gettag", (req,res) -> {
+            String id_session = req.session().attribute("ID_SESSION");
+            Map map = new HashMap();
+            if (id_session != null) {
+                int id_player = Integer.parseInt(id_session);
+                User v = User.findById(id_player);
+                String username = v.getString("username");
+                map.put("userName",username);
+            }
+            return map;
+        }, gson::toJson);
     }
+
 
     public static String randomSound (){
         int n = ThreadLocalRandom.current().nextInt(1, 25);

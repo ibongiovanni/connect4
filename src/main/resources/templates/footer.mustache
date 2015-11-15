@@ -1,6 +1,9 @@
 <div id="footer">
   <button class="muteButton boton " onclick="toggleMuteAudio()" title="Press here or 'm' for mute the page" style="    margin-left: 2px;"> 
   </button>
+  <div id="userTag" class="boton">
+    UserName
+  </div>
   <p class="footerlink" style="margin-top: 8px;">
     <a style="text-decoration: none;
               color: rgba(128, 128, 128, 0);
@@ -35,4 +38,21 @@
 	}
 
 	$(document).keydown(muteAction);
+
+	function loadTag(){
+		$.ajax({
+			method: "GET",
+			url: "/gettag",
+			dataType: "json",
+		}).done(function(data){
+			if(data.userName){
+				$("#userTag").html(data.userName);
+			}
+			else{
+				$("#userTag").remove();
+			}
+		});
+	}
+
+	$(document).ready(loadTag);
 </script>

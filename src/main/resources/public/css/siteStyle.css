@@ -209,6 +209,7 @@ p {
 .marco {
     width: 50%;
     min-width: 515px;
+    min-height: 50%;
     margin-left: auto;
     margin-right: auto;
     border-style: ridge;
@@ -315,6 +316,19 @@ p {
 
 .deuces,.numsd{
   color: blue;
+}
+
+#userTag {
+  margin-left: 25px; 
+  top: 3px; 
+  width: auto; 
+  border-radius: 7px; 
+  display: inline; 
+  position: absolute; 
+  color: black; 
+  padding: 2px; 
+  height: 15px; 
+  font-family: monospace;
 }
 
 #footer{
