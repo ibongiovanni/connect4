@@ -132,13 +132,13 @@ p {
 #gameboard td.X {
 			color: yellow;
 			background-image: url("/yellowcoin.png");
-      background-size: 50px;
+      background-size: cover;
       font-size: 1px;
 }
 #gameboard td.O {
 			color: red;
 			background-image: url("/redcoin.png");
-      background-size: 50px;
+      background-size: cover;
       font-size: 1px;
 }
 #gameboard table, th, td {
@@ -158,7 +158,7 @@ p {
 			font-size: 100%;
       background-image: url("/nocoin.png");
       background-repeat: no-repeat;
-      background-size: 50px;
+      background-size: cover;
 }
 .cuerpo {
       margin-left: auto;
@@ -204,6 +204,7 @@ p {
     font-family: bitsFont;
     font-weight: normal;
     font-size: small;
+    width: 100%;
 }
 
 .marco {

@@ -133,5 +133,19 @@
         $('table').css('background-color','hsla('+hue+',85%,60%,1)');
     }
 
-    $(document).ready(setTableColor);
+    function resizeCell(){
+        var size = getSize();
+        $("#gameboard td").css('width',size+'px').css('height',size+'px');
+    }
+
+    function getSize(){
+        var width = $(window).width();
+        return Math.floor(width/100*4.35);
+    }
+
+    $(document).ready(function(){
+            setTableColor();
+            resizeCell();
+            //$(window).resize(resizeCell);
+        });
 </script>
