@@ -145,7 +145,7 @@
 
     $(document).ready(function(){
             setTableColor();
-            resizeCell();
+            if($(window).width()>=1024) resizeCell();
             //$(window).resize(resizeCell);
         });
 </script>
