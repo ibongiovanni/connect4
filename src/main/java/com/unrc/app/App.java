@@ -380,7 +380,7 @@ public class App
                             message = "The game was a tie !!!";
                             color = "#36FF36";
                             finished = true;
-                            sound = "/music/error.mp3";
+                            sound = "/music/win.mp3";
                             g.set("winner", 0);
                             g.saveIt();
                             u.updateRank(15);
