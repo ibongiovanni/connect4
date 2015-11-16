@@ -444,7 +444,7 @@ public class App
                     message = "The game was a tie !!!";
                     color = "#36FF36";
                     finished = true;
-                    sound = "/music/error.mp3";
+                    sound = "/music/win.mp3";
                     g.set("winner", 0);
                     g.saveIt();
                     u.updateRank(15);
@@ -482,7 +482,7 @@ public class App
             User p2 = User.findById(id_player_2);
             String username1 = p1.getString("username");
             String username2 = p2.getString("username");
-            int winner = 0;
+            int winner = -1;
             if (g.getInteger("winner") != null) {
                 winner = g.getInteger("winner");
             }
@@ -490,7 +490,7 @@ public class App
 
             int actOrd =  Math.toIntExact(Play.count("game_id = ?",game_id));
             System.out.println("actOrd = "+actOrd);
-            while(ord>=actOrd && winner == 0){
+            while(ord>=actOrd && winner == -1){
                 try{ // Wait some time
                     TimeUnit.MILLISECONDS.sleep(750);
                 } catch(InterruptedException ex) { Thread.currentThread().interrupt(); }
@@ -523,26 +523,34 @@ public class App
             boolean successful = true;
             int [] winCells = new int[4];
 
-            if (winner != 0) {
+            if (winner != -1) {
                 finished = true;
-                sound = "/music/lose.mp3";
                 Grid grid = new Grid();
                 grid.buildFromGame(game_id);
                 grid.checkWin();
                 winCells= grid.getWinCells();
                 map.put("winCells",winCells);
                 System.out.println(grid.toString());
-                if (winner==id_player_1){
-                    map.put("winner","1");
-                    message = username1+" won the game";
-                    color = "yellow";
-                    turn=id_player_1;
-                }
-                else{
-                    map.put("winner","2");
-                    message = username2+" won the game";
-                    color = "red";
-                    turn = id_player_2;
+                if (winner==0) {
+                    map.put("winner","0");
+                    message = "The game was a tie!!!";
+                    color = "#36FF36";
+                    sound = "/music/win.mp3";
+                    turn=0;
+                }else{
+                    sound = "/music/lose.mp3";
+                    if (winner==id_player_1){
+                        map.put("winner","1");
+                        message = username1+" won the game";
+                        color = "yellow";
+                        turn=id_player_1;
+                    }
+                    else{
+                        map.put("winner","2");
+                        message = username2+" won the game";
+                        color = "red";
+                        turn = id_player_2;
+                    }
                 }
             }
             else{
