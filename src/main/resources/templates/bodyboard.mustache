@@ -133,19 +133,20 @@
         $('table').css('background-color','hsla('+hue+',85%,60%,1)');
     }
 
-    function resizeCell(){
-        var size = getSize();
+    function resizeCell(size){
+        //var size = getSize();
         $("#gameboard td").css('width',size+'px').css('height',size+'px');
     }
 
-    function getSize(){
-        var width = $(window).width();
-        return Math.floor(width/100*4.35);
+    var percentage = 8.5;
+    function getSize(percentage){
+        var height = $(window).height();
+        return Math.floor(height/100*percentage);
     }
 
     $(document).ready(function(){
             setTableColor();
-            if($(window).width()>=1024) resizeCell();
+            if($(window).width()>=1024) resizeCell(getSize(percentage));
             //$(window).resize(resizeCell);
         });
 </script>
