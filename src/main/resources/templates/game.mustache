@@ -118,7 +118,9 @@
                   }else{
                     waitForMsg();
                   }
-                }
+              }
+              $("#timer").show();
+              $("#endGameOptions").hide();
             });
 
             function enableAJAX (data){
@@ -135,6 +137,13 @@
 
             function blurButton(){
               $(this).blur();
+            }
+
+            var tim = 31;
+            function decTim(){
+              tim--;
+              $("#timer").html(tim);
+              if (tim>0) setTimeout(decTim,1000);
             }
 
         </script>

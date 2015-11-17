@@ -355,14 +355,14 @@ p {
   margin-top: 15;
 }
 
-#message {
+#message, .message {
   font-family: bitsFont;
   font-size: largue;
   padding: 5px;
   box-shadow: rgb(0, 0, 38) -5px 4px 1px;
 }
 
-#rankt tr th, #message {
+#rankt tr th, #message, .message {
   background-color: #000000;
   border-style: ridge;
   border-color: #D4FF71;
@@ -497,4 +497,13 @@ label:before {
     top: 3;
     left: -3;
     box-shadow: none;
+}
+
+#timer {
+  display: none;
+  width: fit-content;
+  margin: 20px auto;
+  border-radius: 7px;
+  color: red;
+  border-color: red;
 }
